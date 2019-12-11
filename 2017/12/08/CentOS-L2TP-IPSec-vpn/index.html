@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="CentOS L2TP&#x2F;IPSec vpn  基于 centos 6   需要开发人员在外网可以拨号到开发环境调试代码。 开发人员拨号后只能访问部分地址，需要通过vpn服务器做SNAT，但是只对服务器内网的某几台机器。 需要控制vpn服务器的用户密码，系统用户登陆vpn机器后是可以通达整个内网的。 对vpn端口做外网固定IP的映射。  安装软件  关闭selinux   安装依赖和xl2tpd服务">
+<meta name="keywords" content="vpn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS L2TP&#x2F;IPSec vpn">
+<meta property="og:url" content="http:&#x2F;&#x2F;blog.an00.cn&#x2F;2017&#x2F;12&#x2F;08&#x2F;CentOS-L2TP-IPSec-vpn&#x2F;index.html">
+<meta property="og:site_name" content="an00">
+<meta property="og:description" content="CentOS L2TP&#x2F;IPSec vpn  基于 centos 6   需要开发人员在外网可以拨号到开发环境调试代码。 开发人员拨号后只能访问部分地址，需要通过vpn服务器做SNAT，但是只对服务器内网的某几台机器。 需要控制vpn服务器的用户密码，系统用户登陆vpn机器后是可以通达整个内网的。 对vpn端口做外网固定IP的映射。  安装软件  关闭selinux   安装依赖和xl2tpd服务">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.imgur.com&#x2F;QVR6nnt.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;i.imgur.com&#x2F;ZL5ud7w.jpg">
+<meta property="og:updated_time" content="2019-12-11T03:32:01.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;i.imgur.com&#x2F;QVR6nnt.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>CentOS L2TP/IPSec vpn</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/an00" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/02/27/mysql-utilities-%E5%A4%8D%E5%88%B6%E5%B7%A5%E5%85%B7/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/12/01/%E4%BF%AE%E6%94%B9Linux-TTY-console%E5%AD%97%E4%BD%93/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&text=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&title=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&is_video=false&description=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CentOS L2TP/IPSec vpn&body=Check out this article: http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/" target="_blank" rel="noopener"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&title=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&title=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&title=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&title=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&name=CentOS L2TP/IPSec vpn&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">CentOS L2TP/IPSec vpn</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-number">1.1.</span> <span class="toc-text">安装软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-number">1.2.</span> <span class="toc-text">修改配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-number">1.2.1.</span> <span class="toc-text">配置ipsec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-number">1.2.2.</span> <span class="toc-text">配置xl2tpd和ppp认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-number">1.2.3.</span> <span class="toc-text">配置SNAT，允许vpn客户端访问服务器内网部分机器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-number">1.3.</span> <span class="toc-text">客户端连接配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-number">1.3.1.</span> <span class="toc-text">解决拨号后外网不能上的问题</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        CentOS L2TP/IPSec vpn
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">an00</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2017-12-08T02:15:39.000Z" itemprop="datePublished">2017-12-08</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Linux/">Linux</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/vpn/" rel="tag">vpn</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1>CentOS L2TP/IPSec vpn</h1>
+<blockquote>
+<p>基于 centos 6</p>
+</blockquote>
+<ol>
+<li>需要开发人员在外网可以拨号到开发环境调试代码。</li>
+<li>开发人员拨号后只能访问部分地址，需要通过vpn服务器做SNAT，但是只对服务器内网的某几台机器。</li>
+<li>需要控制vpn服务器的用户密码，系统用户登陆vpn机器后是可以通达整个内网的。</li>
+<li>对vpn端口做外网固定IP的映射。</li>
+</ol>
+<h2>安装软件</h2>
+<blockquote>
+<p>关闭selinux</p>
+</blockquote>
+<ol>
+<li>安装依赖和xl2tpd服务
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y make gcc gmp-devel xmlto bison flex xmlto libpcap-devel lsof  man</span><br><span class="line">yum install openswan ppp xl2tpd</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2>修改配置文件</h2>
+<h3>配置ipsec</h3>
+<ol>
+<li>
+<p>vim /etc.ipsec.conf
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">config setup</span><br><span class="line">        protostack=netkey</span><br><span class="line">        dumpdir=/var/run/pluto/</span><br><span class="line">        virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12,%v4:25.0.0.0/8,%v4:100.64.0.0/10,%v6:fd00::/8,%v6:fe80::/10</span><br><span class="line"></span><br><span class="line">conn L2TP-PSK-NAT </span><br><span class="line">   rightsubnet=vhost:%priv </span><br><span class="line">   also=L2TP-PSK-noNAT</span><br><span class="line"> </span><br><span class="line">conn L2TP-PSK-noNAT </span><br><span class="line">   authby=secret </span><br><span class="line">   pfs=no </span><br><span class="line">   auto=add </span><br><span class="line">   keyingtries=3 </span><br><span class="line">   rekey=no </span><br><span class="line">   ikelifetime=8h </span><br><span class="line">   keylife=1h </span><br><span class="line">   type=transport </span><br><span class="line">   left=0.0.0.0             # 监听地址，也可以改为外网IP或域名</span><br><span class="line">   leftprotoport=17/1701    # 监听的端口1701</span><br><span class="line">   right=%any </span><br><span class="line">   rightprotoport=17/%any</span><br><span class="line">include /etc/ipsec.d/*.conf</span><br></pre></td></tr></table></figure></p>
+</li>
+<li>
+<p>vim /etc/ipsec.secrets
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">include /etc/ipsec.d/*.secrets</span><br><span class="line">0.0.0.0 %any: PSK "xxx.gz"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 上面<span class="string">"xxx.gz"</span>为预共享密钥，客户端连接时候需要填写</span></span><br></pre></td></tr></table></figure></p>
+</li>
+<li>
+<p>修改内核参数</p>
+<ul>
+<li>vim /etc/sysctl.conf
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.ip_forward = 1 </span><br><span class="line">net.ipv4.conf.default.rp_filter = 0 </span><br><span class="line">net.ipv4.conf.all.send_redirects = 0 </span><br><span class="line">net.ipv4.conf.default.send_redirects = 0 </span><br><span class="line">net.ipv4.conf.all.log_martians = 0 </span><br><span class="line">net.ipv4.conf.default.log_martians = 0 </span><br><span class="line">net.ipv4.conf.default.accept_source_route = 0 </span><br><span class="line">net.ipv4.conf.all.accept_redirects = 0 </span><br><span class="line">net.ipv4.conf.default.accept_redirects = 0 </span><br><span class="line">net.ipv4.icmp_ignore_bogus_error_responses = 1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li>[x] 修改完执行<code>sysctl -p</code>生效</li>
+</ul>
+</li>
+<li>
+<p>验证ipsec状态</p>
+<ul>
+<li>ipsec setup restart</li>
+<li>ipsec verify         #可能有部分出错信息
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">  .....</span><br><span class="line">Hardware random device [N/A]</span><br><span class="line">Two or more interfaces found, checking IP forwarding [OK]</span><br><span class="line">Checking rp_filter [ENABLED]</span><br><span class="line">/proc/sys/net/ipv4/conf/enp2s0/rp_filter [ENABLED]            # 出现这种网卡设备</span><br><span class="line">/proc/sys/net/ipv4/conf/enp3s7/rp_filter [ENABLED]            # 错误的不用管</span><br><span class="line">rp_filter is not fully aware of IPsec and should be disabled  # 继续后面步骤</span><br><span class="line">Checking that pluto is running [OK]</span><br><span class="line">Pluto listening for IKE on udp 500 [OK]</span><br><span class="line">Pluto listening for IKE/NAT-T on udp 4500 [OK]</span><br><span class="line">Pluto ipsec.secret syntax [OK]</span><br><span class="line">Checking ‘ip’ command [OK]</span><br><span class="line">Checking ‘iptables’ command [OK]</span><br><span class="line">Checking ‘prelink’ command does not interfere with FIPSChecking for obsolete ipsec.conf options [OK]</span><br><span class="line">Opportunistic Encryption [DISABLED]</span><br><span class="line"></span><br><span class="line">ipsec verify: encountered 5 errors – see ‘man ipsec_verify’ for help</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>
+<p>启动ipsec服务，加入开机启动项
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service ipsec restart</span><br><span class="line">chkconfig ipsec on</span><br></pre></td></tr></table></figure></p>
+</li>
+</ol>
+<h3>配置xl2tpd和ppp认证</h3>
+<ol>
+<li>
+<p>vim /etc/xl2tpd/xl2tpd.conf
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[global]</span></span><br><span class="line">ipsec saref = yes</span><br><span class="line"></span><br><span class="line"><span class="section">[lns default]</span></span><br><span class="line"><span class="comment">; vpn客户端地址段</span></span><br><span class="line">ip range = 10.1.2.10-10.1.2.254</span><br><span class="line"><span class="comment">; vpn服务器地址</span></span><br><span class="line">local ip = 10.1.2.1</span><br><span class="line">require chap = yes</span><br><span class="line">refuse pap = yes</span><br><span class="line">require authentication = yes</span><br><span class="line"><span class="attr">name</span> = LinuxVPNserver</span><br><span class="line">ppp debug = yes</span><br><span class="line"><span class="attr">pppoptfile</span> = /etc/ppp/options.xl2tpd</span><br><span class="line">length bit = yes</span><br></pre></td></tr></table></figure></p>
+</li>
+<li>
+<p>cat /etc/ppp/options.xl2tpd
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">require-mschap-v2</span><br><span class="line">#ms-dns 8.8.8.8</span><br><span class="line">#ms-dns 8.8.4.4</span><br><span class="line">asyncmap 0</span><br><span class="line">auth</span><br><span class="line">crtscts</span><br><span class="line">lock</span><br><span class="line">hide-password</span><br><span class="line">modem</span><br><span class="line">debug</span><br><span class="line">name l2tpd</span><br><span class="line">proxyarp</span><br><span class="line">lcp-echo-interval 30</span><br><span class="line">lcp-echo-failure 4</span><br><span class="line"># 指定日志文件</span><br><span class="line">logfile /var/log/xl2tpd.log</span><br></pre></td></tr></table></figure></p>
+</li>
+<li>
+<p>配置登陆用户的认证
+vim /etc/ppp/chap-secrets
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Secrets for authentication using CHAP</span><br><span class="line"># client    server  secret          IP addresses</span><br><span class="line">an00    *    passwd    *</span><br><span class="line"></span><br><span class="line">#用户名  服务器   密码  ip地址</span><br></pre></td></tr></table></figure></p>
+</li>
+<li>
+<p>重启xl2tpd服务，添加到开机启动项
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service xl2tpd restart</span><br><span class="line">chkconfig xl2tpd on</span><br></pre></td></tr></table></figure></p>
+</li>
+</ol>
+<h3>配置SNAT，允许vpn客户端访问服务器内网部分机器</h3>
+<blockquote>
+<p>原来是没开启iptables的，所以没有其他规则</p>
+</blockquote>
+<ol>
+<li>
+<p>在NAT链添加如下规则，只对vpn客户端到内网部分地址做NAT转发
+vim /etc/sysconfig/iptables
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">*nat</span><br><span class="line">:PREROUTING ACCEPT [0:0]</span><br><span class="line">:POSTROUTING ACCEPT [0:0]</span><br><span class="line">:OUTPUT ACCEPT [0:0]</span><br><span class="line">-A POSTROUTING -s 10.1.2.0/24 -d 172.16.88.125 -o eth0 -j MASQUERADE</span><br><span class="line">-A POSTROUTING -s 10.1.2.0/24 -d 172.16.88.126 -o eth0 -j MASQUERADE</span><br><span class="line">-A POSTROUTING -s 10.1.2.0/24 -d 172.16.88.185 -o eth0 -j MASQUERADE</span><br><span class="line">COMMIT</span><br></pre></td></tr></table></figure></p>
+</li>
+<li>
+<p>启动iptables，加入到开机启动项
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service iptables restart</span><br><span class="line">chkconfig iptables on</span><br></pre></td></tr></table></figure></p>
+</li>
+</ol>
+<h2>客户端连接配置</h2>
+<ol>
+<li>
+<p>点击右下角网络连接图标<br>
+<img src="https://i.imgur.com/QVR6nnt.jpg" alt="第一步"></p>
+</li>
+<li>
+<p>在出现的设置中左侧点击&quot;VPN&quot;，然后右侧点击&quot;添加VPN连接&quot;<br>
+预共享密钥是上文描述的ipsec.secrets中配置项<br>
+保存，后续即可连接。<br>
+<img src="https://i.imgur.com/ZL5ud7w.jpg" alt="拨号"></p>
+</li>
+<li>
+<p>需要修改注册表按<code>win+r</code>键输入<code>regedit</code><br>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">路径：[HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services/RasMan/Parameters] </span><br><span class="line">修改：ProhibitIPSec的值修改为1</span><br><span class="line">如果没有ProhibitIPSec项，需要点击右键新建一个dword，重命名为ProhibitIPSec，值设置为1</span><br><span class="line"></span><br><span class="line">重启你的本地电脑，一定记得重启。</span><br></pre></td></tr></table></figure></p>
+</li>
+<li>
+<p>建议做完下面步骤再拨号。</p>
+</li>
+</ol>
+<h3>解决拨号后外网不能上的问题</h3>
+<ol>
+<li>
+<p>按上面第一步打开&quot;<strong>网络设置</strong>&quot;<br>
+左侧选择&quot;<strong>以太网</strong>&quot;，在右侧&quot;<strong>相关设置中</strong>&quot;点击&quot;<strong>更改适配器选项</strong>&quot;<br>
+新窗口中找到vpn适配器右击 --&gt; 属性<br>
+点击&quot;<strong>网络</strong>&quot;选项卡   --&gt;双击<strong>internet协议版本(TCP/IPv4)</strong><br>
+点击<strong>高级</strong> --&gt; <strong>IP设置</strong>选项卡 --&gt; 取消勾选&quot;<strong>在远程网络上使用默认网关</strong>&quot;和它的子项<br>
+然后一路确定。</p>
+</li>
+<li>
+<p>在桌面编辑一个&quot;xxx.bat&quot;结尾的文件，添加如下内容
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route add <span class="number">172</span>.<span class="number">16</span>.<span class="number">88</span>.<span class="number">0</span> mask <span class="number">255</span>.<span class="number">255</span>.<span class="number">255</span>.<span class="number">0</span> <span class="number">10</span>.<span class="number">1</span>.<span class="number">2</span>.<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+</li>
+<li>
+<p>每次拨号后以管理员身份执行上面的命令会添加一个路由，外网还是走本地网络。</p>
+</li>
+</ol>
+
+  </div>
+</article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+    <div id="gitalk-container" style="z-index: 101"></div>
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: 'd9ed370013bcf2ad6af4',
+            clientSecret: '47d22120f2c5f9f2aa078e124d7ce357c0216f2c',
+            id: md5(window.location.pathname),
+            repo: 'an00.github.io',
+            owner: 'an00',
+            admin: 'an00',
+            distractionFreeMode: ''
+        })
+        gitalk.render('gitalk-container')
+    </script>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/an00" target="_blank" rel="noopener">项目</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">CentOS L2TP/IPSec vpn</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-number">1.1.</span> <span class="toc-text">安装软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-number">1.2.</span> <span class="toc-text">修改配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-number">1.2.1.</span> <span class="toc-text">配置ipsec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-number">1.2.2.</span> <span class="toc-text">配置xl2tpd和ppp认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-number">1.2.3.</span> <span class="toc-text">配置SNAT，允许vpn客户端访问服务器内网部分机器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-number">1.3.</span> <span class="toc-text">客户端连接配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-number">1.3.1.</span> <span class="toc-text">解决拨号后外网不能上的问题</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&text=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&title=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&is_video=false&description=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CentOS L2TP/IPSec vpn&body=Check out this article: http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/" target="_blank" rel="noopener"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&title=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&title=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&title=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&title=CentOS L2TP/IPSec vpn" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.an00.cn/2017/12/08/CentOS-L2TP-IPSec-vpn/&name=CentOS L2TP/IPSec vpn&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left" style="width: 100%;text-align:center">
+    Copyright &copy; 2019 an00
+    <a href="http://www.miitbeian.gov.cn" target="_blank" rel="noopener">赣ICP备16002857号-1</a>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
