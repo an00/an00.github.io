@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Linux tty终端字体调整 最近在用 KVM nat 虚拟机时，ssh 要上宿主机再跳，觉得麻烦。反而用物理机映射出去的 VNC 连接操作比较多，但是看 console 字体非常难受，发现也是有修改的方法   安装软件，需要配置好源 12345# 红帽系yum install console-setup# debian系apt install console-setup console-ter">
+    <meta name="description" content="Linux tty终端字体调整最近在用 KVM nat 虚拟机时，ssh 要上宿主机再跳，觉得麻烦。反而用物理机映射出去的 VNC 连接操作比较多，但是看 console 字体非常难受，发现也是有修改的方法  安装软件，需要配置好源  12345# 红帽系yum install console-setup# debian系apt install console-setup console-term">
 <meta property="og:type" content="article">
 <meta property="og:title" content="修改 Linux TTY console 字体">
 <meta property="og:url" content="http:&#x2F;&#x2F;blog.an00.cn&#x2F;2017&#x2F;12&#x2F;01&#x2F;%E4%BF%AE%E6%94%B9Linux-TTY-console%E5%AD%97%E4%BD%93&#x2F;index.html">
 <meta property="og:site_name" content="an00">
-<meta property="og:description" content="Linux tty终端字体调整 最近在用 KVM nat 虚拟机时，ssh 要上宿主机再跳，觉得麻烦。反而用物理机映射出去的 VNC 连接操作比较多，但是看 console 字体非常难受，发现也是有修改的方法   安装软件，需要配置好源 12345# 红帽系yum install console-setup# debian系apt install console-setup console-ter">
+<meta property="og:description" content="Linux tty终端字体调整最近在用 KVM nat 虚拟机时，ssh 要上宿主机再跳，觉得麻烦。反而用物理机映射出去的 VNC 连接操作比较多，但是看 console 字体非常难受，发现也是有修改的方法  安装软件，需要配置好源  12345# 红帽系yum install console-setup# debian系apt install console-setup console-term">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-12-11T03:32:01.339Z">
 <meta name="twitter:card" content="summary">
@@ -104,7 +104,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">Linux tty终端字体调整</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux-tty终端字体调整"><span class="toc-number">1.</span> <span class="toc-text">Linux tty终端字体调整</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -148,22 +148,17 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h1>Linux tty终端字体调整</h1>
-<p>最近在用 KVM nat 虚拟机时，ssh 要上宿主机再跳，觉得麻烦。反而用物理机映射出去的 VNC 连接操作比较多，但是看 console 字体非常难受，发现也是有修改的方法</p>
+    <h1 id="Linux-tty终端字体调整"><a href="#Linux-tty终端字体调整" class="headerlink" title="Linux tty终端字体调整"></a>Linux tty终端字体调整</h1><p>最近在用 KVM nat 虚拟机时，ssh 要上宿主机再跳，觉得麻烦。反而用物理机映射出去的 VNC 连接操作比较多，但是看 console 字体非常难受，发现也是有修改的方法</p>
 <ol>
-<li>
-<p>安装软件，需要配置好源
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 红帽系</span><br><span class="line">yum install console-setup</span><br><span class="line"></span><br><span class="line"># debian系</span><br><span class="line">apt install console-setup console-terminus</span><br></pre></td></tr></table></figure></p>
+<li><p>安装软件，需要配置好源</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 红帽系</span><br><span class="line">yum install console-setup</span><br><span class="line"></span><br><span class="line"># debian系</span><br><span class="line">apt install console-setup console-terminus</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>编辑 /etc/default/console-setup 配置文件，下面是一份感觉比较适合的配置</p>
-<p><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CONFIGURATION FILE FOR SETUPCON</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Consult the console-setup(5) manual page.</span></span><br><span class="line"></span><br><span class="line"><span class="attr">ACTIVE_CONSOLES</span>=<span class="string">"/dev/tty[1-6]"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">CHARMAP</span>=<span class="string">"UTF-8"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">CODESET</span>=<span class="string">"Uni2"</span></span><br><span class="line"><span class="attr">FONTFACE</span>=<span class="string">"TerminusBold"</span></span><br><span class="line"><span class="attr">FONTSIZE</span>=<span class="string">"10x20"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">VIDEOMODE</span>=</span><br><span class="line"></span><br><span class="line"><span class="comment"># The following is an example how to use a braille font</span></span><br><span class="line"><span class="comment"># FONT='lat9w-08.psf.gz brl-8x8.psf'</span></span><br></pre></td></tr></table></figure></p>
+<li><p>编辑 /etc/default/console-setup 配置文件，下面是一份感觉比较适合的配置  </p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CONFIGURATION FILE FOR SETUPCON</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Consult the console-setup(5) manual page.</span></span><br><span class="line"></span><br><span class="line"><span class="attr">ACTIVE_CONSOLES</span>=<span class="string">"/dev/tty[1-6]"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">CHARMAP</span>=<span class="string">"UTF-8"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">CODESET</span>=<span class="string">"Uni2"</span></span><br><span class="line"><span class="attr">FONTFACE</span>=<span class="string">"TerminusBold"</span></span><br><span class="line"><span class="attr">FONTSIZE</span>=<span class="string">"10x20"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">VIDEOMODE</span>=</span><br><span class="line"></span><br><span class="line"><span class="comment"># The following is an example how to use a braille font</span></span><br><span class="line"><span class="comment"># FONT='lat9w-08.psf.gz brl-8x8.psf'</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>执行 <code>setupcon</code> 命令加载，centos 和 debian 都有此命令</p>
+<li><p>执行 <code>setupcon</code> 命令加载，centos 和 debian 都有此命令</p>
 </li>
-<li>
-<p>在 debian 下有 <code>dpkg-reconfigure console-setup</code> 的命令行窗口工具，可以选择字体等，生成的配置文件如上。但是 centos 下没看到有这里工具，按的 debian 生成的文件改效果一样。</p>
+<li><p>在 debian 下有 <code>dpkg-reconfigure console-setup</code> 的命令行窗口工具，可以选择字体等，生成的配置文件如上。但是 centos 下没看到有这里工具，按的 debian 生成的文件改效果一样。</p>
 </li>
 </ol>
 
@@ -214,7 +209,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">Linux tty终端字体调整</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux-tty终端字体调整"><span class="toc-number">1.</span> <span class="toc-text">Linux tty终端字体调整</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
