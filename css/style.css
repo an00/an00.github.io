@@ -489,6 +489,7 @@ body {
   -moz-hyphens: auto;
   -ms-hyphens: auto;
   -webkit-hyphens: auto;
+  margin: 6px 0;
 }
 .content code {
   hyphens: manual;
@@ -547,6 +548,10 @@ body {
   background-size: 100% 6px;
   background-repeat: repeat-x;
 }
+.content ul,
+.content ol {
+  margin: 6px 0;
+}
 @media (min-width: 540px) {
   .image-wrap {
     flex-direction: row;
@@ -561,7 +566,7 @@ body {
   }
 }
 .max-width {
-  max-width: 48rem;
+  max-width: 60rem;
 }
 @media (max-width: 480px) {
   .px3 {
@@ -818,10 +823,13 @@ body {
   clear: both;
   overflow: hidden;
   margin-top: 1rem;
-  padding-right: 2rem;
+  padding-right: 0.4rem;
   max-width: 20em;
   max-height: calc(95vh - 7rem);
   text-align: left;
+}
+#header-post #toc ol {
+  padding-left: 24px;
 }
 #header-post #toc a:hover {
   color: #000;
@@ -1121,7 +1129,7 @@ article .content .video-container embed {
   height: 100%;
 }
 article .content blockquote {
-  margin: 1rem 10px;
+  margin: 0.4rem 2px;
   padding: 0.1em 10px;
   background: inherit;
   color: #989898;
@@ -1589,7 +1597,7 @@ code {
 .highlight {
   overflow-x: auto;
 /* margin: 1rem 0 */
-  margin: 0 0;
+  margin: 4px 0;
   padding: 6px 8px;
   border-radius: 4px;
   background: #dedcd9;
