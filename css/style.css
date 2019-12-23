@@ -1634,7 +1634,7 @@ code {
   opacity: 1;
 }
 .highlight .btn-copy {
-  font-size: 1.2rem;
+  font-size: 1rem;
   position: absolute;
   right: 20px;
   opacity: 0;
@@ -1653,6 +1653,10 @@ code {
 }
 .highlight td.gutter {
   text-align: right;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .highlight .line {
   height: 22px;
