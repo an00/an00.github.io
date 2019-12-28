@@ -1108,7 +1108,7 @@ article .content h2:before {
 article .content img,
 article .content video {
   display: block;
-  margin: auto;
+  margin: 6px 0;
   max-width: 100%;
   height: auto;
 }
@@ -1598,7 +1598,6 @@ code {
   overflow-x: auto;
 /* margin: 1rem 0 */
   margin: 4px 0;
-  padding: 6px 8px;
   border-radius: 4px;
   background: #dedcd9;
   font-family: "Menlo", "Meslo LG", monospace;
@@ -1653,6 +1652,7 @@ code {
 }
 .highlight td.gutter {
   text-align: right;
+  background: #d7d7d7;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
