@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="SSH 隧道 对端ip的端口映射到本机； 本机的端口映射到对端，这时通常做内网穿透。  SSH命令行 重要：netstat 查看端口，若最外层主机只监听 127.0.0.1 则修改 sshd_config ，打开 GatewayPorts yes   远程转发：本机监听的端口映射到对端机器  1234# ssh -R remote_port:local_ip:port [remote]# 将本地服">
+    <meta name="description" content="SSH 隧道  对端ip的端口映射到本机； 本机的端口映射到对端，这时通常做内网穿透。  SSH命令行  重要：netstat 查看端口，若最外层主机只监听 127.0.0.1 则修改 sshd_config ，打开 GatewayPorts yes    远程转发：本机监听的端口映射到对端机器 1234# ssh -R remote_port:local_ip:port [remote]# 将本">
 <meta name="keywords" content="ssh">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSH 隧道">
 <meta property="og:url" content="http:&#x2F;&#x2F;blog.an00.cn&#x2F;2018&#x2F;04&#x2F;27&#x2F;SSH%E9%9A%A7%E9%81%93&#x2F;index.html">
 <meta property="og:site_name" content="an00">
-<meta property="og:description" content="SSH 隧道 对端ip的端口映射到本机； 本机的端口映射到对端，这时通常做内网穿透。  SSH命令行 重要：netstat 查看端口，若最外层主机只监听 127.0.0.1 则修改 sshd_config ，打开 GatewayPorts yes   远程转发：本机监听的端口映射到对端机器  1234# ssh -R remote_port:local_ip:port [remote]# 将本地服">
+<meta property="og:description" content="SSH 隧道  对端ip的端口映射到本机； 本机的端口映射到对端，这时通常做内网穿透。  SSH命令行  重要：netstat 查看端口，若最外层主机只监听 127.0.0.1 则修改 sshd_config ，打开 GatewayPorts yes    远程转发：本机监听的端口映射到对端机器 1234# ssh -R remote_port:local_ip:port [remote]# 将本">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-12-11T03:32:01.333Z">
 <meta name="twitter:card" content="summary">
@@ -107,7 +107,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSH-隧道"><span class="toc-number">1.</span> <span class="toc-text">SSH 隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH命令行"><span class="toc-number">1.1.</span> <span class="toc-text">SSH命令行</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">SSH 隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-number">1.1.</span> <span class="toc-text">SSH命令行</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -156,23 +156,27 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h1 id="SSH-隧道"><a href="#SSH-隧道" class="headerlink" title="SSH 隧道"></a>SSH 隧道</h1><ol>
+    <h1>SSH 隧道</h1>
+<ol>
 <li>对端ip的端口映射到本机；</li>
 <li>本机的端口映射到对端，这时通常做内网穿透。</li>
 </ol>
-<h2 id="SSH命令行"><a href="#SSH命令行" class="headerlink" title="SSH命令行"></a>SSH命令行</h2><blockquote>
+<h2>SSH命令行</h2>
+<blockquote>
 <p><strong>重要</strong>：netstat 查看端口，若最外层主机只监听 127.0.0.1 则修改 sshd_config ，<strong>打开 <code>GatewayPorts yes</code></strong></p>
 </blockquote>
 <ol>
-<li><p>远程转发：本机监听的端口映射到对端机器</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ssh -R remote_port:local_ip:port [remote]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将本地服务监听的8080映射到125服务器的8080，125可以是一个云服务器的外网ip</span></span><br><span class="line">ssh -CfNg -p 22 -R 8080:localhost:8080 root@172.16.88.125</span><br><span class="line">ssh -CfNg -p 22 -R 0.0.0.0:8080:localhost:8080 root@172.16.88.125</span><br></pre></td></tr></table></figure>
+<li>
+<p>远程转发：本机监听的端口映射到对端机器
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ssh -R remote_port:local_ip:port [remote]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将本地服务监听的8080映射到125服务器的8080，125可以是一个云服务器的外网ip</span></span><br><span class="line">ssh -CfNg -p 22 -R 8080:localhost:8080 root@172.16.88.125</span><br><span class="line">ssh -CfNg -p 22 -R 0.0.0.0:8080:localhost:8080 root@172.16.88.125</span><br></pre></td></tr></table></figure></p>
 </li>
-<li><p>本地转发：将远程的服务映射到本机端口访问</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将远程服务器监听的端口映射到本机的某个端口</span></span><br><span class="line">ssh -CfNg -p 22 -L 80:localhost:80 root@172.16.88.125</span><br></pre></td></tr></table></figure>
+<li>
+<p>本地转发：将远程的服务映射到本机端口访问
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将远程服务器监听的端口映射到本机的某个端口</span></span><br><span class="line">ssh -CfNg -p 22 -L 80:localhost:80 root@172.16.88.125</span><br></pre></td></tr></table></figure></p>
 </li>
-<li><p>常用参数</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-N      不执行远程命令. 用于转发端口. </span><br><span class="line">-n      把 stdin 重定向到 /dev/null (实际上防止从 stdin 读取数据).  ssh在后台运行时一定会用到这个选项. 它的常用技巧是远程运行 X11 程序. </span><br><span class="line">-f      要求 ssh 在执行命令前退至后台. </span><br><span class="line">        它用于当 ssh 准备询问口令或密语,但是用户希望它在后台进行. </span><br><span class="line">        该选项隐含了-n 选项. </span><br><span class="line">        在远端机器上启动X11程序的推荐手法就是类似于 ssh -f host xterm 的命令. </span><br><span class="line">-C      要求进行数据压缩 </span><br><span class="line">-g      允许远端主机连接本地转发的端口</span><br><span class="line"></span><br><span class="line">-R      Remote 映射本地主机服务监听的端口到远程</span><br><span class="line">-L      Local 映射远程主机服务监听端口到本地</span><br></pre></td></tr></table></figure>
-
+<li>
+<p>常用参数
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-N      不执行远程命令. 用于转发端口. </span><br><span class="line">-n      把 stdin 重定向到 /dev/null (实际上防止从 stdin 读取数据).  ssh在后台运行时一定会用到这个选项. 它的常用技巧是远程运行 X11 程序. </span><br><span class="line">-f      要求 ssh 在执行命令前退至后台. </span><br><span class="line">        它用于当 ssh 准备询问口令或密语,但是用户希望它在后台进行. </span><br><span class="line">        该选项隐含了-n 选项. </span><br><span class="line">        在远端机器上启动X11程序的推荐手法就是类似于 ssh -f host xterm 的命令. </span><br><span class="line">-C      要求进行数据压缩 </span><br><span class="line">-g      允许远端主机连接本地转发的端口</span><br><span class="line"></span><br><span class="line">-R      Remote 映射本地主机服务监听的端口到远程</span><br><span class="line">-L      Local 映射远程主机服务监听端口到本地</span><br></pre></td></tr></table></figure></p>
 </li>
 </ol>
 
@@ -223,7 +227,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSH-隧道"><span class="toc-number">1.</span> <span class="toc-text">SSH 隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH命令行"><span class="toc-number">1.1.</span> <span class="toc-text">SSH命令行</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">SSH 隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-number">1.1.</span> <span class="toc-text">SSH命令行</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
