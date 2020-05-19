@@ -1749,3 +1749,7 @@ table tbody tr:nth-child(2n) {
 table tr:hover {
   background: #efefef;
 }
+.toc-active {
+  color: #666;
+  font-weight: bold;
+}
