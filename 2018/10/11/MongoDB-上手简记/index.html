@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="an00">
 <meta property="og:description" content="安装和配置 官网获取当前稳定版本 4.0.3   配置文件示例 12345678910111213141516171819202122232425262728systemLog: # 日志文件路径  destination: file  logAppend: true  path: &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;logs&#x2F;mongodb.logstorage:  # 数据文件路径  dbP">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-21T02:06:49.031Z">
+<meta property="og:updated_time" content="2020-05-21T11:47:33.534Z">
 <meta name="twitter:card" content="summary">
     
     
@@ -235,15 +235,28 @@
 
 
 <h2 id="副本集"><a href="#副本集" class="headerlink" title="副本集"></a>副本集</h2><blockquote>
-<p>若mongo提供给非本机连接，副本集的成员IP不应该设成127.0.0.1，当客户端连接副本集时，使用的是副本集中配置的IP，127.0.0.1会导致客户端连接自己本地的端口。</p>
+<p>若 mongo 提供给非本机连接，副本集的成员 IP 不应该设成 127.0.0.1，当客户端连接副本集时，使用的是副本集中配置的 IP，127.0.0.1 会导致客户端连接自己本地的端口</p>
+<p>使用文章最开始的配置文件，打开注释</p>
 </blockquote>
-<ol>
-<li><p>若客户端连接报错 127.0.0.1 连接不上，重设副本集使用非回环地址</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> cfg = rs.conf()   // 获取当前配置对象，修改成员ip，重设成员列表</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> cfg.members = [&#123;<span class="string">"_id"</span>:2,<span class="string">"host"</span> : <span class="string">"192.168.10.234:27017"</span>&#125;, &#123;<span class="string">"_id"</span>: 3,<span class="string">"host"</span> : <span class="string">"192.168.10.234:27018"</span>&#125;, &#123;<span class="string">"_id"</span>: 4,<span class="string">"host"</span> : <span class="string">"192.168.10.234:27019"</span>&#125;]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> rs.reconfig(cfg, &#123;force: <span class="literal">true</span>&#125;)   // 重设副本集</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> rs.status()  // 查看副本集状态，状态正常客户端重新连接即可正常</span></span><br></pre></td></tr></table></figure>
-
+<p>副本集成员配置可以用 <code>rs.config()</code> 查看，配置中的 members 是一个列表，可以包含多个成员。<br>副本集成员常用的配置选项如下，<a href="https://docs.mongodb.com/manual/reference/replica-configuration/" target="_blank" rel="noopener">参考官档</a> </p>
+<ul>
+<li><p><strong>_id</strong> 数值，0-255之间，副本集中每个成员的标识符，不可重复，设置后不可修改</p>
 </li>
-</ol>
-
+<li><p><strong>host</strong> 字符串，通常是 IP 或 IP 加指定端口的形式，如：”192.168.1.2:28011”</p>
+</li>
+<li><p><strong>priority</strong> 数值，选举 primary 时的优先级，值为0时该成员不会被选举成 primary 节点</p>
+</li>
+<li><p><strong>hidden</strong> 布尔值，对客户端隐藏，通常给延时节点和仲裁节点配上</p>
+</li>
+<li><p><strong>slaveDelay</strong> 数值，设置此成员落后 primary 的秒数，成员成为延时节点</p>
+</li>
+<li><p><strong>arbiterOnly</strong> 布尔值，为 true 时，节点将不存数据，只用于选举时投票用</p>
+</li>
+<li><p><strong>votes</strong> 数值，表示成员选举时的票数，通常是 0 或 1，当为 0 时不具备选举权（无选举权的成员必须priority=0），一个副本集最多有 7 个投票选举的成员，如果超过 7 个可以将部分成员此值设为 0</p>
+</li>
+</ul>
+<p>配置示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> cfg = rs.conf()   // 获取当前配置对象，修改成员ip，重设成员列表</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> cfg.members = [&#123;<span class="string">"_id"</span>:2,<span class="string">"host"</span> : <span class="string">"192.168.10.234:27017"</span>&#125;, &#123;<span class="string">"_id"</span>: 3,<span class="string">"host"</span> : <span class="string">"192.168.10.234:27018"</span>&#125;, &#123;<span class="string">"_id"</span>: 4,<span class="string">"host"</span> : <span class="string">"192.168.10.234:27019"</span>&#125;]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> rs.reconfig(cfg, &#123;force: <span class="literal">true</span>&#125;)   // 修改后重设副本集</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者使用 rs.add 增加成员，</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> rs.add(&#123;<span class="string">'_id'</span> : 10, <span class="string">'priority'</span>:2, <span class="string">'host'</span> : <span class="string">'192.168.10.235:27017'</span>&#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加仲裁节点</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> rs.addArb(<span class="string">'11.22.33.44:27017'</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> rs.status()  // 查看副本集状态，状态正常客户端重新连接即可正常</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> rs.config()  // 再次查看配置</span></span><br></pre></td></tr></table></figure>
   </div>
 </article>
 
