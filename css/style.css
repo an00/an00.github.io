@@ -1552,6 +1552,9 @@ color-border = #ddd,
   border: none !important;
   padding: 0;
 }
+.content .highlight table tr:hover {
+  background: transparent;
+}
 .content .highlight figcaption {
   font-size: 1em;
   color: #24292e;
