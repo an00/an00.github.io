@@ -1568,10 +1568,16 @@ color-border = #ddd,
 .content .highlight figcaption a:hover {
   border-bottom-color: #24292e;
 }
+.content .highlight .gutter {
+  border-right: 2px solid #e1e1e1 !important;
+}
 .content .highlight .gutter pre {
   color: #666;
   text-align: right;
-  padding-right: 15px;
+  padding-right: 10px;
+}
+.content .highlight .code {
+  padding-left: 10px;
 }
 .content .highlight .line {
   height: 20px;
