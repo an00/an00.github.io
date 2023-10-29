@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="chenzuoqing">
+    
+    <title>
+        
+            innodb cluster 和 mysqlsh |
+        
+        PIAOMIAO神经
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/img/IMG_0001.JPG">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/custom.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.an00.cn","root":"/","language":"en","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"style":{"primary_color":"#0066cc","logo":"/img/IMG_0001.JPG","favicon":"/img/IMG_0001.JPG","avatar":"/img/IMG_0001.JPG","first_screen":{"enable":true,"header_transparent":false,"background_img":"/images/bg.svg","description":"道阻且长，行则将至。","hitokoto":false},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":false},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"pjax":{},"lazyload":{"enable":true},"comment":{},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null}},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"version":"3.8.6"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="An00" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/img/IMG_0001.JPG">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               PIAOMIAO神经
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+
+                
+
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+
+        <div class="article-content-container border-box">
+
+            
+
+            <div class="article-content-bottom border-box">
+                
+                    <div class="article-title">
+                        innodb cluster 和 mysqlsh
+                    </div>
+                
+
+                
+                    <div class="article-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/img/IMG_0001.JPG">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author">
+                                <span class="name">chenzuoqing</span>
+                                
+                                    <span class="author-label">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="article-meta-info-container border-box post">
+    <div class="article-meta-info border-box">
+        
+
+
+        
+            <span class="meta-info-item article-create-date">
+                <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
+                <span class="pc">2020-09-27 15:56:24</span>
+                <span class="mobile">2020-09-27 15:56</span>
+            </span>
+
+            <span class="meta-info-item article-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="pc" data-updated="Sun Oct 29 2023 15:03:50 GMT+0800">2023-10-29 15:03:50</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item article-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="article-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/MySQL/">MySQL</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="article-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul class="article-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/innodb/">innodb</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/mysqlsh/">mysqlsh</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+            <span class="meta-info-item article-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="article-content keep-markdown-body">
+                    
+
+                    <h2 id="innodb-cluster-和-mysqlsh"><a href="#innodb-cluster-和-mysqlsh" class="headerlink" title="innodb-cluster 和 mysqlsh"></a>innodb-cluster 和 mysqlsh</h2><p>官网下载并安装下面几个包（不带过程）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql-server mysql-shell mysql-router</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置-innodb-cluster"><a href="#配置-innodb-cluster" class="headerlink" title="配置 innodb cluster"></a>配置 innodb cluster</h3><blockquote>
+<p>mysql 官网提供了一个很好的工具，叫 mysql-shell 以前没体会到妙处，在配置 innodb cluster 时发现非常方便，推荐尝试。</p>
+</blockquote>
+<p>innodb 集群在 mysql-shell 中配置的大致命令，交互命令都是 <code>js</code> 的语法</p>
+<span id="more"></span>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"># 进入mysqlshell</span><br><span class="line">shell&gt; mysqlsh root@<span class="number">192.168</span><span class="number">.234</span><span class="number">.128</span>:<span class="number">3306</span></span><br><span class="line"></span><br><span class="line"># 检查实例配置，如果需要修复某些选项，提示中会建议执行 <span class="string">`dba.configureInstance()`</span></span><br><span class="line">dba.<span class="title function_">checkInstanceConfiguration</span>(<span class="string">&#x27;root@192.168.234.128:3306&#x27;</span>)</span><br><span class="line">dba.<span class="title function_">checkInstanceConfiguration</span>(<span class="string">&#x27;root@192.168.234.128:3307&#x27;</span>)</span><br><span class="line"></span><br><span class="line"># 最好记录修复后的配置加到配置文件 -- 不确定</span><br><span class="line">dba.<span class="title function_">configureInstance</span>(<span class="string">&#x27;root@192.168.234.128:3307&#x27;</span>)</span><br><span class="line">dba.<span class="title function_">configureInstance</span>(<span class="string">&#x27;root@192.168.234.128:3306&#x27;</span>)</span><br><span class="line"></span><br><span class="line"># 创建集群、获取集群，加入实例，实例必须已配置好</span><br><span class="line"><span class="keyword">var</span> cluster = dba.<span class="title function_">createCluster</span>(<span class="string">&#x27;mine_db&#x27;</span>)</span><br><span class="line"></span><br><span class="line">cluster.<span class="title function_">addInstance</span>(<span class="string">&#x27;root@192.168.234.128:3306&#x27;</span>)</span><br><span class="line">cluster.<span class="title function_">addInstance</span>(<span class="string">&#x27;root@192.168.234.128:3307&#x27;</span>)</span><br><span class="line"></span><br><span class="line"># 查看集群，status中列出mode为R/W的为可读写的节点</span><br><span class="line">cluster.<span class="title function_">describe</span>()</span><br><span class="line">cluster.<span class="title function_">status</span>()</span><br><span class="line"></span><br><span class="line"># 获取集群</span><br><span class="line"><span class="keyword">var</span> cluster = dba.<span class="title function_">getCluster</span>(<span class="string">&#x27;mine_db&#x27;</span>)</span><br><span class="line"></span><br><span class="line"># 若集群节点都离线，会获取失败，提示:</span><br><span class="line"><span class="title class_">Dba</span>.<span class="property">getCluster</span>: <span class="title class_">This</span> <span class="keyword">function</span> is not available through a session to a standalone instance (metadata exists, instance belongs to that metadata, but <span class="variable constant_">GR</span> is not active) (<span class="title class_">RuntimeError</span>)</span><br><span class="line"></span><br><span class="line"># 可以执行下面命令恢复集群</span><br><span class="line">dba.<span class="title function_">rebootClusterFromCompleteOutage</span>(<span class="string">&#x27;mine_db&#x27;</span>)</span><br><span class="line"></span><br><span class="line"># 切换多主、单主模式</span><br><span class="line">cluster.<span class="title function_">switchToMultiPrimaryMode</span>()</span><br><span class="line">cluster.<span class="title function_">switchToSinglePrimaryMode</span>()</span><br><span class="line"></span><br><span class="line"># 有节点<span class="variable constant_">UNREACHABLE</span>了不能做出冲裁时，写请求hang住，修复需要强制指定某活跃的节点</span><br><span class="line">cluster.<span class="title function_">forceQuorumUsingPartitionOf</span>(<span class="string">&#x27;root@192.168.234.128:3307&#x27;</span>)</span><br><span class="line"></span><br><span class="line"># mysql-router相关</span><br><span class="line">cluster.<span class="title function_">listRouters</span>()</span><br><span class="line">cluster.<span class="title function_">removeRouterMetadata</span>(<span class="string">&#x27;192.168.234.128::system&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>当前状态</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">cluster.<span class="title function_">status</span>(<span class="params"></span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;clusterName&quot;</span>: <span class="string">&quot;mine_db&quot;</span>,  # 集群名称</span><br><span class="line">    <span class="string">&quot;defaultReplicaSet&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;default&quot;</span>, </span><br><span class="line">        <span class="string">&quot;primary&quot;</span>: <span class="string">&quot;192.168.234.128:3307&quot;</span>,  # 主节点</span><br><span class="line">        <span class="string">&quot;ssl&quot;</span>: <span class="string">&quot;REQUIRED&quot;</span>, </span><br><span class="line">        <span class="string">&quot;status&quot;</span>: <span class="string">&quot;OK_NO_TOLERANCE&quot;</span>, </span><br><span class="line">        <span class="string">&quot;statusText&quot;</span>: <span class="string">&quot;Cluster is NOT tolerant to any failures.&quot;</span>,  # 由于测试只有<span class="number">2</span>个节点，不能容忍任何一个故障</span><br><span class="line">        <span class="string">&quot;topology&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;192.168.234.128:3306&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;address&quot;</span>: <span class="string">&quot;192.168.234.128:3306&quot;</span>, </span><br><span class="line">                <span class="string">&quot;mode&quot;</span>: <span class="string">&quot;R/O&quot;</span>,   # 只读</span><br><span class="line">                <span class="string">&quot;readReplicas&quot;</span>: &#123;&#125;, </span><br><span class="line">                <span class="string">&quot;replicationLag&quot;</span>: <span class="literal">null</span>, </span><br><span class="line">                <span class="string">&quot;role&quot;</span>: <span class="string">&quot;HA&quot;</span>, </span><br><span class="line">                <span class="string">&quot;status&quot;</span>: <span class="string">&quot;ONLINE&quot;</span>, </span><br><span class="line">                <span class="string">&quot;version&quot;</span>: <span class="string">&quot;8.0.20&quot;</span></span><br><span class="line">            &#125;, </span><br><span class="line">            <span class="string">&quot;192.168.234.128:3307&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;address&quot;</span>: <span class="string">&quot;192.168.234.128:3307&quot;</span>, </span><br><span class="line">                <span class="string">&quot;mode&quot;</span>: <span class="string">&quot;R/W&quot;</span>,  # 可读写</span><br><span class="line">                <span class="string">&quot;readReplicas&quot;</span>: &#123;&#125;, </span><br><span class="line">                <span class="string">&quot;replicationLag&quot;</span>: <span class="literal">null</span>, </span><br><span class="line">                <span class="string">&quot;role&quot;</span>: <span class="string">&quot;HA&quot;</span>, </span><br><span class="line">                <span class="string">&quot;status&quot;</span>: <span class="string">&quot;ONLINE&quot;</span>, </span><br><span class="line">                <span class="string">&quot;version&quot;</span>: <span class="string">&quot;8.0.20&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, </span><br><span class="line">        <span class="string">&quot;topologyMode&quot;</span>: <span class="string">&quot;Single-Primary&quot;</span>  # 当前单主模式，cluster.<span class="property">switchToMultiPrimaryMode</span>可切换</span><br><span class="line">    &#125;, </span><br><span class="line">    <span class="string">&quot;groupInformationSourceMember&quot;</span>: <span class="string">&quot;192.168.234.128:3307&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="增加-mysql-router"><a href="#增加-mysql-router" class="headerlink" title="增加 mysql-router"></a>增加 mysql-router</h3><p>若router已经在 <code>cluster.listRouters</code> 中，需要 <code>cluster.removeRouterMetadata</code> 后才能添加，rpm包默认会创建mysqlrouter用户，并且service也以此用户身份运行</p>
+<p>生成mysqlrouter配置，执行后可以 <code>cluster.listRouters()</code> 看到</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">mysqlrouter --bootstrap root@192.168.234.128:3306 --user=mysqlrouter --force-password-validation --report-host 192.168.234.128</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">systemctl start mysqlrouter.service</span></span><br></pre></td></tr></table></figure>
+
+<p>生成后提示有监听4个端口，两种协议的读写端口各不同</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># MySQL Classic protocol</span></span></span><br><span class="line">- Read/Write Connections: 192.168.234.128:6446</span><br><span class="line">- Read/Only Connections:  192.168.234.128:6447</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># MySQL X protocol</span></span></span><br><span class="line">- Read/Write Connections: 192.168.234.128:64460</span><br><span class="line">- Read/Only Connections:  192.168.234.128:64470</span><br></pre></td></tr></table></figure>
+
+<p>连接测试，<code>R/O</code> 模式的节点是 <code>super-read-only</code> 不可写的</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p111111 -h192.168.234.128 -P6446 -e &quot;select @@port&quot;</span><br><span class="line">mysql -uroot -p111111 -h192.168.234.128 -P6447 -e &quot;select @@port&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">测试语句</span></span><br><span class="line">-- use test;</span><br><span class="line">-- create table user (id int unsigned auto_increment primary key, name varchar(32), create_time datetime not null default current_timestamp);</span><br><span class="line">-- insert into user (name) values (&#x27;aa&#x27;), (&#x27;bb&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>中途停掉一个之后，通过 mysqlrouter 连接同样可以读写，mysqlshell中看到有实例状态是 <code>MISSING</code> 并且连接错误。启动后自动加入到了集群中，开始同步数据，恢复状态。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">mysqld_multi stop 3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="测试配置"><a href="#测试配置" class="headerlink" title="测试配置"></a>测试配置</h3><blockquote>
+<p>从 5.7 改的，不一定是优选，仅供参考</p>
+</blockquote>
+<p>使用 <code>mysqld_multi</code> 配置，8.0.20 版本</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[mysql]</span></span><br><span class="line"><span class="comment">#prompt=&quot;(\\u@\\h:\\p) [\\d]&gt; &quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[client]</span></span><br><span class="line"><span class="attr">user</span>=root</span><br><span class="line"><span class="comment"># default use 3306 instance</span></span><br><span class="line"><span class="attr">socket</span>  = /data/<span class="number">3306</span>/mysql.sock</span><br><span class="line"></span><br><span class="line"><span class="section">[mysqld_multi]</span></span><br><span class="line"><span class="attr">mysqld</span> = /usr/local/mysql/bin/mysqld_safe</span><br><span class="line"><span class="attr">mysqladmin</span> = /usr/local/mysql/bin/mysqladmin</span><br><span class="line"><span class="attr">user</span> = root</span><br><span class="line"><span class="attr">password</span> = your_password</span><br><span class="line"><span class="attr">log</span> = /data/multi_mysqld.log</span><br><span class="line"></span><br><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="comment">########basic settings########</span></span><br><span class="line"><span class="comment">#server-id = 10</span></span><br><span class="line"><span class="comment">#port = 3306</span></span><br><span class="line"><span class="attr">user</span> = mysql</span><br><span class="line"><span class="attr">bind_address</span> = <span class="number">192.168</span>.<span class="number">234.128</span></span><br><span class="line"><span class="attr">socket</span> = mysql.sock</span><br><span class="line"><span class="comment">#autocommit = 0</span></span><br><span class="line"><span class="attr">character_set_server</span>=utf8mb4</span><br><span class="line"><span class="attr">skip_name_resolve</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">max_connections</span> = <span class="number">800</span></span><br><span class="line"><span class="attr">max_connect_errors</span> = <span class="number">1000</span></span><br><span class="line"><span class="comment">#datadir = /data/3306</span></span><br><span class="line"><span class="attr">transaction_isolation</span> = REPEATABLE-READ</span><br><span class="line"><span class="attr">explicit_defaults_for_timestamp</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">join_buffer_size</span> = <span class="number">134217728</span></span><br><span class="line"><span class="attr">tmp_table_size</span> = <span class="number">67108864</span></span><br><span class="line"><span class="attr">tmpdir</span> = /tmp</span><br><span class="line"><span class="comment">#max_allowed_packet = 16777216</span></span><br><span class="line"><span class="attr">max_allowed_packet</span> = <span class="number">100</span>M</span><br><span class="line"><span class="comment">#sql_mode = &quot;STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER&quot;</span></span><br><span class="line"><span class="attr">interactive_timeout</span> = <span class="number">1800</span></span><br><span class="line"><span class="attr">wait_timeout</span> = <span class="number">1800</span></span><br><span class="line"><span class="attr">read_buffer_size</span> = <span class="number">16777216</span></span><br><span class="line"><span class="attr">read_rnd_buffer_size</span> = <span class="number">33554432</span></span><br><span class="line"><span class="attr">sort_buffer_size</span> = <span class="number">33554432</span></span><br><span class="line"><span class="comment">########log settings########</span></span><br><span class="line"><span class="attr">log_error</span> = error.log</span><br><span class="line"><span class="attr">slow_query_log</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">slow_query_log_file</span> = slow.log</span><br><span class="line"><span class="attr">log_queries_not_using_indexes</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">log_slow_admin_statements</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">log_slow_slave_statements</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">log_throttle_queries_not_using_indexes</span> = <span class="number">10</span></span><br><span class="line"><span class="attr">expire_logs_days</span> = <span class="number">90</span></span><br><span class="line"><span class="attr">long_query_time</span> = <span class="number">2</span></span><br><span class="line"><span class="attr">min_examined_row_limit</span> = <span class="number">100</span></span><br><span class="line"><span class="comment">########replication settings########</span></span><br><span class="line"><span class="attr">master_info_repository</span> = TABLE</span><br><span class="line"><span class="attr">relay_log_info_repository</span> = TABLE</span><br><span class="line"><span class="attr">log_bin</span> = bin.log</span><br><span class="line"><span class="attr">sync_binlog</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">gtid_mode</span> = <span class="literal">on</span></span><br><span class="line"><span class="attr">enforce_gtid_consistency</span> = <span class="number">1</span></span><br><span class="line">log_slave_updates</span><br><span class="line"><span class="attr">binlog_format</span> = row </span><br><span class="line"><span class="attr">relay_log</span> = relay.log</span><br><span class="line"><span class="attr">relay_log_recovery</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">binlog_gtid_simple_recovery</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">slave_skip_errors</span> = ddl_exist_errors</span><br><span class="line"><span class="comment">#report-host = 192.168.234.128</span></span><br><span class="line"><span class="comment">#report-port = 3306</span></span><br><span class="line"><span class="comment"># 并行复制</span></span><br><span class="line"><span class="attr">slave-parallel-type</span>=LOGICAL_CLOCK</span><br><span class="line"><span class="attr">slave-parallel-workers</span>=<span class="number">2</span>    <span class="comment"># 并行的Coordinator线程数量</span></span><br><span class="line"><span class="attr">master_info_repository</span>=TABLE</span><br><span class="line"><span class="attr">relay_log_info_repository</span>=TABLE</span><br><span class="line"><span class="attr">binlog_checksum</span> = none</span><br><span class="line"><span class="attr">slave_preserve_commit_order</span> = <span class="literal">on</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########innodb settings########</span></span><br><span class="line"><span class="attr">innodb_page_size</span> = <span class="number">16384</span></span><br><span class="line"><span class="comment">#innodb_buffer_pool_size = 512m</span></span><br><span class="line"><span class="attr">innodb_buffer_pool_size</span> = <span class="number">256</span>m</span><br><span class="line"><span class="attr">innodb_buffer_pool_instances</span> = <span class="number">2</span></span><br><span class="line"><span class="attr">innodb_buffer_pool_load_at_startup</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">innodb_buffer_pool_dump_at_shutdown</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">innodb_lru_scan_depth</span> = <span class="number">100</span>    <span class="comment"># no more than innodb_io_capacity / innodb_buffer_pool_instances</span></span><br><span class="line"><span class="attr">innodb_lock_wait_timeout</span> = <span class="number">50</span></span><br><span class="line"><span class="attr">innodb_io_capacity</span> = <span class="number">800</span>       <span class="comment"># innodb_io_capacity_max * 80%</span></span><br><span class="line"><span class="attr">innodb_io_capacity_max</span> = <span class="number">1000</span>  <span class="comment"># current disk raid 5, max iops 1000+-</span></span><br><span class="line"><span class="attr">innodb_flush_method</span> = O_DIRECT</span><br><span class="line"><span class="attr">innodb_flush_neighbors</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">innodb_log_file_size</span> = <span class="number">128</span>M</span><br><span class="line"><span class="attr">innodb_log_buffer_size</span> = <span class="number">16777216</span></span><br><span class="line"><span class="attr">innodb_purge_threads</span> = <span class="number">4</span></span><br><span class="line"><span class="attr">innodb_thread_concurrency</span> = <span class="number">64</span></span><br><span class="line"><span class="attr">innodb_print_all_deadlocks</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">innodb_strict_mode</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">innodb_sort_buffer_size</span> = <span class="number">67108864</span></span><br><span class="line"><span class="comment">########semi sync replication settings########</span></span><br><span class="line"><span class="attr">plugin_dir</span>=/usr/local/mysql/lib/plugin</span><br><span class="line"><span class="attr">plugin_load</span> = <span class="string">&quot;rpl_semi_sync_master=semisync_master.so;rpl_semi_sync_slave=semisync_slave.so&quot;</span></span><br><span class="line"><span class="attr">loose_rpl_semi_sync_master_enabled</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">loose_rpl_semi_sync_slave_enabled</span> = <span class="number">1</span></span><br><span class="line"><span class="comment"># - AFTER_SYNC 表示的是无损复制（ 5.7 默认）</span></span><br><span class="line"><span class="comment"># - AFTER_COMMIT 表示的是半同步复制</span></span><br><span class="line"><span class="attr">rpl_semi_sync_master_wait_point</span>=AFTER_SYNC</span><br><span class="line"><span class="comment"># 超时五秒后换回异步的方式</span></span><br><span class="line"><span class="comment">#loose_rpl_semi_sync_master_timeout = 5000</span></span><br><span class="line"><span class="comment">########ssl settings########</span></span><br><span class="line"><span class="attr">ssl-ca</span> = ca.pem</span><br><span class="line"><span class="attr">ssl-cert</span> = server-cert.pem</span><br><span class="line"><span class="attr">ssl-key</span> = server-key.pem</span><br><span class="line"></span><br><span class="line"><span class="attr">innodb_buffer_pool_dump_pct</span> = <span class="number">40</span></span><br><span class="line"><span class="attr">innodb_page_cleaners</span> = <span class="number">4</span></span><br><span class="line"><span class="attr">innodb_undo_log_truncate</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">innodb_max_undo_log_size</span> = <span class="number">256</span>M</span><br><span class="line"><span class="attr">innodb_purge_rseg_truncate_frequency</span> = <span class="number">128</span></span><br><span class="line"><span class="attr">binlog_gtid_simple_recovery</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">log_timestamps</span>=system</span><br><span class="line"><span class="attr">transaction_write_set_extraction</span>=MURMUR32</span><br><span class="line"></span><br><span class="line"><span class="section">[mysqld2]</span></span><br><span class="line"><span class="attr">report-host</span> = <span class="number">192.168</span>.<span class="number">234.128</span></span><br><span class="line"><span class="attr">report-port</span> = <span class="number">3306</span></span><br><span class="line"><span class="attr">datadir</span> = /data/<span class="number">3306</span></span><br><span class="line"><span class="attr">server-id</span> = <span class="number">10</span></span><br><span class="line"><span class="attr">port</span> = <span class="number">3306</span></span><br><span class="line"><span class="attr">socket</span> = /data/<span class="number">3306</span>/mysql.sock</span><br><span class="line"><span class="attr">pid-file</span> = /data/<span class="number">3307</span>/mysql2.pid</span><br><span class="line"></span><br><span class="line"><span class="section">[mysqld3]</span></span><br><span class="line"><span class="attr">report-host</span> = <span class="number">192.168</span>.<span class="number">234.128</span></span><br><span class="line"><span class="attr">report-port</span> = <span class="number">3307</span></span><br><span class="line"><span class="attr">datadir</span> = /data/<span class="number">3307</span></span><br><span class="line"><span class="attr">server-id</span> = <span class="number">20</span></span><br><span class="line"><span class="attr">port</span> = <span class="number">3307</span></span><br><span class="line"><span class="attr">socket</span> = /data/<span class="number">3307</span>/mysql.sock</span><br><span class="line"><span class="attr">pid-file</span> = /data/<span class="number">3307</span>/mysql3.pid</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+                </div>
+
+                
+                        
+<div class="article-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="post-title border-box text-ellipsis">
+                innodb cluster 和 mysqlsh
+            </div>
+
+            <div class="post-link border-box text-ellipsis">
+                2020/09/27/innodb-cluster-和-mysqlsh/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="post-author bottom-item">
+                <div class="type">
+                    Author
+                </div>
+                <div class="content">chenzuoqing</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    Published
+                </div>
+                <div class="content">2020-09-27 15:56</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    License
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed">
+                        <i class="fa-brands fa-creative-commons"></i>
+                        <i class="fa-brands fa-creative-commons-by"></i>
+                        <i class="fa-brands fa-creative-commons-nc"></i>
+                        <i class="fa-brands fa-creative-commons-sa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="Copy copyright info" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/innodb/">innodb</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/mysqlsh/">mysqlsh</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="Share to WeChat"
+            data-tooltip-img-tip="Scan by WeChat"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to WeiBo"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="article-nav">
+                        
+                            <div class="article-prev">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2020/12/09/%E8%AE%B0%E5%BD%95-django-%E4%B8%AD%E7%9A%84%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2/"
+                                   title="记录 django 中的查询优化"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                      <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                            <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">记录 django 中的查询优化</span>
+                                        <span class="post-nav-item">Prev posts</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="article-next">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2020/07/11/%E8%AE%B0%E5%BD%95%E5%89%8D%E7%AB%AF-flex-%E5%B8%83%E5%B1%80/"
+                                   title="记录前端 flex 布局"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">记录前端 flex 布局</span>
+                                        <span class="post-nav-item">Next posts</span>
+                                    </span>
+                                            <span class="right arrow-icon flex-center">
+                                      <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#innodb-cluster-%E5%92%8C-mysqlsh"><span class="nav-text">innodb-cluster 和 mysqlsh</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-innodb-cluster"><span class="nav-text">配置 innodb cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0-mysql-router"><span class="nav-text">增加 mysql-router</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E9%85%8D%E7%BD%AE"><span class="nav-text">测试配置</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2017</span>&nbsp;-&nbsp;2023
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">chenzuoqing</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                Powered by&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;&&nbsp;Theme&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+                <div class="icp-info info-item default">
+                    <a class=""
+                       target="_blank"
+                       href="https://beian.miit.gov.cn"
+                    >
+                        赣ICP备16002857号-1
+                    </a>
+                </div>
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">Unique Visitor</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">Page View</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#innodb-cluster-%E5%92%8C-mysqlsh"><span class="nav-text">innodb-cluster 和 mysqlsh</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-innodb-cluster"><span class="nav-text">配置 innodb cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0-mysql-router"><span class="nav-text">增加 mysql-router</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E9%85%8D%E7%BD%AE"><span class="nav-text">测试配置</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local-search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- code-block -->
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="">
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+    
+
+</body>
+</html>

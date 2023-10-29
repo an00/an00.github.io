@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="chenzuoqing">
+    
+    <title>
+        
+            CentOS L2TP/IPSec vpn |
+        
+        PIAOMIAO神经
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/img/IMG_0001.JPG">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/custom.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.an00.cn","root":"/","language":"en","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"style":{"primary_color":"#0066cc","logo":"/img/IMG_0001.JPG","favicon":"/img/IMG_0001.JPG","avatar":"/img/IMG_0001.JPG","first_screen":{"enable":true,"header_transparent":false,"background_img":"/images/bg.svg","description":"道阻且长，行则将至。","hitokoto":false},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":false},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"pjax":{},"lazyload":{"enable":true},"comment":{},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null}},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"version":"3.8.6"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="An00" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/img/IMG_0001.JPG">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               PIAOMIAO神经
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+
+                
+
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+
+        <div class="article-content-container border-box">
+
+            
+
+            <div class="article-content-bottom border-box">
+                
+                    <div class="article-title">
+                        CentOS L2TP/IPSec vpn
+                    </div>
+                
+
+                
+                    <div class="article-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/img/IMG_0001.JPG">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author">
+                                <span class="name">chenzuoqing</span>
+                                
+                                    <span class="author-label">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="article-meta-info-container border-box post">
+    <div class="article-meta-info border-box">
+        
+
+
+        
+            <span class="meta-info-item article-create-date">
+                <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
+                <span class="pc">2017-12-08 10:15:39</span>
+                <span class="mobile">2017-12-08 10:15</span>
+            </span>
+
+            <span class="meta-info-item article-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="pc" data-updated="Sun May 17 2020 11:02:36 GMT+0800">2020-05-17 11:02:36</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item article-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="article-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/Linux/">Linux</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="article-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul class="article-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/vpn/">vpn</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+            <span class="meta-info-item article-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="article-content keep-markdown-body">
+                    
+
+                    <h1 id="CentOS-L2TP-IPSec-vpn"><a href="#CentOS-L2TP-IPSec-vpn" class="headerlink" title="CentOS L2TP&#x2F;IPSec vpn"></a>CentOS L2TP&#x2F;IPSec vpn</h1><blockquote>
+<p>基于 centos 6</p>
+</blockquote>
+<ol>
+<li>需要开发人员在外网可以拨号到开发环境调试代码。</li>
+<li>开发人员拨号后只能访问部分地址，需要通过vpn服务器做SNAT，但是只对服务器内网的某几台机器。</li>
+<li>需要控制vpn服务器的用户密码，系统用户登陆vpn机器后是可以通达整个内网的。</li>
+<li>对vpn端口做外网固定IP的映射。</li>
+</ol>
+<h2 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h2><blockquote>
+<p>关闭selinux  </p>
+</blockquote>
+<ol>
+<li>安装依赖和xl2tpd服务 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y make gcc gmp-devel xmlto bison flex xmlto libpcap-devel lsof  man</span><br><span class="line">yum install openswan ppp xl2tpd</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><h3 id="配置ipsec"><a href="#配置ipsec" class="headerlink" title="配置ipsec"></a>配置ipsec</h3><ol>
+<li><p>vim &#x2F;etc.ipsec.conf </p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">config setup</span><br><span class="line">        protostack=netkey</span><br><span class="line">        dumpdir=/var/run/pluto/</span><br><span class="line">        virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12,%v4:25.0.0.0/8,%v4:100.64.0.0/10,%v6:fd00::/8,%v6:fe80::/10</span><br><span class="line"></span><br><span class="line">conn L2TP-PSK-NAT </span><br><span class="line">   rightsubnet=vhost:%priv </span><br><span class="line">   also=L2TP-PSK-noNAT</span><br><span class="line"> </span><br><span class="line">conn L2TP-PSK-noNAT </span><br><span class="line">   authby=secret </span><br><span class="line">   pfs=no </span><br><span class="line">   auto=add </span><br><span class="line">   keyingtries=3 </span><br><span class="line">   rekey=no </span><br><span class="line">   ikelifetime=8h </span><br><span class="line">   keylife=1h </span><br><span class="line">   type=transport </span><br><span class="line">   left=0.0.0.0             # 监听地址，也可以改为外网IP或域名</span><br><span class="line">   leftprotoport=17/1701    # 监听的端口1701</span><br><span class="line">   right=%any </span><br><span class="line">   rightprotoport=17/%any</span><br><span class="line">include /etc/ipsec.d/*.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>vim &#x2F;etc&#x2F;ipsec.secrets</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">include /etc/ipsec.d/*.secrets</span><br><span class="line">0.0.0.0 %any: PSK &quot;xxx.gz&quot;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">上面<span class="string">&quot;xxx.gz&quot;</span>为预共享密钥，客户端连接时候需要填写</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改内核参数</p>
+<ul>
+<li>vim &#x2F;etc&#x2F;sysctl.conf <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.ip_forward = 1 </span><br><span class="line">net.ipv4.conf.default.rp_filter = 0 </span><br><span class="line">net.ipv4.conf.all.send_redirects = 0 </span><br><span class="line">net.ipv4.conf.default.send_redirects = 0 </span><br><span class="line">net.ipv4.conf.all.log_martians = 0 </span><br><span class="line">net.ipv4.conf.default.log_martians = 0 </span><br><span class="line">net.ipv4.conf.default.accept_source_route = 0 </span><br><span class="line">net.ipv4.conf.all.accept_redirects = 0 </span><br><span class="line">net.ipv4.conf.default.accept_redirects = 0 </span><br><span class="line">net.ipv4.icmp_ignore_bogus_error_responses = 1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 修改完执行<code>sysctl -p</code>生效</li>
+</ul>
+</li>
+<li><p>验证ipsec状态</p>
+<ul>
+<li>ipsec setup restart</li>
+<li>ipsec verify         #可能有部分出错信息 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">  .....</span><br><span class="line">Hardware random device [N/A]</span><br><span class="line">Two or more interfaces found, checking IP forwarding [OK]</span><br><span class="line">Checking rp_filter [ENABLED]</span><br><span class="line">/proc/sys/net/ipv4/conf/enp2s0/rp_filter [ENABLED]            # 出现这种网卡设备</span><br><span class="line">/proc/sys/net/ipv4/conf/enp3s7/rp_filter [ENABLED]            # 错误的不用管</span><br><span class="line">rp_filter is not fully aware of IPsec and should be disabled  # 继续后面步骤</span><br><span class="line">Checking that pluto is running [OK]</span><br><span class="line">Pluto listening for IKE on udp 500 [OK]</span><br><span class="line">Pluto listening for IKE/NAT-T on udp 4500 [OK]</span><br><span class="line">Pluto ipsec.secret syntax [OK]</span><br><span class="line">Checking ‘ip’ command [OK]</span><br><span class="line">Checking ‘iptables’ command [OK]</span><br><span class="line">Checking ‘prelink’ command does not interfere with FIPSChecking for obsolete ipsec.conf options [OK]</span><br><span class="line">Opportunistic Encryption [DISABLED]</span><br><span class="line"></span><br><span class="line">ipsec verify: encountered 5 errors – see ‘man ipsec_verify’ for help  </span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>启动ipsec服务，加入开机启动项</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service ipsec restart</span><br><span class="line">chkconfig ipsec on</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="配置xl2tpd和ppp认证"><a href="#配置xl2tpd和ppp认证" class="headerlink" title="配置xl2tpd和ppp认证"></a>配置xl2tpd和ppp认证</h3><ol>
+<li><p>vim &#x2F;etc&#x2F;xl2tpd&#x2F;xl2tpd.conf </p>
+ <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[global]</span></span><br><span class="line">ipsec <span class="attr">saref</span> = <span class="literal">yes</span></span><br><span class="line"></span><br><span class="line"><span class="section">[lns default]</span></span><br><span class="line"><span class="comment">; vpn客户端地址段</span></span><br><span class="line">ip <span class="attr">range</span> = <span class="number">10.1</span>.<span class="number">2.10</span>-<span class="number">10.1</span>.<span class="number">2.254</span></span><br><span class="line"><span class="comment">; vpn服务器地址</span></span><br><span class="line">local <span class="attr">ip</span> = <span class="number">10.1</span>.<span class="number">2.1</span></span><br><span class="line">require <span class="attr">chap</span> = <span class="literal">yes</span></span><br><span class="line">refuse <span class="attr">pap</span> = <span class="literal">yes</span></span><br><span class="line">require <span class="attr">authentication</span> = <span class="literal">yes</span></span><br><span class="line"><span class="attr">name</span> = LinuxVPNserver</span><br><span class="line">ppp <span class="attr">debug</span> = <span class="literal">yes</span></span><br><span class="line"><span class="attr">pppoptfile</span> = /etc/ppp/options.xl2tpd</span><br><span class="line">length <span class="attr">bit</span> = <span class="literal">yes</span></span><br></pre></td></tr></table></figure></li>
+<li><p>cat &#x2F;etc&#x2F;ppp&#x2F;options.xl2tpd</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">require-mschap-v2</span><br><span class="line">#ms-dns 8.8.8.8</span><br><span class="line">#ms-dns 8.8.4.4</span><br><span class="line">asyncmap 0</span><br><span class="line">auth</span><br><span class="line">crtscts</span><br><span class="line">lock</span><br><span class="line">hide-password</span><br><span class="line">modem</span><br><span class="line">debug</span><br><span class="line">name l2tpd</span><br><span class="line">proxyarp</span><br><span class="line">lcp-echo-interval 30</span><br><span class="line">lcp-echo-failure 4</span><br><span class="line"># 指定日志文件</span><br><span class="line">logfile /var/log/xl2tpd.log</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置登陆用户的认证<br>vim &#x2F;etc&#x2F;ppp&#x2F;chap-secrets</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Secrets for authentication using CHAP</span><br><span class="line"># client    server  secret          IP addresses</span><br><span class="line">an00    *    passwd    *</span><br><span class="line"></span><br><span class="line">#用户名  服务器   密码  ip地址</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启xl2tpd服务，添加到开机启动项</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service xl2tpd restart</span><br><span class="line">chkconfig xl2tpd on</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="配置SNAT，允许vpn客户端访问服务器内网部分机器"><a href="#配置SNAT，允许vpn客户端访问服务器内网部分机器" class="headerlink" title="配置SNAT，允许vpn客户端访问服务器内网部分机器"></a>配置SNAT，允许vpn客户端访问服务器内网部分机器</h3><blockquote>
+<p>原来是没开启iptables的，所以没有其他规则</p>
+</blockquote>
+<ol>
+<li><p>在NAT链添加如下规则，只对vpn客户端到内网部分地址做NAT转发<br>vim &#x2F;etc&#x2F;sysconfig&#x2F;iptables</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">*nat</span><br><span class="line">:PREROUTING ACCEPT [0:0]</span><br><span class="line">:POSTROUTING ACCEPT [0:0]</span><br><span class="line">:OUTPUT ACCEPT [0:0]</span><br><span class="line">-A POSTROUTING -s 10.1.2.0/24 -d 172.16.88.125 -o eth0 -j MASQUERADE</span><br><span class="line">-A POSTROUTING -s 10.1.2.0/24 -d 172.16.88.126 -o eth0 -j MASQUERADE</span><br><span class="line">-A POSTROUTING -s 10.1.2.0/24 -d 172.16.88.185 -o eth0 -j MASQUERADE</span><br><span class="line">COMMIT</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动iptables，加入到开机启动项</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service iptables restart</span><br><span class="line">chkconfig iptables on</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="客户端连接配置"><a href="#客户端连接配置" class="headerlink" title="客户端连接配置"></a>客户端连接配置</h2><ol>
+<li><p>点击右下角网络连接图标<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://i.imgur.com/QVR6nnt.jpg"
+                      alt="第一步"
+                ></p>
+</li>
+<li><p>在出现的设置中左侧点击”VPN”，然后右侧点击”添加VPN连接”<br>预共享密钥是上文描述的ipsec.secrets中配置项<br>保存，后续即可连接。<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://i.imgur.com/ZL5ud7w.jpg"
+                      alt="拨号"
+                >  </p>
+</li>
+<li><p>需要修改注册表按<code>win+r</code>键输入<code>regedit</code>  </p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">路径：[HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services/RasMan/Parameters] </span><br><span class="line">修改：ProhibitIPSec的值修改为1</span><br><span class="line">如果没有ProhibitIPSec项，需要点击右键新建一个dword，重命名为ProhibitIPSec，值设置为1</span><br><span class="line"></span><br><span class="line">重启你的本地电脑，一定记得重启。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>建议做完下面步骤再拨号。</p>
+</li>
+</ol>
+<h3 id="解决拨号后外网不能上的问题"><a href="#解决拨号后外网不能上的问题" class="headerlink" title="解决拨号后外网不能上的问题"></a>解决拨号后外网不能上的问题</h3><ol>
+<li><p>按上面第一步打开”<strong>网络设置</strong>“<br>左侧选择”<strong>以太网</strong>“，在右侧”<strong>相关设置中</strong>“点击”<strong>更改适配器选项</strong>“<br>新窗口中找到vpn适配器右击 –&gt; 属性<br>点击”<strong>网络</strong>“选项卡   –&gt;双击<strong>internet协议版本(TCP&#x2F;IPv4)</strong><br>点击<strong>高级</strong> –&gt; <strong>IP设置</strong>选项卡 –&gt; 取消勾选”<strong>在远程网络上使用默认网关</strong>“和它的子项<br>然后一路确定。</p>
+</li>
+<li><p>在桌面编辑一个”xxx.bat”结尾的文件，添加如下内容</p>
+ <figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route add <span class="number">172</span>.<span class="number">16</span>.<span class="number">88</span>.<span class="number">0</span> mask <span class="number">255</span>.<span class="number">255</span>.<span class="number">255</span>.<span class="number">0</span> <span class="number">10</span>.<span class="number">1</span>.<span class="number">2</span>.<span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>每次拨号后以管理员身份执行上面的命令会添加一个路由，外网还是走本地网络。</p>
+</li>
+</ol>
+
+                </div>
+
+                
+                        
+<div class="article-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="post-title border-box text-ellipsis">
+                CentOS L2TP/IPSec vpn
+            </div>
+
+            <div class="post-link border-box text-ellipsis">
+                2017/12/08/CentOS-L2TP-IPSec-vpn/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="post-author bottom-item">
+                <div class="type">
+                    Author
+                </div>
+                <div class="content">chenzuoqing</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    Published
+                </div>
+                <div class="content">2017-12-08 10:15</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    License
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed">
+                        <i class="fa-brands fa-creative-commons"></i>
+                        <i class="fa-brands fa-creative-commons-by"></i>
+                        <i class="fa-brands fa-creative-commons-nc"></i>
+                        <i class="fa-brands fa-creative-commons-sa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="Copy copyright info" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/vpn/">vpn</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="Share to WeChat"
+            data-tooltip-img-tip="Scan by WeChat"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to WeiBo"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="article-nav">
+                        
+                            <div class="article-prev">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2018/02/27/mysql-utilities-%E5%A4%8D%E5%88%B6%E5%B7%A5%E5%85%B7/"
+                                   title="mysql-utilities 复制工具"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                      <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                            <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">mysql-utilities 复制工具</span>
+                                        <span class="post-nav-item">Prev posts</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="article-next">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2017/12/01/%E4%BF%AE%E6%94%B9Linux-TTY-console%E5%AD%97%E4%BD%93/"
+                                   title="修改 Linux TTY console 字体"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">修改 Linux TTY console 字体</span>
+                                        <span class="post-nav-item">Next posts</span>
+                                    </span>
+                                            <span class="right arrow-icon flex-center">
+                                      <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CentOS-L2TP-IPSec-vpn"><span class="nav-text">CentOS L2TP&#x2F;IPSec vpn</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-text">安装软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">修改配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEipsec"><span class="nav-text">配置ipsec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AExl2tpd%E5%92%8Cppp%E8%AE%A4%E8%AF%81"><span class="nav-text">配置xl2tpd和ppp认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AESNAT%EF%BC%8C%E5%85%81%E8%AE%B8vpn%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BF%E9%97%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%86%85%E7%BD%91%E9%83%A8%E5%88%86%E6%9C%BA%E5%99%A8"><span class="nav-text">配置SNAT，允许vpn客户端访问服务器内网部分机器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E9%85%8D%E7%BD%AE"><span class="nav-text">客户端连接配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%8B%A8%E5%8F%B7%E5%90%8E%E5%A4%96%E7%BD%91%E4%B8%8D%E8%83%BD%E4%B8%8A%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">解决拨号后外网不能上的问题</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2017</span>&nbsp;-&nbsp;2023
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">chenzuoqing</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                Powered by&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;&&nbsp;Theme&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+                <div class="icp-info info-item default">
+                    <a class=""
+                       target="_blank"
+                       href="https://beian.miit.gov.cn"
+                    >
+                        赣ICP备16002857号-1
+                    </a>
+                </div>
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">Unique Visitor</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">Page View</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CentOS-L2TP-IPSec-vpn"><span class="nav-text">CentOS L2TP&#x2F;IPSec vpn</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-text">安装软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">修改配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEipsec"><span class="nav-text">配置ipsec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AExl2tpd%E5%92%8Cppp%E8%AE%A4%E8%AF%81"><span class="nav-text">配置xl2tpd和ppp认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AESNAT%EF%BC%8C%E5%85%81%E8%AE%B8vpn%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BF%E9%97%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%86%85%E7%BD%91%E9%83%A8%E5%88%86%E6%9C%BA%E5%99%A8"><span class="nav-text">配置SNAT，允许vpn客户端访问服务器内网部分机器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E9%85%8D%E7%BD%AE"><span class="nav-text">客户端连接配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%8B%A8%E5%8F%B7%E5%90%8E%E5%A4%96%E7%BD%91%E4%B8%8D%E8%83%BD%E4%B8%8A%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">解决拨号后外网不能上的问题</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local-search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- code-block -->
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="">
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+    
+
+</body>
+</html>

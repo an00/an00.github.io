@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="chenzuoqing">
+    
+    <title>
+        
+            MongoDB 上手简记 |
+        
+        PIAOMIAO神经
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/img/IMG_0001.JPG">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/custom.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.an00.cn","root":"/","language":"en","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"style":{"primary_color":"#0066cc","logo":"/img/IMG_0001.JPG","favicon":"/img/IMG_0001.JPG","avatar":"/img/IMG_0001.JPG","first_screen":{"enable":true,"header_transparent":false,"background_img":"/images/bg.svg","description":"道阻且长，行则将至。","hitokoto":false},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":false},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"pjax":{},"lazyload":{"enable":true},"comment":{},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null}},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"version":"3.8.6"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="An00" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/img/IMG_0001.JPG">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               PIAOMIAO神经
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+
+                
+
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+
+        <div class="article-content-container border-box">
+
+            
+
+            <div class="article-content-bottom border-box">
+                
+                    <div class="article-title">
+                        MongoDB 上手简记
+                    </div>
+                
+
+                
+                    <div class="article-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/img/IMG_0001.JPG">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author">
+                                <span class="name">chenzuoqing</span>
+                                
+                                    <span class="author-label">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="article-meta-info-container border-box post">
+    <div class="article-meta-info border-box">
+        
+
+
+        
+            <span class="meta-info-item article-create-date">
+                <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
+                <span class="pc">2018-10-11 14:11:20</span>
+                <span class="mobile">2018-10-11 14:11</span>
+            </span>
+
+            <span class="meta-info-item article-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="pc" data-updated="Sun Oct 29 2023 15:04:34 GMT+0800">2023-10-29 15:04:34</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item article-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="article-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/MongoDB/">MongoDB</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="article-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul class="article-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/MongoDB/">MongoDB</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+            <span class="meta-info-item article-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="article-content keep-markdown-body">
+                    
+
+                    <h2 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h2><blockquote>
+<p>官网获取当前稳定版本 <code>4.0.3</code> </p>
+</blockquote>
+<p>配置文件示例</p>
+<span id="more"></span>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">systemLog:</span> <span class="comment"># 日志文件路径</span></span><br><span class="line">  <span class="attr">destination:</span> <span class="string">file</span></span><br><span class="line">  <span class="attr">logAppend:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">/usr/local/mongodb/logs/mongodb.log</span></span><br><span class="line"></span><br><span class="line"><span class="attr">storage:</span></span><br><span class="line">  <span class="comment"># 数据文件路径</span></span><br><span class="line">  <span class="attr">dbPath:</span> <span class="string">/usr/local/mongodb/data/</span></span><br><span class="line">  <span class="attr">journal:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">processManagement:</span></span><br><span class="line">  <span class="comment"># 执行mongod启动后在后台创建守护进程运行mongo</span></span><br><span class="line">  <span class="attr">fork:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># pid文件路径</span></span><br><span class="line">  <span class="attr">pidFilePath:</span> <span class="string">/usr/local/mongodb/logs/mongod.pid</span></span><br><span class="line"></span><br><span class="line"><span class="attr">net:</span></span><br><span class="line">  <span class="comment"># 监听地址</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">27017</span></span><br><span class="line">  <span class="attr">bindIp:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line"><span class="comment">#security:  # 创建管理用户后开启</span></span><br><span class="line"><span class="comment">#  authorization: enabled  # 登陆认证</span></span><br><span class="line"><span class="comment">#  # 多用于replication时节点间的认证`openssl rand -base64 756`生成</span></span><br><span class="line"><span class="comment">#  keyFile: /usr/local/mongodb/etc/security.key</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#replication:  # 开启复制集功能</span></span><br><span class="line"><span class="comment">#    replSetName: rs0  # 设置复制名称</span></span><br></pre></td></tr></table></figure>
+
+<p>启动mongo服务，这里第一次启动没加认证，创建用户后加上 <code>--auth</code> 启动用户认证</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash"><span class="built_in">cd</span> /usr/local/mongodb</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">./bin/mongod -f mongod.yml</span> </span><br><span class="line">about to fork child process, waiting until server is ready for connections.</span><br><span class="line">forked process: 16090 # fork子进程为mongo的守护进程</span><br><span class="line"></span><br><span class="line">child process started successfully, parent exiting</span><br></pre></td></tr></table></figure>
+
+<p>停止 mongo</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash"><span class="built_in">cd</span> /usr/local/mongodb</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">./bin/mongod -f mongod.yml --shutdown</span></span><br></pre></td></tr></table></figure>
+
+<p>mongo 的日志轮转，旧的日志会重命名成日志名加时间的文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">系统命令方式</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash"><span class="built_in">kill</span> –SIGUSR1 [PID]</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">mongo shell命令方式</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.runCommand(&#123;logRotate:1&#125;)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Mongo的使用"><a href="#Mongo的使用" class="headerlink" title="Mongo的使用"></a>Mongo的使用</h2><h3 id="连接mongo"><a href="#连接mongo" class="headerlink" title="连接mongo"></a>连接mongo</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">连接单节点</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">mongo 127.0.0.1:28001/admin -u admin -p 111111 --authenticationDatabase admin</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">连接副本集，需要用mogno url字符串的方式，可以带上用户名密码，不带将提示输入密码</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">mongo mongodb://user:password@10.10.10.15:27001,10.10.10.16:27002,10.10.10.17:27000/mydbname?replicaSet=replicaSet1</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="CUDR操作"><a href="#CUDR操作" class="headerlink" title="CUDR操作"></a>CUDR操作</h3><p>创建 db 和 collection 并插入数据。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入mongo终端</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">mongo</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">show dbs</span></span><br><span class="line">admin   0.000GB</span><br><span class="line">config  0.000GB</span><br><span class="line">local   0.000GB</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">新建一个db，直接use即可</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">use ac</span></span><br><span class="line">switched to db ac</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">use之后若没存储数据，是不会保存的</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">show dbs</span></span><br><span class="line">admin   0.000GB</span><br><span class="line">config  0.000GB</span><br><span class="line">local   0.000GB</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在当前db创建一个me的collection（类似于关系型数据库的表的意思）</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.me.insert(&#123;name: <span class="string">&#x27;abc&#x27;</span>&#125;)</span></span><br><span class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.me.insert(&#123;name: <span class="string">&#x27;EFG&#x27;</span>&#125;)</span></span><br><span class="line">WriteResult(&#123; &quot;nInserted&quot; : 1 &#125;)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">保存后有db已经可以show出来</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">show dbs</span></span><br><span class="line">ac      0.000GB</span><br><span class="line">admin   0.000GB</span><br><span class="line">config  0.000GB</span><br><span class="line">local   0.000GB</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看当前db的collection</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">show collections</span></span><br><span class="line">me</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">多条插入</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.me.insertMany([&#123;name: <span class="string">&#x27;hij&#x27;</span>&#125;,&#123;name: <span class="string">&#x27;lmn&#x27;</span>&#125;])</span></span><br><span class="line">&#123;</span><br><span class="line">        &quot;acknowledged&quot; : true,</span><br><span class="line">        &quot;insertedIds&quot; : [</span><br><span class="line">                ObjectId(&quot;5bbd5c530c08adaa73c5d5ef&quot;),</span><br><span class="line">                ObjectId(&quot;5bbd5c530c08adaa73c5d5f0&quot;)</span><br><span class="line">        ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看collection me中的数据，若只取一条可db.me.find().<span class="built_in">limit</span>(1)</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.me.find()</span></span><br><span class="line">db.me.find()</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5bbd55750c08adaa73c5d5ed&quot;), &quot;name&quot; : &quot;abc&quot; &#125;</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5bbd5c030c08adaa73c5d5ee&quot;), &quot;name&quot; : &quot;EFG&quot; &#125;</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5bbd5c530c08adaa73c5d5ef&quot;), &quot;name&quot; : &quot;hij&quot; &#125;</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5bbd5c530c08adaa73c5d5f0&quot;), &quot;name&quot; : &quot;lmn&quot; &#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">过滤name=<span class="string">&#x27;abc&#x27;</span>的数据</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.me.find(&#123;name: <span class="string">&#x27;abc&#x27;</span>&#125;)</span></span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5bbd55750c08adaa73c5d5ed&quot;), &quot;name&quot; : &quot;abc&quot; &#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新数据，第一个参数是filter条件，第二个为更新动作的内容，也有Many操作。</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.me.update(&#123;name:<span class="string">&#x27;abc&#x27;</span>&#125;, &#123;<span class="variable">$set</span>: &#123; age: 20&#125;&#125;)</span></span><br><span class="line">WriteResult(&#123; &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 &#125;)</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.me.find(&#123;name:<span class="string">&#x27;abc&#x27;</span>&#125;)</span></span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5bbd55750c08adaa73c5d5ed&quot;), &quot;name&quot; : &quot;abc&quot;, &quot;age&quot; : 20 &#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除记录，传入过滤条件</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.me.deleteOne(&#123;age: 20&#125;)</span></span><br><span class="line">&#123; &quot;acknowledged&quot; : true, &quot;deletedCount&quot; : 1 &#125;</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.me.find()</span></span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5bbd5c030c08adaa73c5d5ee&quot;), &quot;name&quot; : &quot;EFG&quot; &#125;</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5bbd5c530c08adaa73c5d5ef&quot;), &quot;name&quot; : &quot;hij&quot; &#125;</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5bbd5c530c08adaa73c5d5f0&quot;), &quot;name&quot; : &quot;lmn&quot; &#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除collection me</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.me.drop()</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除当前库ac，因为之前已经use进了ac才可以这样删除ac</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.dropDatabase()</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h3><p>内置角色说明 <a class="link"   target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/core/security-built-in-roles/" >参考官档<i class="fas fa-external-link-alt"></i></a></p>
+<ul>
+<li><p>数据库用户角色（Database User Roles）：</p>
+<ul>
+<li>read：授予 User 只读数据的权限</li>
+<li>readWrite：授予 User 读写数据的权限</li>
+</ul>
+</li>
+<li><p>数据库管理角色（Database Administration Roles）：</p>
+<ul>
+<li>dbAdmin：在当前 DB 中执行管理操作</li>
+<li>dbOwner：在当前 DB 中执行任意操作</li>
+<li>userAdmin：在当前 DB 中管理 User</li>
+</ul>
+</li>
+<li><p>备份和还原角色（Backup and Restoration Roles）：</p>
+<ul>
+<li>backup</li>
+<li>restore</li>
+</ul>
+</li>
+<li><p>跨库角色（All-Database Roles）：</p>
+<ul>
+<li>readAnyDatabase：授予在所有数据库上读取数据的权限</li>
+<li>readWriteAnyDatabase：授予在所有数据库上读写数据的权限</li>
+<li>userAdminAnyDatabase：授予在所有数据库上管理User的权限</li>
+<li>dbAdminAnyDatabase：授予管理所有数据库的权限</li>
+</ul>
+</li>
+<li><p>集群管理角色（Cluster Administration Roles）：</p>
+<ul>
+<li>clusterAdmin：授予管理集群的最高权限</li>
+<li>clusterManager：授予管理和监控集群的权限，A user with this role can access the config and local databases, which are used in sharding and replication, respectively.</li>
+<li>clusterMonitor：授予监控集群的权限，对监控工具具有readonly的权限</li>
+<li>hostManager：管理 Server</li>
+</ul>
+</li>
+<li><p>超级用户角色</p>
+<ul>
+<li>root：提供对 readWriteAnyDatabase、dbAdminAnyDatabase、userAdminAnyDatabase、clusterAdmin、restore 和 backup 组合的操作和所有资源的访问。</li>
+</ul>
+</li>
+</ul>
+<p>操作示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建管理用户，对所有db有管理权限（按角色分配，userAdminAnyDatabase有所有库的userAdmin权限，也就是可以给其他用户授权）</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">use admin;</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.createUser(&#123;user: <span class="string">&#x27;admin&#x27;</span>, <span class="built_in">pwd</span>:<span class="string">&#x27;111111&#x27;</span>, roles: [&#123;role: <span class="string">&quot;userAdminAnyDatabase&quot;</span>, db: <span class="string">&quot;admin&quot;</span>&#125;]&#125;)</span></span><br><span class="line">Successfully added user: &#123;</span><br><span class="line">        &quot;user&quot; : &quot;admin&quot;,</span><br><span class="line">        &quot;roles&quot; : [</span><br><span class="line">                &#123;</span><br><span class="line">                        &quot;role&quot; : &quot;userAdminAnyDatabase&quot;,</span><br><span class="line">                        &quot;db&quot; : &quot;admin&quot;</span><br><span class="line">                &#125;</span><br><span class="line">        ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看用户集合</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.system.users.find().pretty()</span></span><br><span class="line">&#123;</span><br><span class="line">        &quot;_id&quot; : &quot;admin.admin&quot;,</span><br><span class="line">        &quot;user&quot; : &quot;admin&quot;,</span><br><span class="line">        &quot;db&quot; : &quot;admin&quot;,</span><br><span class="line">        &quot;credentials&quot; : &#123;</span><br><span class="line">                &quot;SCRAM-SHA-1&quot; : &#123;</span><br><span class="line">                        &quot;iterationCount&quot; : 10000,</span><br><span class="line">                        &quot;salt&quot; : &quot;nf7YX8afzXgn/tbDKW6Pig==&quot;,</span><br><span class="line">                        &quot;storedKey&quot; : &quot;2k9Lf+yv77NuKMZkVCahgPBrI4M=&quot;,</span><br><span class="line">                        &quot;serverKey&quot; : &quot;DKuwSPYry4sqDtano2o+ttVVRJE=&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;SCRAM-SHA-256&quot; : &#123;</span><br><span class="line">                        &quot;iterationCount&quot; : 15000,</span><br><span class="line">                        &quot;salt&quot; : &quot;MmKYC+wSetKmZXTYt5DH4nx9ncyDei6obz/xzA==&quot;,</span><br><span class="line">                        &quot;storedKey&quot; : &quot;GnlHlaE2mHt5HjyLjv3oMvtSEuzt7MYqD3LTmV03f7c=&quot;,</span><br><span class="line">                        &quot;serverKey&quot; : &quot;jrfiEghGv44JdRyc0LRgQaCV05WQiNdtA7fiGHVH9VQ=&quot;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;roles&quot; : [</span><br><span class="line">                &#123;</span><br><span class="line">                        &quot;role&quot; : &quot;userAdminAnyDatabase&quot;,</span><br><span class="line">                        &quot;db&quot; : &quot;admin&quot;</span><br><span class="line">                &#125;</span><br><span class="line">        ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重启mongod，配置文件开启authentication，换admin用户登录</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">./bin/mongo -u admin -p 111111 --authenticationDatabase admin</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">use ac</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.me.find()   <span class="comment"># 这里admin用户对ac库没有权限，需要创建</span></span></span><br><span class="line">Error: error: &#123;</span><br><span class="line">        &quot;ok&quot; : 0,</span><br><span class="line">        &quot;errmsg&quot; : &quot;not authorized on ac to execute command &#123; find: \&quot;me\&quot;, filter: &#123;&#125;, lsid: &#123; id: UUID(\&quot;aa798cc9-a036-4733-adbf-861e9c51a446\&quot;) &#125;, $db: \&quot;ac\&quot; &#125;&quot;,</span><br><span class="line">        &quot;code&quot; : 13,</span><br><span class="line">        &quot;codeName&quot; : &quot;Unauthorized&quot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建在ac库下创建an00用户，角色是ac的属主</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.createUser(&#123;user: <span class="string">&#x27;an00&#x27;</span>, <span class="built_in">pwd</span>:<span class="string">&#x27;111111&#x27;</span>, roles: [&#123;role: <span class="string">&#x27;dbOwner&#x27;</span>, db: <span class="string">&#x27;ac&#x27;</span>&#125;]&#125;)</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">换an00用户登录ac库，查看me集合的内容</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">./bin/mongo -u an00 -p 111111 --authenticationDatabase ac</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">show dbs</span></span><br><span class="line">ac  0.000GB</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">use ac</span></span><br><span class="line">switched to db ac</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">show collections</span></span><br><span class="line">me</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.me.find()</span></span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5bbd5c030c08adaa73c5d5ee&quot;), &quot;name&quot; : &quot;EFG&quot;, &quot;age&quot; : 20 &#125;</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5bbd5c530c08adaa73c5d5ef&quot;), &quot;name&quot; : &quot;hij&quot; &#125;</span><br><span class="line">&#123; &quot;_id&quot; : ObjectId(&quot;5bbd5c530c08adaa73c5d5f0&quot;), &quot;name&quot; : &quot;lmn&quot; &#125;</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">show <span class="built_in">users</span></span></span><br><span class="line">&#123;</span><br><span class="line">        &quot;_id&quot; : &quot;ac.an00&quot;,</span><br><span class="line">        &quot;user&quot; : &quot;an00&quot;,</span><br><span class="line">        &quot;db&quot; : &quot;ac&quot;,</span><br><span class="line">        &quot;roles&quot; : [</span><br><span class="line">                &#123;</span><br><span class="line">                        &quot;role&quot; : &quot;dbOwner&quot;,</span><br><span class="line">                        &quot;db&quot; : &quot;ac&quot;</span><br><span class="line">                &#125;</span><br><span class="line">        ],</span><br><span class="line">        &quot;mechanisms&quot; : [</span><br><span class="line">                &quot;SCRAM-SHA-1&quot;,</span><br><span class="line">                &quot;SCRAM-SHA-256&quot;</span><br><span class="line">        ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建root用户，使用内置的root角色</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">use admin</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">db.createUser(&#123;user: <span class="string">&#x27;root&#x27;</span>, <span class="built_in">pwd</span>:<span class="string">&#x27;111111&#x27;</span>, roles: [&#123;role: <span class="string">&quot;root&quot;</span>, db: <span class="string">&quot;admin&quot;</span>&#125;]&#125;)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="备份和恢复"><a href="#备份和恢复" class="headerlink" title="备份和恢复"></a>备份和恢复</h2><p>mongodump备份，-h 指定主机地址，-d 指定 database，-c 指定 collection，-o 指定备份文件保存路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/mongodump -u an00 -p &#x27;111111&#x27; --authenticationDatabase ac -h 127.0.0.1:27017 -d ac -o dump/</span><br></pre></td></tr></table></figure>
+
+<p>恢复备份，–drop 表示先删除数据，然后恢复备份，慎用。-d 指定 database，最后跟上有 bson、json 备份数据的路径<br>（有副本集时指定PRIMARY节点）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/mongorestore -u an00 -p &#x27;111111&#x27; --authenticationDatabase ac -h 127.0.0.1:27018 -d ac dump/ac/</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="副本集"><a href="#副本集" class="headerlink" title="副本集"></a>副本集</h2><blockquote>
+<p>若 mongo 提供给非本机连接，副本集的成员 IP 不应该设成 127.0.0.1，当客户端连接副本集时，使用的是副本集中配置的 IP，127.0.0.1 会导致客户端连接自己本地的端口</p>
+<p>使用文章最开始的配置文件，打开注释</p>
+</blockquote>
+<p>副本集成员配置可以用 <code>rs.config()</code> 查看，配置中的 members 是一个列表，可以包含多个成员。<br>副本集成员常用的配置选项如下，<a class="link"   target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/replica-configuration/" >参考官档<i class="fas fa-external-link-alt"></i></a> </p>
+<ul>
+<li><p><strong>_id</strong> 数值，0-255之间，副本集中每个成员的标识符，不可重复，设置后不可修改</p>
+</li>
+<li><p><strong>host</strong> 字符串，通常是 IP 或 IP 加指定端口的形式，如：”192.168.1.2:28011”</p>
+</li>
+<li><p><strong>priority</strong> 数值，选举 primary 时的优先级，值为0时该成员不会被选举成 primary 节点</p>
+</li>
+<li><p><strong>hidden</strong> 布尔值，对客户端隐藏，通常给延时节点和仲裁节点配上</p>
+</li>
+<li><p><strong>slaveDelay</strong> 数值，设置此成员落后 primary 的秒数，成员成为延时节点</p>
+</li>
+<li><p><strong>arbiterOnly</strong> 布尔值，为 true 时，节点将不存数据，只用于选举时投票用</p>
+</li>
+<li><p><strong>votes</strong> 数值，表示成员选举时的票数，通常是 0 或 1，当为 0 时不具备选举权（无选举权的成员必须priority&#x3D;0），一个副本集最多有 7 个投票选举的成员，如果超过 7 个可以将部分成员此值设为 0</p>
+</li>
+</ul>
+<p>配置示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">cfg = rs.conf()   // 获取当前配置对象，修改成员ip，重设成员列表</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">cfg.members = [&#123;<span class="string">&quot;_id&quot;</span>:2,<span class="string">&quot;host&quot;</span> : <span class="string">&quot;192.168.10.234:27017&quot;</span>&#125;, &#123;<span class="string">&quot;_id&quot;</span>: 3,<span class="string">&quot;host&quot;</span> : <span class="string">&quot;192.168.10.234:27018&quot;</span>&#125;, &#123;<span class="string">&quot;_id&quot;</span>: 4,<span class="string">&quot;host&quot;</span> : <span class="string">&quot;192.168.10.234:27019&quot;</span>&#125;]</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">rs.reconfig(cfg, &#123;force: <span class="literal">true</span>&#125;)   // 修改后重设副本集</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">或者使用 rs.add 增加成员，</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">rs.add(&#123;<span class="string">&#x27;_id&#x27;</span> : 10, <span class="string">&#x27;priority&#x27;</span>:2, <span class="string">&#x27;host&#x27;</span> : <span class="string">&#x27;192.168.10.235:27017&#x27;</span>&#125;)</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加仲裁节点</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">rs.addArb(<span class="string">&#x27;11.22.33.44:27017&#x27;</span>)</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">rs.status()  // 查看副本集状态，状态正常客户端重新连接即可正常</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">rs.config()  // 再次查看配置</span></span><br></pre></td></tr></table></figure>
+                </div>
+
+                
+                        
+<div class="article-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="post-title border-box text-ellipsis">
+                MongoDB 上手简记
+            </div>
+
+            <div class="post-link border-box text-ellipsis">
+                2018/10/11/MongoDB-上手简记/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="post-author bottom-item">
+                <div class="type">
+                    Author
+                </div>
+                <div class="content">chenzuoqing</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    Published
+                </div>
+                <div class="content">2018-10-11 14:11</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    License
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed">
+                        <i class="fa-brands fa-creative-commons"></i>
+                        <i class="fa-brands fa-creative-commons-by"></i>
+                        <i class="fa-brands fa-creative-commons-nc"></i>
+                        <i class="fa-brands fa-creative-commons-sa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="Copy copyright info" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/MongoDB/">MongoDB</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="Share to WeChat"
+            data-tooltip-img-tip="Scan by WeChat"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to WeiBo"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="article-nav">
+                        
+                            <div class="article-prev">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2019/04/08/%E7%BD%91%E5%AE%BF-CDN-%E5%88%B7%E6%96%B0/"
+                                   title="网宿 CDN 刷新"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                      <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                            <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">网宿 CDN 刷新</span>
+                                        <span class="post-nav-item">Prev posts</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="article-next">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2018/06/29/k8s%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"
+                                   title="k8s 测试环境问题记录"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">k8s 测试环境问题记录</span>
+                                        <span class="post-nav-item">Next posts</span>
+                                    </span>
+                                            <span class="right arrow-icon flex-center">
+                                      <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="nav-text">安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mongo%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">Mongo的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5mongo"><span class="nav-text">连接mongo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CUDR%E6%93%8D%E4%BD%9C"><span class="nav-text">CUDR操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="nav-text">用户管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D"><span class="nav-text">备份和恢复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%AF%E6%9C%AC%E9%9B%86"><span class="nav-text">副本集</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2017</span>&nbsp;-&nbsp;2023
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">chenzuoqing</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                Powered by&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;&&nbsp;Theme&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+                <div class="icp-info info-item default">
+                    <a class=""
+                       target="_blank"
+                       href="https://beian.miit.gov.cn"
+                    >
+                        赣ICP备16002857号-1
+                    </a>
+                </div>
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">Unique Visitor</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">Page View</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="nav-text">安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mongo%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">Mongo的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5mongo"><span class="nav-text">连接mongo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CUDR%E6%93%8D%E4%BD%9C"><span class="nav-text">CUDR操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="nav-text">用户管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D"><span class="nav-text">备份和恢复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%AF%E6%9C%AC%E9%9B%86"><span class="nav-text">副本集</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local-search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- code-block -->
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="">
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+    
+
+</body>
+</html>

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="chenzuoqing">
+    
+    <title>
+        
+            k8s 测试环境问题记录 |
+        
+        PIAOMIAO神经
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/img/IMG_0001.JPG">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/custom.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.an00.cn","root":"/","language":"en","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"style":{"primary_color":"#0066cc","logo":"/img/IMG_0001.JPG","favicon":"/img/IMG_0001.JPG","avatar":"/img/IMG_0001.JPG","first_screen":{"enable":true,"header_transparent":false,"background_img":"/images/bg.svg","description":"道阻且长，行则将至。","hitokoto":false},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":false},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"pjax":{},"lazyload":{"enable":true},"comment":{},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null}},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"version":"3.8.6"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="An00" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/img/IMG_0001.JPG">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               PIAOMIAO神经
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+
+                
+
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+
+        <div class="article-content-container border-box">
+
+            
+
+            <div class="article-content-bottom border-box">
+                
+                    <div class="article-title">
+                        k8s 测试环境问题记录
+                    </div>
+                
+
+                
+                    <div class="article-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/img/IMG_0001.JPG">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author">
+                                <span class="name">chenzuoqing</span>
+                                
+                                    <span class="author-label">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="article-meta-info-container border-box post">
+    <div class="article-meta-info border-box">
+        
+
+
+        
+            <span class="meta-info-item article-create-date">
+                <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
+                <span class="pc">2018-06-29 15:53:23</span>
+                <span class="mobile">2018-06-29 15:53</span>
+            </span>
+
+            <span class="meta-info-item article-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="pc" data-updated="Sun Oct 29 2023 15:04:10 GMT+0800">2023-10-29 15:04:10</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item article-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="article-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/kubernetes/">kubernetes</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+
+        
+        
+        
+        
+            <span class="meta-info-item article-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="article-content keep-markdown-body">
+                    
+
+                    <h1 id="k8s测试环境问题记录"><a href="#k8s测试环境问题记录" class="headerlink" title="k8s测试环境问题记录"></a>k8s测试环境问题记录</h1><blockquote>
+<p>在公司准备测试环境，记录一些过程中碰到的问题</p>
+</blockquote>
+<h2 id="dashboard认证"><a href="#dashboard认证" class="headerlink" title="dashboard认证"></a>dashboard认证</h2><blockquote>
+<p>dashboard 大概就发现一个比较明显的好处，用来执行容器命令比较方便 : )</p>
+</blockquote>
+<p>安装 dashboard 先去 github获取 <a class="link"   target="_blank" rel="noopener" href="https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml" >kubernetes-dashboard.yaml<i class="fas fa-external-link-alt"></i></a></p>
+<p>最后 Service 部分添加 NodePort 映射。</p>
+<span id="more"></span>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ...省略前面内容...</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">k8s-app:</span> <span class="string">kubernetes-dashboard</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubernetes-dashboard</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">443</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">8443</span></span><br><span class="line">      <span class="attr">nodePort:</span> <span class="number">9000</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">NodePort</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">k8s-app:</span> <span class="string">kubernetes-dashboard</span></span><br></pre></td></tr></table></figure>
+<p>打开 kube-proxy 节点的9000端口，提示认证使用 token，通过下面的命令获取。复制整个长串的 token 到页面登陆 dashboard。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">kubectl -n kube-system get secret</span> </span><br><span class="line">NAME                                TYPE                                  DATA      AGE</span><br><span class="line">an00-token-brpds                    kubernetes.io/service-account-token   3         14d</span><br><span class="line">default-token-jct5w                 kubernetes.io/service-account-token   3         22d</span><br><span class="line">elasticsearch-logging-token-zwr2b   kubernetes.io/service-account-token   3         14d</span><br><span class="line">fluentd-es-token-rxrxc              kubernetes.io/service-account-token   3         44m</span><br><span class="line">heapster-token-qk4m9                kubernetes.io/service-account-token   3         14d</span><br><span class="line">kube-dns-autoscaler-token-nmgjs     kubernetes.io/service-account-token   3         16d</span><br><span class="line">kube-dns-token-s5hkb                kubernetes.io/service-account-token   3         16d</span><br><span class="line">kubernetes-dashboard-certs          Opaque                                0         14d</span><br><span class="line">kubernetes-dashboard-key-holder     Opaque                                2         21d</span><br><span class="line">kubernetes-dashboard-token-7nt98    kubernetes.io/service-account-token   3         14d</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">找token关键字的secret，获取到最后的token字段内容粘贴到页面登陆。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">kubectl -n kube-system describe secret kubernetes-dashboard-token-7nt98</span></span><br><span class="line">Name:         kubernetes-dashboard-token-7nt98</span><br><span class="line">Namespace:    kube-system</span><br><span class="line">Labels:       &lt;none&gt;</span><br><span class="line">Annotations:  kubernetes.io/service-account.name=kubernetes-dashboard</span><br><span class="line">              kubernetes.io/service-account.uid=54c71522-6f80-11e8-bc0b-525400eac085</span><br><span class="line"></span><br><span class="line">Type:  kubernetes.io/service-account-token</span><br><span class="line"></span><br><span class="line">Data</span><br><span class="line">====</span><br><span class="line">ca.crt:     1107 bytes</span><br><span class="line">namespace:  11 bytes</span><br><span class="line">token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJrdWJlcm5ldGVzLWRhc2hib2FyZC10b2tlbi03bnQ5OCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjU0YzcxNTIyLTZmODAtMTFlOC1iYzBiLTUyNTQwMGVhYzA4NSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTprdWJlcm5ldGVzLWRhc2hib2FyZCJ9.leD2gC5FkkN1_0mt5_AwveStC6vh5H8-UL1LqwF7N07xQ2ZKSh1matYyWyv-buMflrks1-my88MKwaYNmMaNRk2-WrlybNLJKrf-QLpmGLdCB3IHBuSViuHHQwPS4g7CD5GNAsuPZF3GAszuBamBD3HJT1okrrH8J3KlstqMpYsEbwullLfgQaznfd02YjrR6izC3sneJpj0vTKSrY8LxweI2xcYVNshZHRacEgdNzwBTe48dU_9pCqyUWOSS2J2Y4EimAMyPQlwDbazgGuHn027neIosxO0ooSbEeiqaEnu9-ATpyJCCWW4ukOxt_PG8VJsNzmZuG18LIA_KImd6A</span><br></pre></td></tr></table></figure>
+<h2 id="kube-dns"><a href="#kube-dns" class="headerlink" title="kube-dns"></a>kube-dns</h2><p>为k8s中的pod增加service名字解析和自动发现，通过api监控service变动，可以将service名字解析到对应的VIP中。</p>
+<p>kube-dns包含三个镜像（谷歌gcr的仓库，若服务器环境没外网需要先准备）</p>
+<ul>
+<li>kube-dns：通过k8s api监控service和ip变动以及它们的对应关系，保存到内存中后就是dns记录了。</li>
+<li>dnsmasq-nanny：通过kube-dns容器获取dns规则，在集群中相当于dns服务器，减轻kube-dns压力，提高稳定性和查询性能</li>
+<li>sidecar：</li>
+</ul>
+<p>使用官方的YAML文件创建，在源码的”kubernetes&#x2F;cluster&#x2F;addons&#x2F;“目录下，关于kube-dns主要有两个文件：</p>
+<p>dns服务定义文件，包含Service、ServiceAccount、Deployment等。需要将文件中的 <code>__PILLAR__DNS__SERVER__</code> 修改成一个clusterip，将 <code>__PILLAR__DNS__DOMAIN__</code> 修改成 <code>cluster.local</code>（注意保留后面的点）。</p>
+<ul>
+<li>dns&#x2F;kube-dns.yaml.base</li>
+</ul>
+<p>dns在编排的服务通信和发现中有很大的作用，所以它不能有闪失。官方提供了一个为kube-dns自动scale的配置，文件可以直接创建</p>
+<ul>
+<li>dns-horizontal-autoscaler&#x2F;dns-horizontal-autoscaler.yaml</li>
+</ul>
+<p>在创建了kube-dns服务后，需要修改pod默认的dns服务器配置。pod被kubelet创建，找到kubelet的配置文件，添加dns配置内容，注意 <code>kubelet.service</code> 启动文件也添加新增的配置选项名，刷新配置后重启 <code>kubelet</code> 。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/kubernetes/kubelet.conf </span></span><br><span class="line"><span class="attr">KUBE_LOGTOSTDERR</span>=<span class="string">&quot;--logtostderr=true&quot;</span></span><br><span class="line"><span class="attr">KUBE_LOG_LEVEL</span>=<span class="string">&quot;--v=2&quot;</span></span><br><span class="line"><span class="attr">NODE_ADDRESS</span>=<span class="string">&quot;--address=0.0.0.0&quot;</span></span><br><span class="line"><span class="attr">NODE_HOSTNAME</span>=<span class="string">&quot;--hostname-override=debian-70&quot;</span></span><br><span class="line"><span class="attr">KUBE_ALLOW_PRIV</span>=<span class="string">&quot;--allow-privileged=false&quot;</span></span><br><span class="line"><span class="attr">KUBE_POD_INFRA_CONTAINER_IMAGE</span>=<span class="string">&quot;--pod-infra-container-image=k8s.gcr.io/pause-amd64:3.1&quot;</span></span><br><span class="line"><span class="attr">KUBE_RUNTIME_CGROUPS</span>=<span class="string">&quot;--runtime-cgroups=/systemd/system.slice&quot;</span></span><br><span class="line"><span class="attr">KUBE_CGROUPS</span>=<span class="string">&quot;--kubelet-cgroups=/systemd/system.slice&quot;</span></span><br><span class="line"><span class="attr">KUBE_FAIL_SWAP_ON</span>=<span class="string">&quot;--fail-swap-on=false&quot;</span></span><br><span class="line"><span class="attr">KUBE_CONFIG</span>=<span class="string">&quot;--kubeconfig=/etc/kubernetes/kubeconfig.yml&quot;</span></span><br><span class="line"><span class="attr">KUBELET_DNS_IP</span>=<span class="string">&quot;--cluster-dns=10.66.77.2&quot;</span>  <span class="comment"># 修改成__PILLAR__DNS__SERVER__替换的clusterip</span></span><br><span class="line"><span class="attr">KUBELET_DNS_DOMAIN</span>=<span class="string">&quot;--cluster-domain=cluster.local&quot;</span>  <span class="comment"># 修改成__PILLAR__DNS__DOMAIN__的内容</span></span><br></pre></td></tr></table></figure>
+
+<p>可以创建简单的busybox应用，查看它的 <code>/etc/resolv.conf</code> 文件，默认有 <code>kubernetes.default</code> 指向apiserver。<strong>解析得到的是service的clusterIP，不能被ping通</strong>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">kubectl <span class="built_in">exec</span> -it busybox sh</span></span><br><span class="line">/ # nslookup kubernetes.default</span><br><span class="line">Server:    10.66.77.2</span><br><span class="line">Address 1: 10.66.77.2 kube-dns.kube-system.svc.cluster.local</span><br><span class="line"></span><br><span class="line">Name:      kubernetes.default</span><br><span class="line">Address 1: 10.66.77.1 kubernetes.default.svc.cluster.local</span><br><span class="line">/ # </span><br><span class="line">/ # </span><br><span class="line">/ # nslookup nginx-service</span><br><span class="line">Server:    10.66.77.2</span><br><span class="line">Address 1: 10.66.77.2 kube-dns.kube-system.svc.cluster.local</span><br><span class="line"></span><br><span class="line">Name:      nginx-service</span><br><span class="line">Address 1: 10.66.77.225 nginx-service.default.svc.cluster.local</span><br><span class="line">/ # exit</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">当前的service，和上面解析的ip是一致的</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">kubectl get svc</span>            </span><br><span class="line">NAME                TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)       AGE</span><br><span class="line">kubernetes          ClusterIP   10.66.77.1     &lt;none&gt;        443/TCP       6d</span><br><span class="line">nginx-service       ClusterIP   10.66.77.225   &lt;none&gt;        80/TCP        5h</span><br></pre></td></tr></table></figure>
+<h2 id="elasticsearch-fluentd-kibana"><a href="#elasticsearch-fluentd-kibana" class="headerlink" title="elasticsearch fluentd kibana"></a>elasticsearch fluentd kibana</h2><p>官方提供了日志监控方案，资源定义文件在源码的 <a class="link"   target="_blank" rel="noopener" href="https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/fluentd-elasticsearch" >kubernetes&#x2F;cluster&#x2F;addons&#x2F;fluentd-elasticsearch<i class="fas fa-external-link-alt"></i></a> 目录，获取YAML文件可以创建和运行EFK。</p>
+<p>依赖镜像：( elasticsearch 和 kibana 非常大…)</p>
+<ul>
+<li>k8s.gcr.io&#x2F;elasticsearch:v5.6.4</li>
+<li>alpine:3.6</li>
+<li>k8s.gcr.io&#x2F;fluentd-elasticsearch:v2.0.4</li>
+<li>docker.elastic.co&#x2F;kibana&#x2F;kibana:5.6.4</li>
+</ul>
+<p>elasticsearch 是一个搜索引擎和日志存储的数据库<br>flunetd 会将节点中保存的其他 pod 输出的日志流收集到 elasticsearch 中<br>kibana 展示日志，提供人性化搜索界面和图表等功能，需要访问可以改 <code>kibana-service.yaml</code> 映射 <code>NodePort</code> 。</p>
+<p>从源码中获取定义资源的 YAML 文件，创建前注释一下 <code>kibana-deployment.yaml</code> 中 env 的 <code>SERVER_BASEPATH</code> 变量和 <code>value</code> 保存，开始创建。<br>kibana 启动有点久，如果 pod 日志没异常的情况，需要耐心等几分钟。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">ls</span> -l</span></span><br><span class="line">total 36</span><br><span class="line">-rw-r--r-- 1 root root   382 Jun 13 11:34 es-service.yaml</span><br><span class="line">-rw-r--r-- 1 root root  2820 Jun 13 11:34 es-statefulset.yaml</span><br><span class="line">-rw-r--r-- 1 root root 15648 Jun 13 11:34 fluentd-es-configmap.yaml</span><br><span class="line">-rw-r--r-- 1 root root  2774 Jun 13 11:34 fluentd-es-ds.yaml</span><br><span class="line">-rw-r--r-- 1 root root  1186 Jun 13 11:34 kibana-deployment.yaml</span><br><span class="line">-rw-r--r-- 1 root root   354 Jun 13 11:34 kibana-service.yaml</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">kubectl create -f .</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看部分资源情况</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">kubectl get statefulset,pod,daemonset -n kube-system</span>  </span><br><span class="line">NAME                                     DESIRED   CURRENT   AGE</span><br><span class="line">statefulset.apps/elasticsearch-logging   2         2         11m</span><br><span class="line"></span><br><span class="line">NAME                                        READY     STATUS              RESTARTS   AGE</span><br><span class="line">pod/elasticsearch-logging-0                 1/1       Running             0          6m</span><br><span class="line">pod/elasticsearch-logging-1                 1/1       Unknown             0          6m</span><br><span class="line">pod/kibana-logging-bc776986-7vtf7           1/1       Unknown             0          11m</span><br><span class="line">pod/kibana-logging-bc776986-cm69s           0/1       ContainerCreating   0          34s</span><br><span class="line">pod/kube-dns-659bc9899c-ghj2n               0/3       ContainerCreating   0          20s</span><br><span class="line">pod/kube-dns-659bc9899c-lm4pd               3/3       Running             0          1d</span><br><span class="line">pod/kube-dns-659bc9899c-r655f               3/3       Unknown             0          1d</span><br><span class="line">pod/kube-dns-autoscaler-79b4b844b9-6v856    1/1       Running             0          1d</span><br><span class="line">pod/kubernetes-dashboard-5c469b58b8-pf7cg   0/1       ContainerCreating   0          16s</span><br><span class="line">pod/kubernetes-dashboard-5c469b58b8-pkttx   1/1       Unknown             2          5d</span><br><span class="line"></span><br><span class="line">NAME                                     DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR                              AGE</span><br><span class="line">daemonset.extensions/fluentd-es-v2.0.4   0         0         0         0            0           beta.kubernetes.io/fluentd-ds-ready=true   11m</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-elasticsearch-statefulset启动和删除可能的错误"><a href="#1-elasticsearch-statefulset启动和删除可能的错误" class="headerlink" title="1. elasticsearch statefulset启动和删除可能的错误"></a>1. elasticsearch statefulset启动和删除可能的错误</h3><p>若是启动 <code>elasticsearch-logging</code> 碰到如下错误，请为 <code>apiserver</code> 和所有 <code>kubelet</code> 添加启动参数 <code>--allow-privileged</code> （默认为 <code>flase</code> ），重载配置文件后重新启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># kubectl describe statefulset -n kube-system </span><br><span class="line">  ...</span><br><span class="line">  Type     Reason            Age               From                    Message</span><br><span class="line">  ----     ------            ----              ----                    -------</span><br><span class="line">  Warning  FailedCreate      1m (x24 over 6m)  statefulset-controller  create Pod elasticsearch-logging-0 in StatefulSet elasticsearch-logging failed error: Pod &quot;elasticsearch-logging-0&quot; is invalid: spec.initContainers[0].securityContext.privileged: Forbidden: disallowed by cluster policy</span><br><span class="line">  </span><br><span class="line"># 重启后启动成功</span><br><span class="line"># kubectl describe statefulset -n kube-system </span><br><span class="line">    Type     Reason            Age               From                    Message</span><br><span class="line">  ----     ------            ----              ----                    -------</span><br><span class="line">  Warning  FailedCreate      1m (x24 over 6m)  statefulset-controller  create Pod elasticsearch-logging-0 in StatefulSet elasticsearch-logging failed error: Pod &quot;elasticsearch-logging-0&quot; is invalid: spec.initContainers[0].securityContext.privileged: Forbidden: disallowed by cluster policy</span><br><span class="line">  Normal   SuccessfulCreate  49s               statefulset-controller  create Pod elasticsearch-logging-0 in StatefulSet elasticsearch-logging successful</span><br><span class="line">  Normal   SuccessfulCreate  42s               statefulset-controller  create Pod elasticsearch-logging-1 in StatefulSet elasticsearch-logging successful</span><br></pre></td></tr></table></figure>
+
+<p>另外在删除资源时我面临一个问题，其他的资源都删除了，但是 <code>elasticsearch-logging</code> 总是不能删除成功，即使是强制 <code>--force</code> ，提示我超时了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># kubectl delete -f .</span><br><span class="line"></span><br><span class="line"># 还存在elasticsearch-logging这个statefulset</span><br><span class="line"># kubectl get -f .</span><br><span class="line">NAME                    DESIRED   CURRENT   AGE</span><br><span class="line">elasticsearch-logging   0         2         2h</span><br><span class="line">Error from server (NotFound): services &quot;elasticsearch-logging&quot; not found</span><br><span class="line">Error from server (NotFound): serviceaccounts &quot;elasticsearch-logging&quot; not found</span><br><span class="line">Error from server (NotFound): clusterroles.rbac.authorization.k8s.io &quot;elasticsearch-logging&quot; not found</span><br><span class="line">Error from server (NotFound): clusterrolebindings.rbac.authorization.k8s.io &quot;elasticsearch-logging&quot; not found</span><br><span class="line">Error from server (NotFound): configmaps &quot;fluentd-es-config-v0.1.4&quot; not found</span><br><span class="line">Error from server (NotFound): serviceaccounts &quot;fluentd-es&quot; not found</span><br><span class="line">Error from server (NotFound): clusterroles.rbac.authorization.k8s.io &quot;fluentd-es&quot; not found</span><br><span class="line">Error from server (NotFound): clusterrolebindings.rbac.authorization.k8s.io &quot;fluentd-es&quot; not found</span><br><span class="line">Error from server (NotFound): daemonsets.apps &quot;fluentd-es-v2.0.4&quot; not found</span><br><span class="line">Error from server (NotFound): deployments.apps &quot;kibana-logging&quot; not found</span><br><span class="line">Error from server (NotFound): services &quot;kibana-logging&quot; not found</span><br><span class="line"></span><br><span class="line"># kubectl delete statefulset elasticsearch-logging -n kube-system --force</span><br><span class="line">timed out waiting for &quot;elasticsearch-logging&quot; to be synced</span><br></pre></td></tr></table></figure>
+
+<p>后面在google找到一个方法，删除失败的资源，指定 <code>--cascade=false</code> ，解决了我的问题。若删除后还可以看到被删除资源定义的pod，可以指定 <code>--grace-period=0</code> 删除它。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># kubectl delete -f es-statefulset.yaml --cascade=false</span><br><span class="line"></span><br><span class="line"># 如果删除了定义elastic的stateful，但是get pod发现还有stateful定义的pod没删除，可以执行下面命令强制删除</span><br><span class="line"># kubectl --namespace=kube-system delete pods elasticsearch-logging-0 --grace-period=0 --force </span><br><span class="line"># kubectl --namespace=kube-system delete pods elasticsearch-logging-1 --grace-period=0 --force </span><br></pre></td></tr></table></figure>
+
+<h3 id="2-fluentd-daemonset启动问题"><a href="#2-fluentd-daemonset启动问题" class="headerlink" title="2. fluentd daemonset启动问题"></a>2. fluentd daemonset启动问题</h3><p>另外一个 fluentd 问题，get 发现 <code>daemonset fluentd-es-v2.0.4</code> 运行0个，这里需要为所有 node 添加一个label，如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># kubectl get daemonset fluentd-es-v2.0.4 -n kube-system </span><br><span class="line">NAME                DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR                              AGE</span><br><span class="line">fluentd-es-v2.0.4   0         0         0         0            0           beta.kubernetes.io/fluentd-ds-ready=true   32s</span><br><span class="line"></span><br><span class="line"># 为所有node添加一个label，有此label的node才会运行fluentd</span><br><span class="line"># kubectl label node debian-70 beta.kubernetes.io/fluentd-ds-ready=true</span><br><span class="line"># kubectl label node sl-80 beta.kubernetes.io/fluentd-ds-ready=true</span><br><span class="line"></span><br><span class="line"># 再次get，已经有在运行了</span><br><span class="line"># kubectl get daemonset fluentd-es-v2.0.4 -n kube-system </span><br><span class="line">NAME                DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR                              AGE</span><br><span class="line">fluentd-es-v2.0.4   2         2         2         2            2           beta.kubernetes.io/fluentd-ds-ready=true   4m</span><br></pre></td></tr></table></figure>
+
+<p>一次偶然，公司测试机房断电了（我猜测与这个有关系），再启动集群的时候有一台节点的 <code>fluentd</code> 无法启动，如下体现</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">pod状态一直是CrashLoopBackOff，describe查看到的信息也有限，重启也不能正常</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">kubectl get -n kube-system pods</span></span><br><span class="line">NAME                                    READY     STATUS             RESTARTS   AGE</span><br><span class="line">elasticsearch-logging-0                 1/1       Running            3          14d</span><br><span class="line">elasticsearch-logging-1                 1/1       Running            3          14d</span><br><span class="line">fluentd-es-v2.0.4-4lthw                 1/1       Running            0          16h</span><br><span class="line">fluentd-es-v2.0.4-lvmj7                 0/1       CrashLoopBackOff   4          16h</span><br><span class="line">heapster-69b5d4974d-4dzm8               1/1       Running            3          14d</span><br><span class="line">kibana-logging-799d8b46db-rn6fq         1/1       Running            3          14d</span><br><span class="line">kube-dns-659bc9899c-ghj2n               3/3       Running            9          15d</span><br><span class="line">kube-dns-659bc9899c-lm4pd               3/3       Running            12         16d</span><br><span class="line">kube-dns-autoscaler-79b4b844b9-6v856    1/1       Running            4          16d</span><br><span class="line">kubernetes-dashboard-7d5dcdb6d9-f4j6n   1/1       Running            3          14d</span><br><span class="line">monitoring-grafana-69df66f668-gg9kl     1/1       Running            3          14d</span><br><span class="line">monitoring-influxdb-78d4c6f5b6-2phht    1/1       Running            3          14d</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">另外看一下pod日志，这个帮助很大</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">kubectl logs -n kube-system fluentd-es-v2.0.4-lvmj7</span> </span><br><span class="line">2018-06-29 01:21:19 +0000 [warn]: parameter &#x27;time_format&#x27; in &lt;source&gt;</span><br><span class="line">  @id fluentd-containers.log</span><br><span class="line">  @type tail</span><br><span class="line">  path &quot;/var/log/containers/*.log&quot;</span><br><span class="line">  pos_file &quot;/var/log/es-containers.log.pos&quot;</span><br><span class="line">  time_format %Y-%m-%dT%H:%M:%S.%NZ</span><br><span class="line">  tag &quot;raw.kubernetes.*&quot;</span><br><span class="line">  read_from_head true</span><br><span class="line">  &lt;parse&gt;</span><br><span class="line">    @type &quot;multi_format&quot;</span><br><span class="line">    &lt;pattern&gt;</span><br><span class="line">      format json</span><br><span class="line">      time_key &quot;time&quot;</span><br><span class="line">      time_format &quot;%Y-%m-%dT%H:%M:%S.%NZ&quot;</span><br><span class="line">      time_type string</span><br><span class="line">    &lt;/pattern&gt;</span><br><span class="line">    &lt;pattern&gt;</span><br><span class="line">      format /^(?&lt;time&gt;.+) (?&lt;stream&gt;stdout|stderr) [^ ]* (?&lt;log&gt;.*)$/</span><br><span class="line">      time_format &quot;%Y-%m-%dT%H:%M:%S.%N%:z&quot;</span><br><span class="line">      expression &quot;^(?&lt;time&gt;.+) (?&lt;stream&gt;stdout|stderr) [^ ]* (?&lt;log&gt;.*)$&quot;</span><br><span class="line">      ignorecase false</span><br><span class="line">      multiline false</span><br><span class="line">    &lt;/pattern&gt;</span><br><span class="line">  &lt;/parse&gt;</span><br><span class="line">&lt;/source&gt; is not used.  # 下面开始error，而另外正常的pod下面是传输到elastic的info日志了</span><br><span class="line">2018-06-29 01:21:19 +0000 [error]: unexpected error error_class=TypeError error=&quot;no implicit conversion of Symbol into Integer&quot;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/plugin/buffer/file_chunk.rb:219:in `[]&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/plugin/buffer/file_chunk.rb:219:in `restore_metadata&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/plugin/buffer/file_chunk.rb:322:in `load_existing_staged_chunk&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/plugin/buffer/file_chunk.rb:51:in `initialize&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/plugin/buf_file.rb:144:in `new&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/plugin/buf_file.rb:144:in `block in resume&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/plugin/buf_file.rb:133:in `glob&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/plugin/buf_file.rb:133:in `resume&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/plugin/buffer.rb:171:in `start&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/plugin/buf_file.rb:120:in `start&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/plugin/output.rb:415:in `start&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/root_agent.rb:165:in `block in start&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/root_agent.rb:154:in `block (2 levels) in lifecycle&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/root_agent.rb:153:in `each&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/root_agent.rb:153:in `block in lifecycle&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/root_agent.rb:140:in `each&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/root_agent.rb:140:in `lifecycle&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/root_agent.rb:164:in `start&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/engine.rb:274:in `start&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/engine.rb:219:in `run&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/supervisor.rb:774:in `run_engine&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/supervisor.rb:523:in `block in run_worker&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/supervisor.rb:699:in `main_process&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/supervisor.rb:518:in `run_worker&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/lib/fluent/command/fluentd.rb:316:in `&lt;top (required)&gt;&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /usr/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:55:in `require&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /usr/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:55:in `require&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /var/lib/gems/2.3.0/gems/fluentd-1.1.0/bin/fluentd:8:in `&lt;top (required)&gt;&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /usr/local/bin/fluentd:22:in `load&#x27;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: /usr/local/bin/fluentd:22:in `&lt;main&gt;&#x27;</span><br><span class="line">2018-06-29 01:21:19 +0000 [error]: unexpected error error_class=TypeError error=&quot;no implicit conversion of Symbol into Integer&quot;</span><br><span class="line">  2018-06-29 01:21:19 +0000 [error]: suppressed same stacktrace</span><br></pre></td></tr></table></figure>
+
+<p>在 google 找到一个 GitHub 的 <a class="link"   target="_blank" rel="noopener" href="https://github.com/fluent/fluentd/issues/1760" >fluentd&#x2F;issues&#x2F;#1760<i class="fas fa-external-link-alt"></i></a>，发现和缓存的元数据损坏有关系。不同的是这里 2.0.4 版本 buffer 存放位置变了，映射在宿主机的 <code>/var/log/fluentd-buffers/kubernetes.system.buffer</code> 目录。我将 <code>*.meta</code> 删除后节点的 <code>fluentd</code> 启动正常（可以删除 pod 会自动创建，或者等它重启）。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">cd</span> /var/log/fluentd-buffers/kubernetes.system.buffer/</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">ls</span></span></span><br><span class="line">buffer.b56efd1a03768b2f7eabddf200cf50b79.log       buffer.b56efd1a03ad20d927856cabfb9e0b1d7.log.meta</span><br><span class="line">buffer.b56efd1a03768b2f7eabddf200cf50b79.log.meta  buffer.b56efd1a1f72114c77ad018dec6591873.log</span><br><span class="line">buffer.b56efd1a03ad20d927856cabfb9e0b1d7.log       buffer.b56efd1a1f72114c77ad018dec6591873.log.meta</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">rm</span> -rf *.meta</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="关于监控heapster-influxdb-grafana"><a href="#关于监控heapster-influxdb-grafana" class="headerlink" title="关于监控heapster influxdb grafana"></a>关于监控heapster influxdb grafana</h2><p>官方提供了监控方案<a class="link"   target="_blank" rel="noopener" href="https://github.com/kubernetes/heapster" >heapster<i class="fas fa-external-link-alt"></i></a></p>
+<p>获取 YAML 文件在项目的 <a class="link"   target="_blank" rel="noopener" href="https://github.com/kubernetes/heapster/tree/master/deploy/kube-config/influxdb" >deploy&#x2F;kube-config&#x2F;influxdb <i class="fas fa-external-link-alt"></i></a>路径下，获取后直接可以创建。镜像请先获取，过滤文件的image字段，拉取这些再创建比较妥。</p>
+<p>启动了这些资源后，若 heapster 日志无异常，dashboard 过一会就有关于容器组 CPU 内存等监控状态。可以修改 grafana 的 service 映射成 NodePort，配置图形展示（admin&#x2F;admin）。</p>
+<h2 id="关于自动水平扩展HPA"><a href="#关于自动水平扩展HPA" class="headerlink" title="关于自动水平扩展HPA"></a>关于自动水平扩展HPA</h2><p>参考官方 <a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/" >https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/<i class="fas fa-external-link-alt"></i></a></p>
+
+                </div>
+
+                
+                        
+<div class="article-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="post-title border-box text-ellipsis">
+                k8s 测试环境问题记录
+            </div>
+
+            <div class="post-link border-box text-ellipsis">
+                2018/06/29/k8s测试环境问题记录/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="post-author bottom-item">
+                <div class="type">
+                    Author
+                </div>
+                <div class="content">chenzuoqing</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    Published
+                </div>
+                <div class="content">2018-06-29 15:53</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    License
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed">
+                        <i class="fa-brands fa-creative-commons"></i>
+                        <i class="fa-brands fa-creative-commons-by"></i>
+                        <i class="fa-brands fa-creative-commons-nc"></i>
+                        <i class="fa-brands fa-creative-commons-sa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="Copy copyright info" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="Share to WeChat"
+            data-tooltip-img-tip="Scan by WeChat"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to WeiBo"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="article-nav">
+                        
+                            <div class="article-prev">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2018/10/11/MongoDB-%E4%B8%8A%E6%89%8B%E7%AE%80%E8%AE%B0/"
+                                   title="MongoDB 上手简记"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                      <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                            <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">MongoDB 上手简记</span>
+                                        <span class="post-nav-item">Prev posts</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="article-next">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2018/05/17/sysbench-%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/"
+                                   title="sysbench 压测工具"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">sysbench 压测工具</span>
+                                        <span class="post-nav-item">Next posts</span>
+                                    </span>
+                                            <span class="right arrow-icon flex-center">
+                                      <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#k8s%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95"><span class="nav-text">k8s测试环境问题记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dashboard%E8%AE%A4%E8%AF%81"><span class="nav-text">dashboard认证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kube-dns"><span class="nav-text">kube-dns</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#elasticsearch-fluentd-kibana"><span class="nav-text">elasticsearch fluentd kibana</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-elasticsearch-statefulset%E5%90%AF%E5%8A%A8%E5%92%8C%E5%88%A0%E9%99%A4%E5%8F%AF%E8%83%BD%E7%9A%84%E9%94%99%E8%AF%AF"><span class="nav-text">1. elasticsearch statefulset启动和删除可能的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-fluentd-daemonset%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98"><span class="nav-text">2. fluentd daemonset启动问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%9B%91%E6%8E%A7heapster-influxdb-grafana"><span class="nav-text">关于监控heapster influxdb grafana</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E8%87%AA%E5%8A%A8%E6%B0%B4%E5%B9%B3%E6%89%A9%E5%B1%95HPA"><span class="nav-text">关于自动水平扩展HPA</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2017</span>&nbsp;-&nbsp;2023
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">chenzuoqing</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                Powered by&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;&&nbsp;Theme&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+                <div class="icp-info info-item default">
+                    <a class=""
+                       target="_blank"
+                       href="https://beian.miit.gov.cn"
+                    >
+                        赣ICP备16002857号-1
+                    </a>
+                </div>
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">Unique Visitor</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">Page View</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#k8s%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95"><span class="nav-text">k8s测试环境问题记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dashboard%E8%AE%A4%E8%AF%81"><span class="nav-text">dashboard认证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kube-dns"><span class="nav-text">kube-dns</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#elasticsearch-fluentd-kibana"><span class="nav-text">elasticsearch fluentd kibana</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-elasticsearch-statefulset%E5%90%AF%E5%8A%A8%E5%92%8C%E5%88%A0%E9%99%A4%E5%8F%AF%E8%83%BD%E7%9A%84%E9%94%99%E8%AF%AF"><span class="nav-text">1. elasticsearch statefulset启动和删除可能的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-fluentd-daemonset%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98"><span class="nav-text">2. fluentd daemonset启动问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%9B%91%E6%8E%A7heapster-influxdb-grafana"><span class="nav-text">关于监控heapster influxdb grafana</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E8%87%AA%E5%8A%A8%E6%B0%B4%E5%B9%B3%E6%89%A9%E5%B1%95HPA"><span class="nav-text">关于自动水平扩展HPA</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local-search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- code-block -->
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="">
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+    
+
+</body>
+</html>

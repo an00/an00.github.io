@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="chenzuoqing">
+    
+    <title>
+        
+            mysql-utilities 复制工具 |
+        
+        PIAOMIAO神经
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/img/IMG_0001.JPG">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/custom.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.an00.cn","root":"/","language":"en","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"style":{"primary_color":"#0066cc","logo":"/img/IMG_0001.JPG","favicon":"/img/IMG_0001.JPG","avatar":"/img/IMG_0001.JPG","first_screen":{"enable":true,"header_transparent":false,"background_img":"/images/bg.svg","description":"道阻且长，行则将至。","hitokoto":false},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":false},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"pjax":{},"lazyload":{"enable":true},"comment":{},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null}},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"version":"3.8.6"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="An00" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/img/IMG_0001.JPG">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               PIAOMIAO神经
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+
+                
+
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+
+        <div class="article-content-container border-box">
+
+            
+
+            <div class="article-content-bottom border-box">
+                
+                    <div class="article-title">
+                        mysql-utilities 复制工具
+                    </div>
+                
+
+                
+                    <div class="article-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/img/IMG_0001.JPG">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author">
+                                <span class="name">chenzuoqing</span>
+                                
+                                    <span class="author-label">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="article-meta-info-container border-box post">
+    <div class="article-meta-info border-box">
+        
+
+
+        
+            <span class="meta-info-item article-create-date">
+                <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
+                <span class="pc">2018-02-27 16:05:11</span>
+                <span class="mobile">2018-02-27 16:05</span>
+            </span>
+
+            <span class="meta-info-item article-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="pc" data-updated="Sun Oct 29 2023 15:04:57 GMT+0800">2023-10-29 15:04:57</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item article-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="article-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/MySQL/">MySQL</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="article-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul class="article-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/mysql-utilities/">mysql-utilities</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+            <span class="meta-info-item article-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="article-content keep-markdown-body">
+                    
+
+                    <h1 id="MySQL复制工具"><a href="#MySQL复制工具" class="headerlink" title="MySQL复制工具"></a>MySQL复制工具</h1><blockquote>
+<p>了解 mysql-utilities 中关于复制的几个工具</p>
+</blockquote>
+<ul>
+<li>mysql-utilities：<ul>
+<li>mysqlreplicate    # 快速部署主从</li>
+<li>mysqlrplcheck     # 检测从服务器状态</li>
+<li>mysqlrplsync      # 检测主从复制数据是否一致</li>
+<li>mysqlrplshow      # 获取主从拓扑</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<p>贴一下工具包中其他脚本的用途</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">Binary Log Operations(二进制日志操作) </span><br><span class="line">        mysqlbinlogmove    二进制日志移动</span><br><span class="line">        mysqlbinlogpurge   二进制日志清理</span><br><span class="line">        mysqlbinlogrotate  二进制日志轮转工具    </span><br><span class="line"></span><br><span class="line">Database Operations(数据库操作)</span><br><span class="line">        mysqldbexport      数据导出</span><br><span class="line">        mysqldbimport      数据导入</span><br><span class="line">        mysqldbcopy        库级别数据库复制</span><br><span class="line">        mysqldiff          数据库对象级别比较工具</span><br><span class="line">        mysqldbcompare     数据库库级别比较工具</span><br><span class="line"></span><br><span class="line">General Operations(通用用的操作)     </span><br><span class="line">        mysqldiskusage     磁盘空间查看</span><br><span class="line">        mysqlfrm           恢复故障表.frm文件</span><br><span class="line">        mysqluserclone     用户克隆工具</span><br><span class="line">        mysqluc            Utilities帮助工具 </span><br><span class="line">        mysqlindexcheck    索引检测工具</span><br><span class="line">        mysqlmetagrep      元数据过滤器</span><br><span class="line">        mysqlprocgrep      进程搜索及清理工具</span><br><span class="line"></span><br><span class="line">High Availability Operations(高可用)</span><br><span class="line">        mysqlreplicate     主从复制工具</span><br><span class="line">        mysqlrpladmin      主从复制管理工具</span><br><span class="line">        mysqlrplcheck      主从复制检测工具</span><br><span class="line">        mysqlrplms         主从多源复制工具</span><br><span class="line">        mysqlrplshow       主从复制拓扑图工具</span><br><span class="line">        mysqlrplsync       主从复制同步工具</span><br><span class="line">        mysqlfailover      主从failover工具</span><br><span class="line">        mysqlslavetrx      从库事务跳过工具 </span><br><span class="line"></span><br><span class="line">Server Operations(服务器操作)</span><br><span class="line">        mysqlserverinfo    服务器信息查看工具</span><br><span class="line">        mysqlserverclone   服务器克隆工具    </span><br><span class="line"></span><br><span class="line">Specialized Operations(特殊操作)</span><br><span class="line">        mysqlauditadmin    审计管理工具 </span><br><span class="line">        mysqlauditgrep     审计日志过滤工具</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="mysqlreplicate"><a href="#mysqlreplicate" class="headerlink" title="mysqlreplicate"></a>mysqlreplicate</h2><blockquote>
+<p>该实用程序允许管理员设置并启动从一台服务器（主设备）到另一台服务器（从设备）的复制。用户提供从站的登录信息和连接到主站的连接信息。还可以指定要用于测试复制的数据库。  </p>
+</blockquote>
+<ul>
+<li>参数解析  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--master=master                 通常命令行： user[:passwd]@host[:port][:socket]</span><br><span class="line">--slave=slave                   同上，指定的用户需要有with grant option权限</span><br><span class="line">--rpl-user=user:passwd          指定用户名密码，用户可以不存在</span><br><span class="line">-b --start-from-beginning       从开头复制</span><br><span class="line">--master-log-file               从特定主二进制日志文件中的第一个事件开始复制</span><br><span class="line">--master-log-pos=master_log_pos 从master日志文件中的这个位置开始复制。除非--master-log-file给出，否则此选项无效</span><br><span class="line">-vv                             详细信息</span><br><span class="line">-vvv                            debug信息</span><br><span class="line">-p --pedantic       如果两台服务器没有相同的存储引擎集合，相同的默认存储引擎和相同的InnoDB存储引擎，则会失败。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol>
+<li><p>准备工作  </p>
+<ul>
+<li>master：192.168.122.66  </li>
+<li>slave：192.168.122.70</li>
+<li>分别开启二进制日志，配置不同的 server_id</li>
+<li>配置文件添加 <code>report-host=[本机ip]</code>（非必要）</li>
+</ul>
+</li>
+<li><p>master 和 slave 为 mysqlreplicate 创建一个带授权权限的用户</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all on *.* to &#x27;root&#x27;@&#x27;%&#x27; identified by &#x27;111111&#x27; with grant option;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在安装了 utilities 工具包并且可以连接到master和slave的任意机器上执行</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">mysqlreplicate --master=root:111111@192.168.122.66:3306 \</span></span><br><span class="line"><span class="language-bash">                      --slave=root:111111@192.168.122.70:3306 \</span></span><br><span class="line"><span class="language-bash">                      --rpl-user=rpl:rpl -vv -b</span></span><br><span class="line">WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">master on 192.168.122.66: ... connected.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">slave on 192.168.122.70: ... connected.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">master <span class="built_in">id</span> = 11</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> slave <span class="built_in">id</span> = 12</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">master uuid = d09f71e0-0caf-11e8-b13e-525400eac085</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"> slave uuid = f733905a-1d1a-11e8-bab4-5254004dae68</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Checking InnoDB statistics <span class="keyword">for</span> <span class="built_in">type</span> and version conflicts.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Checking storage engines...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Checking <span class="keyword">for</span> binary logging on master...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Setting up replication...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Connecting slave to master...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">CHANGE MASTER TO MASTER_HOST = <span class="string">&#x27;192.168.122.66&#x27;</span>, MASTER_USER = <span class="string">&#x27;rpl&#x27;</span>, MASTER_PASSWORD = <span class="string">&#x27;rpl&#x27;</span>, MASTER_PORT = 3306, MASTER_AUTO_POSITION=1</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Starting slave from the beginning...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">IO status: Queueing master event to the relay <span class="built_in">log</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">IO thread running: Yes</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">IO error: None</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">SQL thread running: Yes</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">SQL error: None</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Waiting <span class="keyword">for</span> slave to synchronize with master</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">IO status: Queueing master event to the relay <span class="built_in">log</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">IO thread running: Yes</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">IO error: None</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">SQL thread running: Yes</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">SQL error: None</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Waiting <span class="keyword">for</span> slave to synchronize with master  -- 这里因为我是-b参数从头复制，所以要很长时间才追到master的进度，程序不等完成，会报错。其实slave还在追</span></span><br><span class="line">ERROR: failed to sync slave with master.</span><br><span class="line">ERROR: Cannot setup replication.</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="mysqlrplcheck"><a href="#mysqlrplcheck" class="headerlink" title="mysqlrplcheck"></a>mysqlrplcheck</h2><ol>
+<li><p>当主从启动后，可以通过另外的 mysqlrplcheck 工具来查看主从复制状态，指定 master 和 slave，常用的参数就是 <code>-s, --show-slave-status</code> 可以看到 slave 复制状态。</p>
+</li>
+<li><p>mysqlrplcheck 工具检测</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">mysql&gt; </span><span class="language-bash">mysqlrplcheck --master=root:111111@192.168.122.66:3306 --slave=root:111111@192.168.122.70:3306 -s</span></span><br><span class="line">WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">master on 192.168.122.66: ... connected.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">slave on 192.168.122.70: ... connected.</span></span><br><span class="line">Test Description                                                     Status</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">Checking for binary logging on master                                [pass]</span><br><span class="line">Are there binlog exceptions?                                         [pass]</span><br><span class="line">Replication user exists?                                             [pass]</span><br><span class="line">Checking server_id values                                            [pass]</span><br><span class="line">Checking server_uuid values                                          [pass]</span><br><span class="line">Is slave connected to master?                                        [pass]</span><br><span class="line">Check master information file                                        [pass]</span><br><span class="line">Checking InnoDB compatibility                                        [pass]</span><br><span class="line">Checking storage engines compatibility                               [pass]</span><br><span class="line">Checking lower_case_table_names settings                             [pass]</span><br><span class="line">Checking slave delay (seconds behind master)                         [pass]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># Slave status:</span></span> </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">                Slave_IO_State : Waiting <span class="keyword">for</span> master to send event</span></span><br><span class="line">                   Master_Host : 192.168.122.66</span><br><span class="line">                   Master_User : rpl</span><br><span class="line">                   Master_Port : 3306</span><br><span class="line">                 Connect_Retry : 60</span><br><span class="line">               Master_Log_File : bin.000010</span><br><span class="line">           Read_Master_Log_Pos : 17301</span><br><span class="line">                Relay_Log_File : relay.000009</span><br><span class="line">                 Relay_Log_Pos : 17502</span><br><span class="line">         Relay_Master_Log_File : bin.000010</span><br><span class="line">              Slave_IO_Running : Yes</span><br><span class="line">             Slave_SQL_Running : Yes</span><br><span class="line">               Replicate_Do_DB : </span><br><span class="line">           Replicate_Ignore_DB : </span><br><span class="line">            Replicate_Do_Table : </span><br><span class="line">        Replicate_Ignore_Table : </span><br><span class="line">       Replicate_Wild_Do_Table : </span><br><span class="line">   Replicate_Wild_Ignore_Table : </span><br><span class="line">                    Last_Errno : 0</span><br><span class="line">                    Last_Error : </span><br><span class="line">                  Skip_Counter : 0</span><br><span class="line">           Exec_Master_Log_Pos : 17301</span><br><span class="line">               Relay_Log_Space : 223036003</span><br><span class="line">               Until_Condition : None</span><br><span class="line">                Until_Log_File : </span><br><span class="line">                 Until_Log_Pos : 0</span><br><span class="line">            Master_SSL_Allowed : No</span><br><span class="line">            Master_SSL_CA_File : </span><br><span class="line">            Master_SSL_CA_Path : </span><br><span class="line">               Master_SSL_Cert : </span><br><span class="line">             Master_SSL_Cipher : </span><br><span class="line">                Master_SSL_Key : </span><br><span class="line">         Seconds_Behind_Master : 0</span><br><span class="line"> Master_SSL_Verify_Server_Cert : No</span><br><span class="line">                 Last_IO_Errno : 0</span><br><span class="line">                 Last_IO_Error : </span><br><span class="line">                Last_SQL_Errno : 0</span><br><span class="line">                Last_SQL_Error : </span><br><span class="line">   Replicate_Ignore_Server_Ids : </span><br><span class="line">              Master_Server_Id : 11</span><br><span class="line">                   Master_UUID : d09f71e0-0caf-11e8-b13e-525400eac085</span><br><span class="line">              Master_Info_File : mysql.slave_master_info</span><br><span class="line">                     SQL_Delay : 0</span><br><span class="line">           SQL_Remaining_Delay : None</span><br><span class="line">       Slave_SQL_Running_State : Slave has read all relay log; waiting for more updates</span><br><span class="line">            Master_Retry_Count : 86400</span><br><span class="line">                   Master_Bind : </span><br><span class="line">       Last_IO_Error_Timestamp : </span><br><span class="line">      Last_SQL_Error_Timestamp : </span><br><span class="line">                Master_SSL_Crl : </span><br><span class="line">            Master_SSL_Crlpath : </span><br><span class="line">            Retrieved_Gtid_Set : d09f71e0-0caf-11e8-b13e-525400eac085:42-384</span><br><span class="line">             Executed_Gtid_Set : d09f71e0-0caf-11e8-b13e-525400eac085:1-384,</span><br><span class="line">f733905a-1d1a-11e8-bab4-5254004dae68:1-6</span><br><span class="line">                 Auto_Position : 1</span><br><span class="line">          Replicate_Rewrite_DB : </span><br><span class="line">                  Channel_Name : </span><br><span class="line">            Master_TLS_Version : </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">...<span class="keyword">done</span>.</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="mysqlrplsync"><a href="#mysqlrplsync" class="headerlink" title="mysqlrplsync"></a>mysqlrplsync</h2><p>mysqlrplsync 用于检测主从数据是否一致，不指定 test_rplsync_db 为检测全部</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">测试<span class="built_in">test</span>库是否一致</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">不同步案例</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">mysqlrplsync --master=root:111111@192.168.122.66:3306 \</span></span><br><span class="line"><span class="language-bash">                    --slave=root:111111@192.168.122.70:3306 test_rplsync_db <span class="built_in">test</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># GTID differences between Master and Slaves:</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">- Slave <span class="string">&#x27;192.168.122.70@3306&#x27;</span> is up-to-date.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># Checking data consistency.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># Using Master &#x27;192.168.122.66@3306&#x27; as base server for comparison.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">WARNING: specified database to check does not exist on base server and will be skipped: test_rplsync_db.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Checking <span class="string">&#x27;test&#x27;</span> database...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [DIFF] Table <span class="string">&#x27;test.a&#x27;</span> NOT on server <span class="string">&#x27;192.168.122.70@3306&#x27;</span>.     -- DIFF位置为OK表示一致</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [DIFF] Table <span class="string">&#x27;test.b&#x27;</span> NOT on server <span class="string">&#x27;192.168.122.70@3306&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [DIFF] Table <span class="string">&#x27;test.customer&#x27;</span> NOT on server <span class="string">&#x27;192.168.122.70@3306&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [DIFF] Table <span class="string">&#x27;test.district&#x27;</span> NOT on server <span class="string">&#x27;192.168.122.70@3306&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [DIFF] Table <span class="string">&#x27;test.history&#x27;</span> NOT on server <span class="string">&#x27;192.168.122.70@3306&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [DIFF] Table <span class="string">&#x27;test.item&#x27;</span> NOT on server <span class="string">&#x27;192.168.122.70@3306&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [DIFF] Table <span class="string">&#x27;test.new_orders&#x27;</span> NOT on server <span class="string">&#x27;192.168.122.70@3306&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [DIFF] Table <span class="string">&#x27;test.orders&#x27;</span> NOT on server <span class="string">&#x27;192.168.122.70@3306&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [DIFF] Table <span class="string">&#x27;test.order_line&#x27;</span> NOT on server <span class="string">&#x27;192.168.122.70@3306&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [DIFF] Table <span class="string">&#x27;test.stock&#x27;</span> NOT on server <span class="string">&#x27;192.168.122.70@3306&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [DIFF] Table <span class="string">&#x27;test.warehouse&#x27;</span> NOT on server <span class="string">&#x27;192.168.122.70@3306&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment">#...done.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># SUMMARY: 11 data consistency issues found.   -- 上面11个表不一致，此时slave还在追日志</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"></span><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">正常案例</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">mysqlrplsync --master=root:111111@192.168.122.66:3307 --slave=root:111111@192.168.122.80:3307</span></span><br><span class="line">WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># GTID differences between Master and Slaves:</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">- Slave <span class="string">&#x27;192.168.122.80@3307&#x27;</span> is up-to-date.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># Checking data consistency.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># Using Master &#x27;192.168.122.66@3307&#x27; as base server for comparison.</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Checking <span class="string">&#x27;tpcc10&#x27;</span> database...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">- Checking <span class="string">&#x27;customer&#x27;</span> table data...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [OK] `tpcc10`.`customer` checksum <span class="keyword">for</span> server <span class="string">&#x27;192.168.122.80@3307&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">- Checking <span class="string">&#x27;district&#x27;</span> table data...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [OK] `tpcc10`.`district` checksum <span class="keyword">for</span> server <span class="string">&#x27;192.168.122.80@3307&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">- Checking <span class="string">&#x27;history&#x27;</span> table data...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [OK] `tpcc10`.`<span class="built_in">history</span>` checksum <span class="keyword">for</span> server <span class="string">&#x27;192.168.122.80@3307&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">- Checking <span class="string">&#x27;item&#x27;</span> table data...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [OK] `tpcc10`.`item` checksum <span class="keyword">for</span> server <span class="string">&#x27;192.168.122.80@3307&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">- Checking <span class="string">&#x27;new_orders&#x27;</span> table data...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [OK] `tpcc10`.`new_orders` checksum <span class="keyword">for</span> server <span class="string">&#x27;192.168.122.80@3307&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">- Checking <span class="string">&#x27;orders&#x27;</span> table data...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [OK] `tpcc10`.`orders` checksum <span class="keyword">for</span> server <span class="string">&#x27;192.168.122.80@3307&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">- Checking <span class="string">&#x27;order_line&#x27;</span> table data...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [OK] `tpcc10`.`order_line` checksum <span class="keyword">for</span> server <span class="string">&#x27;192.168.122.80@3307&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">- Checking <span class="string">&#x27;stock&#x27;</span> table data...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [OK] `tpcc10`.`stock` checksum <span class="keyword">for</span> server <span class="string">&#x27;192.168.122.80@3307&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">- Checking <span class="string">&#x27;warehouse&#x27;</span> table data...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [OK] `tpcc10`.`warehouse` checksum <span class="keyword">for</span> server <span class="string">&#x27;192.168.122.80@3307&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Checking <span class="string">&#x27;an&#x27;</span> database...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">- Checking <span class="string">&#x27;a&#x27;</span> table data...</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">  [OK] `an`.`a` checksum <span class="keyword">for</span> server <span class="string">&#x27;192.168.122.80@3307&#x27;</span>.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment">#...done.</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># SUMMARY: No data consistency issue found.</span></span></span><br><span class="line"><span class="meta prompt_">#</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="mysqlrplshow"><a href="#mysqlrplshow" class="headerlink" title="mysqlrplshow"></a>mysqlrplshow</h2><ol>
+<li><p>列出 master 下所有的 slave，文字图形的方式展示，有层级时可以递归</p>
+</li>
+<li><p>前提条件：需要在 slave 的 my.cnf 中添加 <code>report-host = [本机ip]</code>，<code>report-port</code>默认 3306</p>
+</li>
+<li><p>用法和参数</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">mysqlrplshow   --master=user:pass@host:port</span><br><span class="line">               --discovery-slave-login=user:pass    # 自动发现从机并通过这个用户查询信息，需要replicate client和slave权限</span><br><span class="line">               --recurse, -r      # 递归查找拓扑，在级联复制的时候很方便</span><br><span class="line">               --show-list, -l    # 列出表格描述slave对应的master</span><br><span class="line">               -vvv               # debug信息，-v可以显示slave线程状态</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">mysqlrplshow --master=root:111111@<span class="string">&quot;192.168.122.66&quot;</span> --discover-slaves-login=root:111111 -vvv</span></span><br><span class="line">WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">master on 192.168.122.66: ... connected.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Finding slaves <span class="keyword">for</span> master: 192.168.122.66:3306</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Replication Topology Graph</span></span><br><span class="line">192.168.122.66:3306 (MASTER)</span><br><span class="line">   |</span><br><span class="line">   +--- 192.168.122.70:3306 [IO: Yes, SQL: Yes] - (SLAVE)</span><br><span class="line">   |</span><br><span class="line">   +--- 192.168.122.80:3306 [IO: Yes, SQL: Yes] - (SLAVE)</span><br><span class="line">   </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">搭建级联后的示例</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">mysqlrplshow --master=root:111111@<span class="string">&quot;192.168.122.66:3307&quot;</span> --discover-slaves-login=root:111111 -r -v</span></span><br><span class="line">WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">master on 192.168.122.66: ... connected.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Finding slaves <span class="keyword">for</span> master: 192.168.122.66:3307</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">master on 192.168.122.70: ... connected.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Finding slaves <span class="keyword">for</span> master: 192.168.122.70:3307</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">master on 192.168.122.70: ... connected.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Finding slaves <span class="keyword">for</span> master: 192.168.122.70:3306</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">master on 192.168.122.80: ... connected.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Finding slaves <span class="keyword">for</span> master: 192.168.122.80:3307</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Replication Topology Graph</span></span><br><span class="line">192.168.122.66:3307 (MASTER)</span><br><span class="line">   |</span><br><span class="line">   +--- 192.168.122.70:3307 [IO: Yes, SQL: Yes] - (SLAVE + MASTER)</span><br><span class="line">   |   |</span><br><span class="line">   |   +--- 192.168.122.70:3306 [IO: Yes, SQL: Yes] - (SLAVE)</span><br><span class="line">   |</span><br><span class="line">   +--- 192.168.122.80:3307 [IO: Yes, SQL: Yes] - (SLAVE)</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+                </div>
+
+                
+                        
+<div class="article-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="post-title border-box text-ellipsis">
+                mysql-utilities 复制工具
+            </div>
+
+            <div class="post-link border-box text-ellipsis">
+                2018/02/27/mysql-utilities-复制工具/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="post-author bottom-item">
+                <div class="type">
+                    Author
+                </div>
+                <div class="content">chenzuoqing</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    Published
+                </div>
+                <div class="content">2018-02-27 16:05</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    License
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed">
+                        <i class="fa-brands fa-creative-commons"></i>
+                        <i class="fa-brands fa-creative-commons-by"></i>
+                        <i class="fa-brands fa-creative-commons-nc"></i>
+                        <i class="fa-brands fa-creative-commons-sa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="Copy copyright info" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/mysql-utilities/">mysql-utilities</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="Share to WeChat"
+            data-tooltip-img-tip="Scan by WeChat"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to WeiBo"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="article-nav">
+                        
+                            <div class="article-prev">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2018/03/02/mysql-router-%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%BD%93%E9%AA%8C/"
+                                   title="mysql router 中间件体验"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                      <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                            <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">mysql router 中间件体验</span>
+                                        <span class="post-nav-item">Prev posts</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="article-next">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2017/12/08/CentOS-L2TP-IPSec-vpn/"
+                                   title="CentOS L2TP/IPSec vpn"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">CentOS L2TP/IPSec vpn</span>
+                                        <span class="post-nav-item">Next posts</span>
+                                    </span>
+                                            <span class="right arrow-icon flex-center">
+                                      <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E5%A4%8D%E5%88%B6%E5%B7%A5%E5%85%B7"><span class="nav-text">MySQL复制工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysqlreplicate"><span class="nav-text">mysqlreplicate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysqlrplcheck"><span class="nav-text">mysqlrplcheck</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysqlrplsync"><span class="nav-text">mysqlrplsync</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysqlrplshow"><span class="nav-text">mysqlrplshow</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2017</span>&nbsp;-&nbsp;2023
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">chenzuoqing</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                Powered by&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;&&nbsp;Theme&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+                <div class="icp-info info-item default">
+                    <a class=""
+                       target="_blank"
+                       href="https://beian.miit.gov.cn"
+                    >
+                        赣ICP备16002857号-1
+                    </a>
+                </div>
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">Unique Visitor</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">Page View</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E5%A4%8D%E5%88%B6%E5%B7%A5%E5%85%B7"><span class="nav-text">MySQL复制工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysqlreplicate"><span class="nav-text">mysqlreplicate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysqlrplcheck"><span class="nav-text">mysqlrplcheck</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysqlrplsync"><span class="nav-text">mysqlrplsync</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysqlrplshow"><span class="nav-text">mysqlrplshow</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local-search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- code-block -->
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="">
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+    
+
+</body>
+</html>

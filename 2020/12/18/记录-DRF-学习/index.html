@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="chenzuoqing">
+    
+    <title>
+        
+            记录 DRF 学习片段 |
+        
+        PIAOMIAO神经
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/img/IMG_0001.JPG">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/custom.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.an00.cn","root":"/","language":"en","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"style":{"primary_color":"#0066cc","logo":"/img/IMG_0001.JPG","favicon":"/img/IMG_0001.JPG","avatar":"/img/IMG_0001.JPG","first_screen":{"enable":true,"header_transparent":false,"background_img":"/images/bg.svg","description":"道阻且长，行则将至。","hitokoto":false},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":false},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"pjax":{},"lazyload":{"enable":true},"comment":{},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null}},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"version":"3.8.6"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="An00" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/img/IMG_0001.JPG">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               PIAOMIAO神经
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+
+                
+
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+
+        <div class="article-content-container border-box">
+
+            
+
+            <div class="article-content-bottom border-box">
+                
+                    <div class="article-title">
+                        记录 DRF 学习片段
+                    </div>
+                
+
+                
+                    <div class="article-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/img/IMG_0001.JPG">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author">
+                                <span class="name">chenzuoqing</span>
+                                
+                                    <span class="author-label">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="article-meta-info-container border-box post">
+    <div class="article-meta-info border-box">
+        
+
+
+        
+            <span class="meta-info-item article-create-date">
+                <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
+                <span class="pc">2020-12-18 16:53:03</span>
+                <span class="mobile">2020-12-18 16:53</span>
+            </span>
+
+            <span class="meta-info-item article-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="pc" data-updated="Sun Oct 29 2023 15:06:59 GMT+0800">2023-10-29 15:06:59</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item article-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="article-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/Python/">Python</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="article-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul class="article-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/DRF/">DRF</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+            <span class="meta-info-item article-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="article-content keep-markdown-body">
+                    
+
+                    <h1 id="记录-DRF-学习片段"><a href="#记录-DRF-学习片段" class="headerlink" title="记录 DRF 学习片段"></a>记录 DRF 学习片段</h1><p>刷官方 tutorial 的记录，官网地址 <a class="link"   target="_blank" rel="noopener" href="https://www.django-rest-framework.org/tutorial/quickstart/" >django-rest-framework<i class="fas fa-external-link-alt"></i></a></p>
+<span id="more"></span>
+
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><blockquote>
+<p>代码不是全部都贴出，仅做记录（不难看懂）</p>
+<p>参考 <a class="link"   target="_blank" rel="noopener" href="https://q1mi.github.io/Django-REST-framework-documentation/" >q1mi老师翻译的文档<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<p>示例 <code>models.py</code> 中的 <code>Snippet</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> pygments.lexers <span class="keyword">import</span> get_all_lexers</span><br><span class="line"><span class="keyword">from</span> pygments.styles <span class="keyword">import</span> get_all_styles</span><br><span class="line"></span><br><span class="line">LEXERS = [item <span class="keyword">for</span> item <span class="keyword">in</span> get_all_lexers() <span class="keyword">if</span> item[<span class="number">1</span>]]</span><br><span class="line">LANGUAGE_CHOICES = <span class="built_in">sorted</span>([(item[<span class="number">1</span>][<span class="number">0</span>], item[<span class="number">0</span>]) <span class="keyword">for</span> item <span class="keyword">in</span> LEXERS])</span><br><span class="line">STYLE_CHOICES = <span class="built_in">sorted</span>((item, item) <span class="keyword">for</span> item <span class="keyword">in</span> get_all_styles())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Snippet</span>(models.Model):</span><br><span class="line">    created = models.DateTimeField(auto_now_add=<span class="literal">True</span>)</span><br><span class="line">    title = models.CharField(max_length=<span class="number">100</span>, blank=<span class="literal">True</span>, default=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    code = models.TextField()</span><br><span class="line">    linenos = models.BooleanField(default=<span class="literal">False</span>)</span><br><span class="line">    language = models.CharField(choices=LANGUAGE_CHOICES, default=<span class="string">&#x27;python&#x27;</span>, max_length=<span class="number">100</span>)</span><br><span class="line">    style = models.CharField(choices=STYLE_CHOICES, default=<span class="string">&#x27;friendly&#x27;</span>, max_length=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        ordering = (<span class="string">&#x27;created&#x27;</span>,)</span><br></pre></td></tr></table></figure>
+
+<p>示例的序列化类 <code>serializers.py</code> 定义，写法的进化过程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> serializers</span><br><span class="line"><span class="keyword">from</span> snippets.models <span class="keyword">import</span> Snippet, LANGUAGE_CHOICES, STYLE_CHOICES</span><br><span class="line"></span><br><span class="line"><span class="comment"># 手写版本</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SnippetSerializer</span>(serializers.Serializer):</span><br><span class="line">    <span class="built_in">id</span> = serializers.IntegerField(read_only=<span class="literal">True</span>)</span><br><span class="line">    title = serializers.CharField(required=<span class="literal">False</span>, allow_blank=<span class="literal">True</span>, max_length=<span class="number">100</span>)</span><br><span class="line">    code = serializers.CharField(style=&#123;<span class="string">&#x27;base_template&#x27;</span>: <span class="string">&#x27;textarea.html&#x27;</span>&#125;)</span><br><span class="line">    linenos = serializers.BooleanField(required=<span class="literal">False</span>)</span><br><span class="line">    language = serializers.ChoiceField(choices=LANGUAGE_CHOICES, default=<span class="string">&#x27;python&#x27;</span>)</span><br><span class="line">    style = serializers.ChoiceField(choices=STYLE_CHOICES, default=<span class="string">&#x27;friendly&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">create</span>(<span class="params">self, validated_data</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        根据提供的验证过的数据创建并返回一个新的`Snippet`实例。</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> Snippet.objects.create(**validated_data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">update</span>(<span class="params">self, instance, validated_data</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        根据提供的验证过的数据更新和返回一个已经存在的`Snippet`实例。</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        instance.title = validated_data.get(<span class="string">&#x27;title&#x27;</span>, instance.title)</span><br><span class="line">        instance.code = validated_data.get(<span class="string">&#x27;code&#x27;</span>, instance.code)</span><br><span class="line">        instance.linenos = validated_data.get(<span class="string">&#x27;linenos&#x27;</span>, instance.linenos)</span><br><span class="line">        instance.language = validated_data.get(<span class="string">&#x27;language&#x27;</span>, instance.language)</span><br><span class="line">        instance.style = validated_data.get(<span class="string">&#x27;style&#x27;</span>, instance.style)</span><br><span class="line">        instance.save()</span><br><span class="line">        <span class="keyword">return</span> instance</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用封装的序列化器</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SnippetSerializer</span>(serializers.ModelSerializer):</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = Snippet</span><br><span class="line">        fields = (<span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;title&#x27;</span>, <span class="string">&#x27;code&#x27;</span>, <span class="string">&#x27;linenos&#x27;</span>, <span class="string">&#x27;language&#x27;</span>, <span class="string">&#x27;style&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h2><p>基础的序列化过程，<code>Snippet</code> 是个表 model，以及它的序列化类 <code>SnippetSerializer</code>，先忽略他们定义的内容，看序列化做的事情</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> snippets.models <span class="keyword">import</span> Snippet</span><br><span class="line"><span class="keyword">from</span> snippets.serializers <span class="keyword">import</span> SnippetSerializer</span><br><span class="line"><span class="keyword">from</span> rest_framework.renderers <span class="keyword">import</span> JSONRenderer</span><br><span class="line"><span class="keyword">from</span> rest_framework.parsers <span class="keyword">import</span> JSONParser</span><br><span class="line"></span><br><span class="line">snippet = Snippet(code=<span class="string">&#x27;foo = &quot;bar&quot;\n&#x27;</span>)</span><br><span class="line">snippet.save()</span><br><span class="line"></span><br><span class="line">snippet = Snippet(code=<span class="string">&#x27;print &quot;hello, world&quot;\n&#x27;</span>)</span><br><span class="line">snippet.save()</span><br><span class="line"></span><br><span class="line">serializer = SnippetSerializer(snippet)  <span class="comment"># 将model对象转成python原生数据类型</span></span><br><span class="line"><span class="built_in">print</span>(serializer.data)  <span class="comment"># 字典数据，&#123;&#x27;id&#x27;: 1, ...&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># SnippetSerializer(Snippet.objects.all(), many=True)  # 不是单个对象而是querySet时，传many=True，可以序列化多个</span></span><br><span class="line"></span><br><span class="line">content = JSONRenderer().render(serializer.data)  <span class="comment"># 将数据转成JSON</span></span><br><span class="line"><span class="built_in">print</span>(content)  <span class="comment"># b&#x27;&#123;&quot;id&quot;: 2, ...&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>反序列化过程，类似 forms 验证，接上以上代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> io</span><br><span class="line"></span><br><span class="line">stream = io.BytesIO(content)</span><br><span class="line">data = JSONParser().parse(stream)          <span class="comment"># 接受JSON数据，模拟从请求中读取的数据</span></span><br><span class="line">serializer = SnippetSerializer(data=data)  <span class="comment"># 传入反序列化的数据</span></span><br><span class="line">serializer.is_valid()      <span class="comment"># 校验数据是否缺少</span></span><br><span class="line">serializer.validated_data  <span class="comment"># 校验字段内容</span></span><br><span class="line">serializer.save()          <span class="comment"># 保存对象</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="序列化类"><a href="#序列化类" class="headerlink" title="序列化类"></a>序列化类</h2><p>介绍 <code>rest_framework.serializers</code> 中创建序列化器的快捷方式</p>
+<h3 id="ModelSerializer"><a href="#ModelSerializer" class="headerlink" title="ModelSerializer"></a>ModelSerializer</h3><p>类似 django forms 中的 <code>ModelForm</code></p>
+<ul>
+<li>可简单定义需要序列化的字段</li>
+<li>默认实现的 <code>create</code> 和 <code>update</code> 方法，用于增加和更新</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SnippetSerializer</span>(serializers.ModelSerializer):</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = Snippet</span><br><span class="line">        fields = (<span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;title&#x27;</span>, <span class="string">&#x27;code&#x27;</span>, <span class="string">&#x27;linenos&#x27;</span>, <span class="string">&#x27;language&#x27;</span>, <span class="string">&#x27;style&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="HyperlinkedModelSerializer"><a href="#HyperlinkedModelSerializer" class="headerlink" title="HyperlinkedModelSerializer"></a>HyperlinkedModelSerializer</h3><blockquote>
+<p>可以更好的处理对象实体之间的关系</p>
+</blockquote>
+<p>这个序列化器在有关联字段的时候，展示的不是 ID，而是相关对象的 URL，与 <code>ModelSerializer</code> 有区别</p>
+<ul>
+<li>默认不包括 ID 字段</li>
+<li>数据含一个<code>url</code>字段，使用<code>HyperlinkedIdentityField</code></li>
+<li>使用的关联使用 <code>HyperlinkedRelatedField</code> 而不是 <code>PrimaryKeyRelatedField</code> (它会把关联的对象仅给出 ID 返回)</li>
+</ul>
+<h3 id="PrimaryKeyRelatedField"><a href="#PrimaryKeyRelatedField" class="headerlink" title="PrimaryKeyRelatedField"></a>PrimaryKeyRelatedField</h3><p>得到此对象对应的多个关联对象ID，如解析 <code>User</code> 实例的 <code>Snippet</code> 对象：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UserSerializer</span>(serializers.ModelSerializer):</span><br><span class="line">    snippets = serializers.PrimaryKeyRelatedField(many=<span class="literal">True</span>, queryset=Snippet.objects.<span class="built_in">all</span>())</span><br><span class="line">    <span class="comment"># 返回如: &#123;&quot;id&quot;:1, &quot;snippets&quot;: [1,2,3], ...&#125;</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = User</span><br><span class="line">        fields = (<span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;username&#x27;</span>, <span class="string">&#x27;snippets&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="HyperlinkedRelatedField"><a href="#HyperlinkedRelatedField" class="headerlink" title="HyperlinkedRelatedField"></a>HyperlinkedRelatedField</h3><p>得到此对象对应的多个关联对象实体 URL（需要传入 <code>view_name</code> ）</p>
+<p>如下，解析 <code>User</code> 实例的 <code>Snippet</code> 对象，<code>snippet-detail</code> 对应 <code>urls.py</code> 中的 <code>name</code> 参数（参考后面<strong>关系和超链接</strong>部分）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UserSerializer</span>(serializers.HyperlinkedModelSerializer):</span><br><span class="line">    snippets = serializers.HyperlinkedRelatedField(many=<span class="literal">True</span>, view_name=<span class="string">&#x27;snippet-detail&#x27;</span>, read_only=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># 返回如: &#123;&quot;id&quot;:1, &quot;snippets&quot;: [&quot;http://127.0.0.1:8000/snippets/1/&quot;, ...], ...&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = User</span><br><span class="line">        fields = (<span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;username&#x27;</span>, <span class="string">&#x27;snippets&#x27;</span>, <span class="string">&#x27;url&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="请求和响应"><a href="#请求和响应" class="headerlink" title="请求和响应"></a>请求和响应</h2><h3 id="请求对象"><a href="#请求对象" class="headerlink" title="请求对象"></a>请求对象</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">request.POST  <span class="comment"># 只试用与POST方法</span></span><br><span class="line">request.data  <span class="comment"># 处理任意数据  适用于&#x27;POST&#x27;，&#x27;PUT&#x27;和&#x27;PATCH&#x27;方法</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="响应对象"><a href="#响应对象" class="headerlink" title="响应对象"></a>响应对象</h3><p>继承了 django 中的 <code>SimpleTemplateResponse</code> ，但未渲染模板，会使用内容协商来确定返回给客户端的正确内容类型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># from rest_framework.response import Response</span></span><br><span class="line"><span class="keyword">return</span> Response(data)</span><br></pre></td></tr></table></figure>
+
+<h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><p>命名了 HTTP 状态码，便于使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># from rest_framework import status</span><br><span class="line">return Response(data, status=status.HTTP_201_CREATED)</span><br></pre></td></tr></table></figure>
+
+<h3 id="API-视图包装器"><a href="#API-视图包装器" class="headerlink" title="API 视图包装器"></a>API 视图包装器</h3><p>均可限制访问接口的方法，否则抛出 <code>405 Method Not Allowed</code> 错误</p>
+<ul>
+<li>APIView 供类视图继承，与 django 的类视图相似，路由中传入 <code>as_view</code>，并内置dispatch方法，若请求方法未实现将抛出 <code>405</code></li>
+<li>api_view 给函数视图使用的装饰器，默认仅允许 GET 请求，可传入 method 列表</li>
+<li>action 给视图集增加动作，如一个 <code>viewSet</code> 默认可能有<code>detail</code>、<code>list</code> 等方法，若它注册路由时设置 <code>basename=snippets</code> 将自动生成可解析的 <code>snippets-detail</code> 等动作。action可以增加自定义的动作，如下有增加 <code>snippets-highlight</code> 的示例，默认后缀为被装饰的方法名（viewSet 路由注册部分看 <strong>viewsets 视图集和 routers</strong>）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework.views <span class="keyword">import</span> APIView</span><br><span class="line"><span class="keyword">from</span> rest_framework.decorators <span class="keyword">import</span> api_view, action</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Demo</span>(<span class="title class_ inherited__">APIView</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self, request, <span class="built_in">format</span>=<span class="literal">None</span></span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">post</span>(<span class="params">self, request, <span class="built_in">format</span>=<span class="literal">None</span></span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@api_view(<span class="params">[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">api_func_demo</span>(<span class="params">request</span>)</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&quot;GET&quot;</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">elif</span> request.method == <span class="string">&quot;POST&quot;</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SnippetViewSet</span>(viewsets.ModelViewSet):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Snippet的常规增删查改、列表视图</span></span><br><span class="line"><span class="string">    还提供了一个额外的`highlight`操作</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    queryset = Snippet.objects.<span class="built_in">all</span>()</span><br><span class="line">    serializer_class = SnippetSerializer</span><br><span class="line">    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 注意action装饰的方法替代了上面的SnippetHighlight</span></span><br><span class="line">    <span class="comment"># 默认仅允许GET方法，methods指定</span></span><br><span class="line">    <span class="comment"># detail表示是否适用于实例详细信息，需要实例参数pk=1这种情况</span></span><br><span class="line">    <span class="comment"># 使用Router且basename=snippet时，此动作解析为&#x27;snippet-highlight&#x27;，与序列化中的view_name对应</span></span><br><span class="line"><span class="meta">    @action(<span class="params">renderer_classes=[renderers.StaticHTMLRenderer], detail=<span class="literal">True</span>, methods=[<span class="string">&#x27;get&#x27;</span>]</span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">highlight</span>(<span class="params">self, request, *args, **kwargs</span>):</span><br><span class="line">        snippet = self.get_object()</span><br><span class="line">        <span class="keyword">return</span> Response(snippet.highlighted)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">perform_create</span>(<span class="params">self, serializer</span>):</span><br><span class="line">        serializer.save(owner=self.request.user)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="类视图"><a href="#类视图" class="headerlink" title="类视图"></a>类视图</h2><h3 id="mixins-混合类"><a href="#mixins-混合类" class="headerlink" title="mixins 混合类"></a>mixins 混合类</h3><p>在 <code>rest_framework.mixins</code> 中，定义了很多可服用的行为，对应我们接口处理 model 的查询、修改、序列化、反序列化、保存等操作，它们需要和 <code>generics.GenericAPIView</code> 一起继承，搭配使用</p>
+<ul>
+<li><code>CreateModelMixin</code> 用于创建对象，封装了 <code>create</code> ，调用序列化类校验数据、保存等操作</li>
+<li><code>ListModelMixin</code> 用于列出多个对象，封装了 <code>list</code> 方法，从 model 中查询数据，并序列化成数据、分页返回给请求</li>
+<li><code>RetrieveModelMixin</code>  用于查找单个对象示例，封装了 <code>retrieve</code> 方法，返回单个对象已序列化的数据</li>
+<li><code>UpdateModelMixin</code> 用于更新数据，封装了 <code>update</code> 方法，更新单个对象的数据</li>
+<li><code>DestroyModelMixin</code>  用于删除对象，封装了 <code>destroy</code> 方法，查找对象实例进行删除</li>
+</ul>
+<p>继承了上面多个类将有多个类的功能，如下将 mixin 中的封装对应 HTTP 方法的处理函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> snippets.models <span class="keyword">import</span> Snippet</span><br><span class="line"><span class="keyword">from</span> snippets.serializers <span class="keyword">import</span> SnippetSerializer</span><br><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> mixins</span><br><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> generics</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SnippetList</span>(mixins.ListModelMixin,</span><br><span class="line">                  mixins.CreateModelMixin,</span><br><span class="line">                  generics.GenericAPIView):</span><br><span class="line">    queryset = Snippet.objects.<span class="built_in">all</span>()</span><br><span class="line">    serializer_class = SnippetSerializer</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self, request, *args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">return</span> self.<span class="built_in">list</span>(request, *args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">post</span>(<span class="params">self, request, *args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">return</span> self.create(request, *args, **kwargs)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="generics-通用类"><a href="#generics-通用类" class="headerlink" title="generics 通用类"></a>generics 通用类</h3><p>在 <code>rest_framework.generics</code> 中有已经内置混合好的通用视图，用它可以将HTTP方法与 Mixin 封装对应上。</p>
+<ul>
+<li><code>GenericAPIView</code> 是通用视图中最基础的类，继承 <code>views.APIView</code>，带有序列化、分页、对象过滤等封装</li>
+</ul>
+<p>使用通用类视图写接口，代码量将变的很少，逻辑就像配置一样，设置 <code>queryset</code> 和<strong>序列化类</strong>就可以了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> snippets.models <span class="keyword">import</span> Snippet</span><br><span class="line"><span class="keyword">from</span> snippets.serializers <span class="keyword">import</span> SnippetSerializer</span><br><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> generics</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SnippetList</span>(generics.ListCreateAPIView):</span><br><span class="line">    queryset = Snippet.objects.<span class="built_in">all</span>()</span><br><span class="line">    serializer_class = SnippetSerializer</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SnippetDetail</span>(generics.RetrieveUpdateDestroyAPIView):</span><br><span class="line">    queryset = Snippet.objects.<span class="built_in">all</span>()</span><br><span class="line">    serializer_class = SnippetSerializer</span><br></pre></td></tr></table></figure>
+
+<p>基于上面两个视图，修改 <code>urls.py</code>，增加 URL</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> include</span><br><span class="line"><span class="keyword">from</span> snippets <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;admin/&#x27;</span>, admin.site.urls),</span><br><span class="line">    <span class="comment"># 方便调试接口，需要注意namespace</span></span><br><span class="line">    path(<span class="string">&#x27;api-auth/&#x27;</span>, include(<span class="string">&#x27;rest_framework.urls&#x27;</span>, namespace=<span class="string">&#x27;rest_framework&#x27;</span>)),</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 注意path的传参，参数名为pk，类型int</span></span><br><span class="line">    path(<span class="string">&#x27;snippets/&#x27;</span>, views.SnippetList.as_view()),</span><br><span class="line">    path(<span class="string">&#x27;snippets/&lt;int:pk&gt;/&#x27;</span>, views.SnippetDetail.as_view()),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>运行测试（创建用户访问 <a class="link"   target="_blank" rel="noopener" href="http://localhost:8000/api-auth/login" >http://localhost:8000/api-auth/login<i class="fas fa-external-link-alt"></i></a> 再打开 &#x2F;snippets&#x2F; 页面）</p>
+<ul>
+<li><p>&#x2F;snippets&#x2F; 列表数据</p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://raw.githubusercontent.com/an00/files/master/img/image-20210202152358734.png"
+                      alt="image-20210202152358734"
+                ></p>
+</li>
+<li><p>&#x2F;snippets&#x2F;1&#x2F; 可以查看id&#x3D;1的对象，还显示了其他可操作的方法</p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://raw.githubusercontent.com/an00/files/master/img/image-20210202152657768.png"
+                      alt="image-20210202152657768"
+                ></p>
+</li>
+</ul>
+<h3 id="viewsets-视图集和-routers"><a href="#viewsets-视图集和-routers" class="headerlink" title="viewsets 视图集和 routers"></a>viewsets 视图集和 routers</h3><blockquote>
+<p>应该是最常用的方式，包括这种方式的路由</p>
+</blockquote>
+<p><code>ViewSet</code> 和 <code>View</code> 很类似，但它提供的是读取、更新、创建、删除的操作，而不是类里面 <code>get</code> 和 <code>post</code> 这种请求处理的函数。<code>ViewSet</code> 类可以不自己写 URL，使用 <code>rest_framework.routers</code> 中的路由类，可以自动生成 URL</p>
+<p>内置了几个常用类，继承自 <code>mixin</code> 和 <code>generics</code> 组成了几种常用的搭配</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提供as_view方法</span></span><br><span class="line"><span class="comment"># 将GET、POST、PUT、DELETE请求映射到了子类的list|retrieve、create、update|partial_update、destory等方法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ViewSetMixin</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不包含任何操作</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ViewSet</span>(ViewSetMixin, views.APIView)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 包含GenericAPIView功能的通用视图集</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">GenericViewSet</span>(ViewSetMixin, generics.GenericAPIView)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只读方法，可查看多个和单个实例数据</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ReadOnlyModelViewSet</span>(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 包含CRUD方法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ModelViewSet</span>(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, </span><br><span class="line">                   mixins.DestroyModelMixin, mixins.ListModelMixin, GenericViewSet)</span><br></pre></td></tr></table></figure>
+
+<p>使用示例，由上面的函数签名可以知道，<code>ReadOnlyModelViewSet</code> 只有读的方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> viewsets</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserViewSet</span>(viewsets.ReadOnlyModelViewSet):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    此视图自动提供`list`和`detail`操作。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    queryset = User.objects.<span class="built_in">all</span>()</span><br><span class="line">    serializer_class = UserSerializer</span><br></pre></td></tr></table></figure>
+
+<p>增加路由的方式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> include</span><br><span class="line"><span class="keyword">from</span> rest_framework.routers <span class="keyword">import</span> DefaultRouter</span><br><span class="line"><span class="keyword">from</span> snippets <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将根据basename生成解析，默认反解的api-root是接口目录路径</span></span><br><span class="line">router = DefaultRouter()</span><br><span class="line"><span class="comment"># 各个方法将解析为类似&#x27;snippet-detail&#x27;等，@action装饰的动作如&#x27;snippet-方法名&#x27;</span></span><br><span class="line">router.register(<span class="string">&#x27;users&#x27;</span>, views.UserViewSet, basename=<span class="string">&#x27;snippet&#x27;</span>)</span><br><span class="line">router.register(<span class="string">&#x27;snippets&#x27;</span>, views.SnippetViewSet, basename=<span class="string">&#x27;user&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将router2的路由扩展到router中</span></span><br><span class="line">router2 = DefaultRouter()</span><br><span class="line">router.registry.extend(router.registry)</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;admin/&#x27;</span>, admin.site.urls),</span><br><span class="line">    path(<span class="string">&#x27;api-auth/&#x27;</span>, include(<span class="string">&#x27;rest_framework.urls&#x27;</span>, namespace=<span class="string">&#x27;rest_framework&#x27;</span>)),</span><br><span class="line">    path(<span class="string">&#x27;&#x27;</span>, include(router.urls)),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><h3 id="内置权限类"><a href="#内置权限类" class="headerlink" title="内置权限类"></a>内置权限类</h3><p>在 <code>rest_framework.permissions</code> 中有权限验证相关的内容</p>
+<p>通常权限继承自 <code>BasePermission</code> 基类，主要定义了两个方法，均返回 Bool 值，用于区分是否有权限</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 权限的基类，定义了 has_permission 和 has_object_permission 两个方法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BasePermission</span>(metaclass=BasePermissionMetaclass):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    A base class from which all permission classes should inherit.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">has_permission</span>(<span class="params">self, request, view</span>):  <span class="comment"># 视图级别权限</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Return `True` if permission is granted, `False` otherwise.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">has_object_permission</span>(<span class="params">self, request, view, obj</span>):  <span class="comment"># 对象级别权限，多传递了一个对象参数</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Return `True` if permission is granted, `False` otherwise.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<p>自定义权限只需要继承 <code>BasePermission</code> 在两个方法中做判断，然后在视图中指定即可。</p>
+<p><code>rest_framework.permissions</code> 中内置了以下几种权限：</p>
+<ul>
+<li><code>IsAuthenticated</code></li>
+<li><code>IsAdminUser</code></li>
+<li><code>IsAuthenticatedOrReadOnly</code></li>
+<li><code>DjangoModelPermissions</code></li>
+<li><code>DjangoModelPermissionsOrAnonReadOnly</code></li>
+<li><code>DjangoObjectPermissions</code></li>
+</ul>
+<h3 id="自定义权限"><a href="#自定义权限" class="headerlink" title="自定义权限"></a>自定义权限</h3><p>例如在 snippets model 增加了 owner 字段关联用户，并且增加 <code>permissions.py</code>，实现只有 owner 用户可以修改自己的 snippets，其他情况均只读的权限类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> permissions</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IsOwnerOrReadOnly</span>(permissions.BasePermission):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    自定义权限只允许对象的所有者编辑它。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">has_object_permission</span>(<span class="params">self, request, view, obj</span>):</span><br><span class="line">        <span class="comment"># 读取权限允许任何请求，</span></span><br><span class="line">        <span class="comment"># 所以我们总是允许GET，HEAD或OPTIONS请求。</span></span><br><span class="line">        <span class="keyword">if</span> request.method <span class="keyword">in</span> permissions.SAFE_METHODS:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 只有该snippet的所有者才允许写权限。</span></span><br><span class="line">        <span class="keyword">return</span> obj.owner == request.user</span><br></pre></td></tr></table></figure>
+
+<p>修改视图，导入新增的权限类并设置，这将只有 owner 可以修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> snippets.permissions <span class="keyword">import</span> IsOwnerOrReadOnly</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SnippetDetail</span>(generics.RetrieveUpdateDestroyAPIView):</span><br><span class="line">    queryset = Snippet.objects.<span class="built_in">all</span>()</span><br><span class="line">    serializer_class = SnippetSerializer</span><br><span class="line">    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="关系和超链接"><a href="#关系和超链接" class="headerlink" title="关系和超链接"></a>关系和超链接</h2><p>为 API 根路径设置一个入口，<code>snippets/views.py</code> 中增加一个函数视图，使用 reverse 返回完全限定的 URL</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework.decorators <span class="keyword">import</span> api_view</span><br><span class="line"><span class="keyword">from</span> rest_framework.response <span class="keyword">import</span> Response</span><br><span class="line"><span class="keyword">from</span> rest_framework.reverse <span class="keyword">import</span> reverse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@api_view(<span class="params">[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">api_root</span>(<span class="params">request, <span class="built_in">format</span>=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">return</span> Response(&#123;</span><br><span class="line">        <span class="string">&#x27;users&#x27;</span>: reverse(<span class="string">&#x27;user-list&#x27;</span>, request=request, <span class="built_in">format</span>=<span class="built_in">format</span>),</span><br><span class="line">        <span class="string">&#x27;snippets&#x27;</span>: reverse(<span class="string">&#x27;snippet-list&#x27;</span>, request=request, <span class="built_in">format</span>=<span class="built_in">format</span>)</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>修改 <code>urls.py</code> 给 URL 加上 <code>name</code>，用于 reverse 解析</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> include</span><br><span class="line"><span class="keyword">from</span> snippets <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;admin/&#x27;</span>, admin.site.urls),</span><br><span class="line">    path(<span class="string">&#x27;api-auth/&#x27;</span>, include(<span class="string">&#x27;rest_framework.urls&#x27;</span>, namespace=<span class="string">&#x27;rest_framework&#x27;</span>)),</span><br><span class="line"></span><br><span class="line">    path(<span class="string">&#x27;snippets/&#x27;</span>, views.SnippetList.as_view(), name=<span class="string">&#x27;snippet-list&#x27;</span>),</span><br><span class="line">    path(<span class="string">&#x27;snippets/&lt;int:pk&gt;/&#x27;</span>, views.SnippetDetail.as_view(), name=<span class="string">&#x27;snippet-detail&#x27;</span>),</span><br><span class="line">    path(<span class="string">&#x27;snippets/&lt;int:pk&gt;/highlight/&#x27;</span>, views.SnippetHighlight.as_view(), name=<span class="string">&#x27;snippet-highlight&#x27;</span>),</span><br><span class="line">    path(<span class="string">&#x27;users/&#x27;</span>, views.UserList.as_view(), name=<span class="string">&#x27;user-list&#x27;</span>),</span><br><span class="line">    path(<span class="string">&#x27;users/&lt;int:pk&gt;/&#x27;</span>, views.UserDetail.as_view(), name=<span class="string">&#x27;user-detail&#x27;</span>),</span><br><span class="line"></span><br><span class="line">    path(<span class="string">&#x27;&#x27;</span>, views.api_root)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>此时访问接口根路径可以得到接口列表</p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://raw.githubusercontent.com/an00/files/master/img/image-20210202173528241.png"
+                      alt="image-20210202173528241"
+                > </p>
+</li>
+<li><p>访问连接得到实体 URL 链接（代码未贴出，参考项目）</p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://raw.githubusercontent.com/an00/files/master/img/image-20210202175202112.png"
+                     
+                ></p>
+</li>
+</ul>
+
+                </div>
+
+                
+                        
+<div class="article-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="post-title border-box text-ellipsis">
+                记录 DRF 学习片段
+            </div>
+
+            <div class="post-link border-box text-ellipsis">
+                2020/12/18/记录-DRF-学习/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="post-author bottom-item">
+                <div class="type">
+                    Author
+                </div>
+                <div class="content">chenzuoqing</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    Published
+                </div>
+                <div class="content">2020-12-18 16:53</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    License
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed">
+                        <i class="fa-brands fa-creative-commons"></i>
+                        <i class="fa-brands fa-creative-commons-by"></i>
+                        <i class="fa-brands fa-creative-commons-nc"></i>
+                        <i class="fa-brands fa-creative-commons-sa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="Copy copyright info" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/DRF/">DRF</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="Share to WeChat"
+            data-tooltip-img-tip="Scan by WeChat"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to WeiBo"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="article-nav">
+                        
+                            <div class="article-prev">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2021/04/05/python-%E4%B8%8E-openssl-%E5%AF%B9%E5%BA%94%E7%9A%84-AES-CBC/"
+                                   title="python 与 openssl 对应的 AES-CBC"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                      <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                            <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">python 与 openssl 对应的 AES-CBC</span>
+                                        <span class="post-nav-item">Prev posts</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="article-next">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2020/12/09/%E8%AE%B0%E5%BD%95-django-%E5%A4%96%E9%94%AE%E5%85%B3%E8%81%94%E7%BB%9F%E8%AE%A1/"
+                                   title="记录 django 外键关联统计"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">记录 django 外键关联统计</span>
+                                        <span class="post-nav-item">Next posts</span>
+                                    </span>
+                                            <span class="right arrow-icon flex-center">
+                                      <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95-DRF-%E5%AD%A6%E4%B9%A0%E7%89%87%E6%AE%B5"><span class="nav-text">记录 DRF 学习片段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B"><span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">序列化和反序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E7%B1%BB"><span class="nav-text">序列化类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ModelSerializer"><span class="nav-text">ModelSerializer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HyperlinkedModelSerializer"><span class="nav-text">HyperlinkedModelSerializer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PrimaryKeyRelatedField"><span class="nav-text">PrimaryKeyRelatedField</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HyperlinkedRelatedField"><span class="nav-text">HyperlinkedRelatedField</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94"><span class="nav-text">请求和响应</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%AF%B9%E8%B1%A1"><span class="nav-text">请求对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%AF%B9%E8%B1%A1"><span class="nav-text">响应对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API-%E8%A7%86%E5%9B%BE%E5%8C%85%E8%A3%85%E5%99%A8"><span class="nav-text">API 视图包装器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E8%A7%86%E5%9B%BE"><span class="nav-text">类视图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mixins-%E6%B7%B7%E5%90%88%E7%B1%BB"><span class="nav-text">mixins 混合类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generics-%E9%80%9A%E7%94%A8%E7%B1%BB"><span class="nav-text">generics 通用类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#viewsets-%E8%A7%86%E5%9B%BE%E9%9B%86%E5%92%8C-routers"><span class="nav-text">viewsets 视图集和 routers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%83%E9%99%90"><span class="nav-text">权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E6%9D%83%E9%99%90%E7%B1%BB"><span class="nav-text">内置权限类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90"><span class="nav-text">自定义权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E5%92%8C%E8%B6%85%E9%93%BE%E6%8E%A5"><span class="nav-text">关系和超链接</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2017</span>&nbsp;-&nbsp;2023
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">chenzuoqing</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                Powered by&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;&&nbsp;Theme&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+                <div class="icp-info info-item default">
+                    <a class=""
+                       target="_blank"
+                       href="https://beian.miit.gov.cn"
+                    >
+                        赣ICP备16002857号-1
+                    </a>
+                </div>
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">Unique Visitor</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">Page View</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95-DRF-%E5%AD%A6%E4%B9%A0%E7%89%87%E6%AE%B5"><span class="nav-text">记录 DRF 学习片段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B"><span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">序列化和反序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E7%B1%BB"><span class="nav-text">序列化类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ModelSerializer"><span class="nav-text">ModelSerializer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HyperlinkedModelSerializer"><span class="nav-text">HyperlinkedModelSerializer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PrimaryKeyRelatedField"><span class="nav-text">PrimaryKeyRelatedField</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HyperlinkedRelatedField"><span class="nav-text">HyperlinkedRelatedField</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94"><span class="nav-text">请求和响应</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%AF%B9%E8%B1%A1"><span class="nav-text">请求对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%AF%B9%E8%B1%A1"><span class="nav-text">响应对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API-%E8%A7%86%E5%9B%BE%E5%8C%85%E8%A3%85%E5%99%A8"><span class="nav-text">API 视图包装器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E8%A7%86%E5%9B%BE"><span class="nav-text">类视图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mixins-%E6%B7%B7%E5%90%88%E7%B1%BB"><span class="nav-text">mixins 混合类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generics-%E9%80%9A%E7%94%A8%E7%B1%BB"><span class="nav-text">generics 通用类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#viewsets-%E8%A7%86%E5%9B%BE%E9%9B%86%E5%92%8C-routers"><span class="nav-text">viewsets 视图集和 routers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%83%E9%99%90"><span class="nav-text">权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E6%9D%83%E9%99%90%E7%B1%BB"><span class="nav-text">内置权限类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9D%83%E9%99%90"><span class="nav-text">自定义权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E5%92%8C%E8%B6%85%E9%93%BE%E6%8E%A5"><span class="nav-text">关系和超链接</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local-search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- code-block -->
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="">
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+    
+
+</body>
+</html>

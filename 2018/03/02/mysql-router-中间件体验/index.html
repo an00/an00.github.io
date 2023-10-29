@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="chenzuoqing">
+    
+    <title>
+        
+            mysql router 中间件体验 |
+        
+        PIAOMIAO神经
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/img/IMG_0001.JPG">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/custom.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.an00.cn","root":"/","language":"en","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"style":{"primary_color":"#0066cc","logo":"/img/IMG_0001.JPG","favicon":"/img/IMG_0001.JPG","avatar":"/img/IMG_0001.JPG","first_screen":{"enable":true,"header_transparent":false,"background_img":"/images/bg.svg","description":"道阻且长，行则将至。","hitokoto":false},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":false},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"pjax":{},"lazyload":{"enable":true},"comment":{},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null}},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"version":"3.8.6"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="An00" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/img/IMG_0001.JPG">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               PIAOMIAO神经
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+
+                
+
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+
+        <div class="article-content-container border-box">
+
+            
+
+            <div class="article-content-bottom border-box">
+                
+                    <div class="article-title">
+                        mysql router 中间件体验
+                    </div>
+                
+
+                
+                    <div class="article-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/img/IMG_0001.JPG">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author">
+                                <span class="name">chenzuoqing</span>
+                                
+                                    <span class="author-label">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="article-meta-info-container border-box post">
+    <div class="article-meta-info border-box">
+        
+
+
+        
+            <span class="meta-info-item article-create-date">
+                <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
+                <span class="pc">2018-03-02 15:41:26</span>
+                <span class="mobile">2018-03-02 15:41</span>
+            </span>
+
+            <span class="meta-info-item article-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="pc" data-updated="Sun Oct 29 2023 15:04:47 GMT+0800">2023-10-29 15:04:47</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item article-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="article-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/MySQL/">MySQL</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="article-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul class="article-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/mysql-router/">mysql-router</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+            <span class="meta-info-item article-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="article-content keep-markdown-body">
+                    
+
+                    <h1 id="mysql-router-中间件"><a href="#mysql-router-中间件" class="headerlink" title="mysql router 中间件"></a>mysql router 中间件</h1><p>mysql router 通过两个不同的端口做读写分离（这点不是很方便，仅体验下，生产没需求），不对执行的 SQL 做判断是读写。另外<code>mysql router</code>在master 挂了的时候不会将 slave 节点的 master 指向新的 slave，和 <code>mysqlfailover</code> 有很大区别（当然它们是两个用途的工具）。可以自动剔除故障节点，并且恢复后自动上线。</p>
+<p>环境用已有的 mysql 集群拓扑，带级联的复制</p>
+<span id="more"></span>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">mysqlrplshow --master=root:111111@<span class="string">&quot;192.168.122.66:3307&quot;</span> \</span></span><br><span class="line"><span class="language-bash">             --discover-slaves-login=root:111111 -r -v</span>         </span><br><span class="line">WARNING: Using a password on the command line interface can be insecure.</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">master on 192.168.122.66: ... connected.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Finding slaves <span class="keyword">for</span> master: 192.168.122.66:3307</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">master on 192.168.122.70: ... connected.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Finding slaves <span class="keyword">for</span> master: 192.168.122.70:3307</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">master on 192.168.122.70: ... connected.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Finding slaves <span class="keyword">for</span> master: 192.168.122.70:3306</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">master on 192.168.122.80: ... connected.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Finding slaves <span class="keyword">for</span> master: 192.168.122.80:3307</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Replication Topology Graph</span></span><br><span class="line">192.168.122.66:3307 (MASTER)                                   【hostname：centos-66】</span><br><span class="line">   |</span><br><span class="line">   +--- 192.168.122.70:3307 [IO: Yes, SQL: Yes] - (SLAVE + MASTER)</span><br><span class="line">   |   |</span><br><span class="line">   |   +--- 192.168.122.70:3306 [IO: Yes, SQL: Yes] - (SLAVE)  【hostname：debian-70】</span><br><span class="line">   |</span><br><span class="line">   +--- 192.168.122.80:3307 [IO: Yes, SQL: Yes] - (SLAVE)      【hostname：sl-80】</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
+<p><a class="link"   target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/router/" >前往官网下载<i class="fas fa-external-link-alt"></i></a><br>当前版本MySQL Router 2.1.5  </p>
+</blockquote>
+<ol>
+<li>安装Linux二进制包 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash"><span class="built_in">cd</span> /usr/src</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">wget https://dev.mysql.com/get/Downloads/MySQL-Router/mysql-router-2.1.5-linux-glibc2.12-x86-64bit.tar.gz</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">tar xf mysql-router-2.1.5-linux-glibc2.12-x86-64bit.tar.gz  -C /usr/local</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash"><span class="built_in">cd</span> /usr/local</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash"><span class="built_in">ln</span> -sv /usr/local/mysql-router-2.1.5-linux-glibc2.12-x86-64bit/ mysql-router</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash"><span class="built_in">cd</span> mysql-router</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash"><span class="built_in">mkdir</span> etc</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash"><span class="built_in">cp</span> share/doc/mysqlrouter/sample_mysqlrouter.conf etc/mysqlrouter.conf</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
+<li>修改配置文件，<a class="link"   target="_blank" rel="noopener" href="https://dev.mysql.com/doc/mysql-router/2.1/en/mysql-router-conf-options.html" >选项文档<i class="fas fa-external-link-alt"></i></a></li>
+<li>编辑<code>/usr/local/mysql-router/etc/mysqlrouter.conf</code>   <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># MySQL Router sample configuration</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The following is a sample configuration file which shows</span></span><br><span class="line"><span class="comment"># most of the plugins available and most of their options.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The paths used are defaults and should be adapted based</span></span><br><span class="line"><span class="comment"># on how MySQL Router was installed, for example, using the</span></span><br><span class="line"><span class="comment"># CMake option CMAKE_INSTALL_PREFIX</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The logging_folder is kept empty so message go to the</span></span><br><span class="line"><span class="comment"># console.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="section">[DEFAULT]</span></span><br><span class="line"><span class="attr">logging_folder</span> = /usr/local/mysql-router/logs  <span class="comment"># 日志目录，需要创建</span></span><br><span class="line"><span class="attr">plugin_folder</span> = /usr/local/mysql-router/lib/mysqlrouter  <span class="comment"># 插件目录</span></span><br><span class="line"><span class="attr">config_folder</span> = /usr/local/mysql-router/etc    <span class="comment"># 配置文件目录</span></span><br><span class="line"><span class="attr">runtime_folder</span> = /var/run</span><br><span class="line"><span class="attr">data_folder</span> = /usr/local/mysql-router/data     <span class="comment"># 程序数据文件目录</span></span><br><span class="line"><span class="comment">#keyring_path = /var/lib/keyring-data          # 认证密钥地址，不用它</span></span><br><span class="line"><span class="comment">#master_key_path = /var/lib/keyring-key</span></span><br><span class="line"></span><br><span class="line"><span class="section">[logger]</span></span><br><span class="line"><span class="attr">level</span> = INFO                                   <span class="comment"># 日志级别</span></span><br><span class="line"></span><br><span class="line"><span class="section">[routing:read_write]</span>                           <span class="comment"># 添加一个routing段，read_write为自定义名称</span></span><br><span class="line"><span class="comment"># To be more transparent, use MySQL Server port 3306</span></span><br><span class="line"><span class="attr">bind_address</span>= <span class="number">192.168</span>.<span class="number">122.66</span>                   <span class="comment"># 此配置段监听地址</span></span><br><span class="line"><span class="attr">bind_port</span> = <span class="number">7001</span>                               <span class="comment"># 监听端口</span></span><br><span class="line"><span class="attr">mode</span> = read-write                              <span class="comment"># 读写模式(只有读写和只读两种)</span></span><br><span class="line"><span class="attr">destinations</span> = <span class="number">192.168</span>.<span class="number">122.66</span>:<span class="number">3307</span>, <span class="number">192.168</span>.<span class="number">122.70</span>:<span class="number">3307</span>  <span class="comment"># 第一个为当前的master，逗号分隔的为备选master，若当前master不可用将读写请求发送到备选master</span></span><br><span class="line"></span><br><span class="line"><span class="section">[routing:read_only]</span>                            <span class="comment"># 定义一个只读配置段</span></span><br><span class="line"><span class="attr">bind_address</span>= <span class="number">192.168</span>.<span class="number">122.66</span>                   <span class="comment"># 读请求监听地址</span></span><br><span class="line"><span class="attr">bind_port</span> = <span class="number">7002</span></span><br><span class="line"><span class="attr">connect_timeout</span> = <span class="number">3</span></span><br><span class="line"><span class="attr">max_connections</span> = <span class="number">1024</span>                         <span class="comment"># 最大连接</span></span><br><span class="line"><span class="attr">destinations</span> = <span class="number">192.168</span>.<span class="number">122.70</span>:<span class="number">3307</span>,<span class="number">192.168</span>.<span class="number">122.70</span>:<span class="number">3306</span>,<span class="number">192.168</span>.<span class="number">122.80</span>:<span class="number">3307</span></span><br><span class="line"><span class="attr">mode</span> = read-<span class="literal">on</span>ly                               <span class="comment"># 只读模式，destinations的地址会轮询得到请求，会自动下线关闭的服务器</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If no plugin is configured which starts a service, keepalive</span></span><br><span class="line"><span class="comment"># will make sure MySQL Router will not immediately exit. It is</span></span><br><span class="line"><span class="comment"># safe to remove once Router is configured.</span></span><br><span class="line"><span class="section">[keepalive]</span></span><br><span class="line"><span class="attr">interval</span> = <span class="number">60</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ul>
+<li><input checked="" disabled="" type="checkbox"> 启动<code>mysql router</code>：  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash"><span class="built_in">cd</span> /usr/local/mysql-router</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash"><span class="built_in">nohup</span> ./bin/mysqlrouter -c etc/mysqlrouter.conf &amp;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol>
+<li><p>写入是一直由一个节点承担，除非down掉才换</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">测试写操作端口的</span></span><br><span class="line">[root@centos-66 ~]# mysql -uroot -p&#x27;111111&#x27; -P7001 -h192.168.122.66 -e &quot;show variables like &#x27;hostname&#x27;&quot;</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| Variable_name | Value     |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| hostname      | centos-66 |</span><br><span class="line">+---------------+-----------+</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">测试读操作的端口，是否轮询转发</span></span><br><span class="line">[root@centos-66 ~]# mysql -uroot -p&#x27;111111&#x27; -P7002 -h192.168.122.66 -e &quot;show variables like &#x27;hostname&#x27;&quot;</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| Variable_name | Value     |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| hostname      | debian-70 |   -- 这里因为看host没端口，这台机有3306和3307两个实例在的</span><br><span class="line">+---------------+-----------+</span><br><span class="line">[root@centos-66 ~]# mysql -uroot -p&#x27;111111&#x27; -P7002 -h192.168.122.66 -e &quot;show variables like &#x27;hostname&#x27;&quot;</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| Variable_name | Value     |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| hostname      | debian-70 |   -- 另外一个端口的</span><br><span class="line">+---------------+-----------+</span><br><span class="line">[root@centos-66 ~]# mysql -uroot -p&#x27;111111&#x27; -P7002 -h192.168.122.66 -e &quot;show variables like &#x27;hostname&#x27;&quot;</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">+---------------+-------+</span><br><span class="line">| Variable_name | Value |</span><br><span class="line">+---------------+-------+</span><br><span class="line">| hostname      | sl-80 |       -- sl-80轮询</span><br><span class="line">+---------------+-------+</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>此时停止sl-80的slave实例，测试是否自动剔除故障节点</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[root@sl-80 ~]# mysqld_multi stop 3307</span><br><span class="line">[root@sl-80 ~]# mysqld_multi report   </span><br><span class="line">Reporting MySQL servers</span><br><span class="line">MySQL server from group: mysqld3307 is not running</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">已经剔除了sl-80的读节点</span></span><br><span class="line">[root@centos-66 ~]# mysql -uroot -p&#x27;111111&#x27; -P7002 -h192.168.122.66 -e &quot;show variables like &#x27;hostname&#x27;&quot;</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| Variable_name | Value     |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| hostname      | debian-70 |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">[root@centos-66 ~]# mysql -uroot -p&#x27;111111&#x27; -P7002 -h192.168.122.66 -e &quot;show variables like &#x27;hostname&#x27;&quot;</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| Variable_name | Value     |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| hostname      | debian-70 |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">[root@centos-66 ~]# mysql -uroot -p&#x27;111111&#x27; -P7002 -h192.168.122.66 -e &quot;show variables like &#x27;hostname&#x27;&quot;</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| Variable_name | Value     |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| hostname      | debian-70 |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">[root@centos-66 ~]# mysql -uroot -p&#x27;111111&#x27; -P7002 -h192.168.122.66 -e &quot;show variables like &#x27;hostname&#x27;&quot;</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| Variable_name | Value     |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| hostname      | debian-70 |</span><br><span class="line">+---------------+-----------+</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>测试自动上线</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动读节点</span></span><br><span class="line">[root@sl-80 ~]# mysqld_multi start 3307</span><br><span class="line">[root@sl-80 ~]# mysqld_multi report</span><br><span class="line">Reporting MySQL servers</span><br><span class="line">MySQL server from group: mysqld3307 is running</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">已经自动上线</span></span><br><span class="line">[root@centos-66 ~]# mysql -uroot -p&#x27;111111&#x27; -P7002 -h192.168.122.66 -e &quot;show variables like &#x27;hostname&#x27;&quot;</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| Variable_name | Value     |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| hostname      | debian-70 |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">[root@centos-66 ~]# mysql -uroot -p&#x27;111111&#x27; -P7002 -h192.168.122.66 -e &quot;show variables like &#x27;hostname&#x27;&quot;</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">+---------------+-------+</span><br><span class="line">| Variable_name | Value |</span><br><span class="line">+---------------+-------+</span><br><span class="line">| hostname      | sl-80 |</span><br><span class="line">+---------------+-------+</span><br><span class="line">[root@centos-66 ~]# mysql -uroot -p&#x27;111111&#x27; -P7002 -h192.168.122.66 -e &quot;show variables like &#x27;hostname&#x27;&quot;</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| Variable_name | Value     |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| hostname      | debian-70 |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">[root@centos-66 ~]# mysql -uroot -p&#x27;111111&#x27; -P7002 -h192.168.122.66 -e &quot;show variables like &#x27;hostname&#x27;&quot;</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| Variable_name | Value     |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| hostname      | debian-70 |</span><br><span class="line">+---------------+-----------+</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+                </div>
+
+                
+                        
+<div class="article-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="post-title border-box text-ellipsis">
+                mysql router 中间件体验
+            </div>
+
+            <div class="post-link border-box text-ellipsis">
+                2018/03/02/mysql-router-中间件体验/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="post-author bottom-item">
+                <div class="type">
+                    Author
+                </div>
+                <div class="content">chenzuoqing</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    Published
+                </div>
+                <div class="content">2018-03-02 15:41</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    License
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed">
+                        <i class="fa-brands fa-creative-commons"></i>
+                        <i class="fa-brands fa-creative-commons-by"></i>
+                        <i class="fa-brands fa-creative-commons-nc"></i>
+                        <i class="fa-brands fa-creative-commons-sa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="Copy copyright info" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/mysql-router/">mysql-router</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="Share to WeChat"
+            data-tooltip-img-tip="Scan by WeChat"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="Share to WeiBo"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="article-nav">
+                        
+                            <div class="article-prev">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2018/03/13/mysql-MHA-%E8%AE%B0%E5%BD%95/"
+                                   title="mysql MHA 记录"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                      <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                            <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">mysql MHA 记录</span>
+                                        <span class="post-nav-item">Prev posts</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="article-next">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2018/02/27/mysql-utilities-%E5%A4%8D%E5%88%B6%E5%B7%A5%E5%85%B7/"
+                                   title="mysql-utilities 复制工具"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">mysql-utilities 复制工具</span>
+                                        <span class="post-nav-item">Next posts</span>
+                                    </span>
+                                            <span class="right arrow-icon flex-center">
+                                      <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql-router-%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-text">mysql router 中间件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-text">测试</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2017</span>&nbsp;-&nbsp;2023
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">chenzuoqing</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                Powered by&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;&&nbsp;Theme&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+                <div class="icp-info info-item default">
+                    <a class=""
+                       target="_blank"
+                       href="https://beian.miit.gov.cn"
+                    >
+                        赣ICP备16002857号-1
+                    </a>
+                </div>
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">Unique Visitor</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">Page View</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql-router-%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-text">mysql router 中间件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-text">测试</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local-search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- code-block -->
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="">
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+    
+
+</body>
+</html>
