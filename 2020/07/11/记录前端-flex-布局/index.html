@@ -43,7 +43,7 @@
     <script class="keep-theme-configurations">
     const KEEP = window.KEEP || {}
     KEEP.hexo_config = {"hostname":"blog.an00.cn","root":"/","language":"en","path":"search.json"}
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"style":{"primary_color":"#0066cc","logo":"/img/IMG_0001.JPG","favicon":"/img/IMG_0001.JPG","avatar":"/img/IMG_0001.JPG","first_screen":{"enable":true,"header_transparent":false,"background_img":"/images/bg.svg","description":"道阻且长，行则将至。","hitokoto":false},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":false},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"pjax":{},"lazyload":{"enable":true},"comment":{},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null}},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"version":"3.8.6"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"style":{"primary_color":"#0066cc","logo":"/img/IMG_0001.JPG","favicon":"/img/IMG_0001.JPG","avatar":"/img/IMG_0001.JPG","first_screen":{"enable":true,"header_transparent":false,"background_img":"/images/bg.svg","description":"道阻且长，行则将至。","hitokoto":false},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":false},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"pjax":{},"lazyload":{"enable":true},"comment":{"enable":true,"use":"giscus","giscus":{"repo":"an00/an00.github.io","repo_id":"MDEwOlJlcG9zaXRvcnkyMTc4MDMzMzI=","category":"Announcements","category_id":"DIC_kwDODPtqRM4Cahos","reactions_enabled":1}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null}},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"version":"3.8.6"}
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
     KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
     KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
@@ -649,6 +649,81 @@
                     
 
 
+    <div class="comments-container border-box">
+        <div id="comments-anchor" class="comment-area-title border-box">
+            <i class="fas fa-comments"></i>&nbsp;Comments
+        </div>
+        
+            
+
+    <div class="giscus-comments-container">
+        <div class="giscus" id="giscus"></div>
+        <script >
+
+          if (!window?.__getGiscusTheme) {
+            window.__getGiscusTheme = () => {
+              return document.body.classList.contains("dark-mode") ? "dark_dimmed" : "light_tritanopia";
+            };
+          }
+
+          if (!window?.__changeGiscusTheme) {
+            window.__changeGiscusTheme = () => {
+              const iframe = document.querySelector("iframe.giscus-frame");
+              iframe && iframe.contentWindow.postMessage({
+                giscus: {
+                  setConfig: {
+                    theme: __getGiscusTheme()
+                  }
+                }
+              }, "https://giscus.app");
+            };
+          }
+
+          if (!window?.__loadGiscus) {
+            window.__loadGiscus = () => {
+              const script = document.createElement("script");
+              script.async = true;
+              script.src = "https://giscus.app/client.js";
+              script.setAttribute("data-repo", 'an00/an00.github.io');
+              script.setAttribute("data-repo-id", 'MDEwOlJlcG9zaXRvcnkyMTc4MDMzMzI=');
+              script.setAttribute("data-category", 'Announcements');
+              script.setAttribute("data-category-id", 'DIC_kwDODPtqRM4Cahos');
+              script.setAttribute("data-reactions-enabled", '0');
+              script.setAttribute("data-lang", 'en');
+              script.setAttribute("data-mapping", "pathname");
+              script.setAttribute("data-strict", "0");
+              script.setAttribute("data-emit-metadata", "0");
+              script.setAttribute("data-input-position", "top");
+              script.setAttribute("crossorigin", "anonymous");
+              script.setAttribute("loading", "lazy");
+              script.setAttribute("data-theme", __getGiscusTheme());
+              document.querySelector(".giscus-comments-container").appendChild(script);
+
+              const toggleThemeBtn = document.querySelector(".tool-dark-light-toggle");
+              toggleThemeBtn && toggleThemeBtn.addEventListener("click", () => {
+                __changeGiscusTheme();
+              });
+            }
+          }
+
+          if ('' === "true") {
+            setTimeout(() => {
+              __loadGiscus();
+            }, 1000);
+          } else {
+            window.addEventListener("DOMContentLoaded", () => {
+              setTimeout(() => {
+                __loadGiscus();
+              }, 1000);
+            });
+          }
+        </script>
+    </div>
+
+
+        
+    </div>
+
 
 
 
@@ -743,6 +818,11 @@
 
         <!-- PC go comment -->
         
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
     </ul>
 </div>
 
@@ -789,6 +869,10 @@
             </li>
         
 
+        
+            <li class="tools-item go-to-comments-tablet flex-center">
+                <i class="fas fa-comment"></i>
+            </li>
         
 
         <li class="tools-item tool-toggle-show flex-center">
